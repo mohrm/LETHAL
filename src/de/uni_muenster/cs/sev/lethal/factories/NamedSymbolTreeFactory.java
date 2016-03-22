@@ -31,26 +31,26 @@ import de.uni_muenster.cs.sev.lethal.tree.common.Tree;
  * The NamedSymbolTreeFactory can create trees with named symbol sub-types from a symbol name and subtrees. <br>
  * Currently the creation of UnrankedSymbol and RankedSymbol trees is supported. The returned objects
  * are instances of StdNamedUnrankedSymbol and StdNamedRankedSymbol respectively.
- * 
+ *
  * @author Philipp
  * @param <S> type of the symbol to create
  */
 public abstract class NamedSymbolTreeFactory<S extends Symbol> extends StdTreeFactory{
 
 	private Class<S> symClass;
-	
+
 	private Random rnd = new Random();
 
 	/**
 	 * Constructor for the NamedSymbolTreeFactory.
-	 * @param symClass symbol class to create. Currently creation of 
+	 * @param symClass symbol class to create. Currently creation of
 	 * UnrankedSymbol and RankedSymbol trees is supported.
 	 * The returned objects are instances of StdNamedUnrankedSymbol and StdNamedRankedSymbol respectively.
 	 */
 	public NamedSymbolTreeFactory(Class<S> symClass){
 		this.symClass = symClass;
 	}
-	
+
 	/**
 	 * Creates a tree with a named symbol from the given name and subclass. <br>
 	 * Note that because of type system limitations the return type of the method is not completely accurate.
@@ -97,7 +97,7 @@ public abstract class NamedSymbolTreeFactory<S extends Symbol> extends StdTreeFa
 	public Tree<S> generateRandomTree(int maxHeight, int minWidth, int maxWidth){
 		return generateRandomTree(maxHeight,minWidth, maxWidth, null);
 	}
-	
+
 	/**
 	 * Generates a random tree with the given size restrictions.
 	 * @param maxHeight maximum height (length of longest path from root to a leaf) of the tree
@@ -120,43 +120,43 @@ public abstract class NamedSymbolTreeFactory<S extends Symbol> extends StdTreeFa
 			for (int j = 0; j < (subtrees.size() - 1); j++) borders[j] = rnd.nextInt(subtrees.size());
 			borders[subtrees.size() - 1] = subtrees.size(); //last border is number of subtrees
 			Arrays.sort(borders);
-			
+
 			int lowerBorder = 0;
 			for (int upperBorder : borders){ //iterate the borders and group subtrees together.
 				List<Tree<S>> newTreeSubtrees = new ArrayList<Tree<S>>();
 				if (upperBorder == lowerBorder) continue; //skip zero length intervals
-				
+
 				for (Tree<S> subtree : subtrees.subList(lowerBorder, upperBorder)){ //iterate all subtrees of the new tree
 					//random insertion of new leaf nodes above the bottom level. Increase probability with each level, because the number of subtrees decreases
 					int newLeafs = rnd.nextInt((i * (maxWidth - curWidth)) /maxHeight + 1);
 					for (int j = 0; j < newLeafs; j++) newTreeSubtrees.add(this.makeTreeFromName(randomSymbolName(symbolNames)));
 					curWidth += newLeafs;
-					
+
 					newTreeSubtrees.add(subtree); //add to the subtrees of the new tree
-					
+
 				}
 				//random insertion of new leaf nodes above the bottom level. Increase probability with each level, because the number of subtrees decreases
 				int newLeafs = rnd.nextInt((i * (maxWidth - curWidth)) /maxHeight + 1);
 				for (int j = 0; j < newLeafs; j++) newTreeSubtrees.add(this.makeTreeFromName(randomSymbolName(symbolNames)));
 				curWidth += newLeafs;
-				
+
 				Tree<S> newTree = this.makeTreeFromName(randomSymbolName(symbolNames), newTreeSubtrees);
 				newSubtrees.add(newTree); //add the new created tree
-				
+
 				lowerBorder = upperBorder;
 			}
 			subtrees = newSubtrees;
-			
+
 			if (subtrees.size() == 1) break; //break if there is only one tree left.
 		}
-		
+
 		if (subtrees.size() > 1){
 			return this.makeTreeFromName(randomSymbolName(symbolNames), subtrees);
 		} else {
 			return subtrees.get(0);
 		}
 	}
-	
+
 	private Object randomSymbolName(List<Object> symbolNames){
 		if (symbolNames != null){
 			return symbolNames.get(rnd.nextInt(symbolNames.size()));
@@ -164,7 +164,7 @@ public abstract class NamedSymbolTreeFactory<S extends Symbol> extends StdTreeFa
 			return String.valueOf((char)('a' + rnd.nextInt('z' - 'a' + 1)));
 		}
 	}
-	
+
 	/**
 	 * Returns the class of the symbol created by this NamedSymbolTreeFactory.
 	 * @return the class of the symbol created by this NamedSymbolTreeFactory

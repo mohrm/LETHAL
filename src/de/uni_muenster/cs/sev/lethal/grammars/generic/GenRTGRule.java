@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.grammars.generic;
 
@@ -29,10 +29,10 @@ import de.uni_muenster.cs.sev.lethal.tree.common.Tree;
 
 /**
  * Simple generic implementation of a {@link RTGRule regular tree grammar rule}.
- * 
+ *
  * @param <F> type of symbols occurring in regular tree grammar rule
  * @param <Q> type of non-terminals occurring in regular tree grammar rule
- * 
+ *
  * @author Martin, Sezar
  */
 public class GenRTGRule<F extends RankedSymbol, Q extends State> implements RTGRule<F,Q> {
@@ -46,13 +46,13 @@ public class GenRTGRule<F extends RankedSymbol, Q extends State> implements RTGR
 
 	/**
 	 * Creates a new regular tree grammar rule with the supplied left and right sides.
-	 * 
+	 *
 	 * @param left left side of the new regular tree grammar rule
 	 * @param right right side of the new regular tree grammar rule
 	 */
 	public GenRTGRule(Q left, Tree<BiSymbol<F,Q>> right) {
-		if (left == null)  throw new IllegalArgumentException("GenRTGRule(): left must not be null.");	
-		if (right == null) throw new IllegalArgumentException("GenRTGRule(): right must not be null.");	
+		if (left == null)  throw new IllegalArgumentException("GenRTGRule(): left must not be null.");
+		if (right == null) throw new IllegalArgumentException("GenRTGRule(): right must not be null.");
 		this.left = left;
 		this.right = right;
 	}

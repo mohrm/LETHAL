@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.testManual;
 
@@ -64,7 +64,7 @@ import de.uni_muenster.cs.sev.lethal.factories.TreeFactory;
 /**
  * Lists all the example used in the third chapter of the manual to check
  * whether they can be applied.
- * 
+ *
  * @author Irene
  */
 public class CoreExamples {
@@ -81,7 +81,7 @@ public class CoreExamples {
 		public F(String name, int arity) {
 			super(name, arity);
 		}}
-	
+
 	private class Q extends NamedState<String>{
 		/**
 		 * @param newname
@@ -89,14 +89,14 @@ public class CoreExamples {
 		public Q(String newname) {
 			super(newname);
 		}}
-	
+
 	/**
 	 * Implements all examples from the core-part of the manual.
-	 * 
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args){
-		
+
 
 		// Creating symbols
 		RankedSymbol sym1 = new StdNamedRankedSymbol<String>("s",1);
@@ -108,7 +108,7 @@ public class CoreExamples {
 		BiSymbol<StdNamedRankedSymbol<String>,Integer> i1 = new LeafSymbol<StdNamedRankedSymbol<String>,Integer>(new Integer(1));
 		BiSymbol<StdNamedRankedSymbol<String>,Integer> i42 = new LeafSymbol<StdNamedRankedSymbol<String>,Integer>(new Integer(42));
 
-		System.out.println("Symbols: " + sym1+ "," + sym2+ "," +  plus + 
+		System.out.println("Symbols: " + sym1+ "," + sym2+ "," +  plus +
 				"," + mult + "," + x + "," + y + "," + i1 + "," + i42);
 
 		// Creating Trees
@@ -128,7 +128,7 @@ public class CoreExamples {
 			e.printStackTrace();
 		}
 
-		Converter<RankedSymbol,BiSymbol<RankedSymbol,Integer>> conv  = 
+		Converter<RankedSymbol,BiSymbol<RankedSymbol,Integer>> conv  =
 			new Converter<RankedSymbol,BiSymbol<RankedSymbol,Integer>>(){
 			@Override
 			public BiSymbol<RankedSymbol,Integer> convert(RankedSymbol a) {
@@ -140,7 +140,7 @@ public class CoreExamples {
 		Tree<RankedSymbol> tree_x = TreeFactory.getTreeFactory().makeTreeFromSymbol(x1);
 
 		// converts a tree over the first symbol type into a tree over the second symbol type
-		Tree<BiSymbol<RankedSymbol,Integer>> bitree_x = TreeOps.convert(tree_x, conv, 
+		Tree<BiSymbol<RankedSymbol,Integer>> bitree_x = TreeOps.convert(tree_x, conv,
 				new StdTreeCreator<BiSymbol<RankedSymbol,Integer>>());
 
 
@@ -164,7 +164,7 @@ public class CoreExamples {
 		EasyFTARule r1 = new EasyFTARule(x_1,s1);
 		EasyFTARule r2 = new EasyFTARule(plus_1,s2,s1,s1);
 		List<State> src = new LinkedList<State>();
-		src.add(s1); 
+		src.add(s1);
 		src.add(s1);
 		GenFTARule<RankedSymbol,State> r3 = new GenFTARule<RankedSymbol,State>(plus_1,src,s2);
 
@@ -190,7 +190,7 @@ public class CoreExamples {
 		StdNamedRankedSymbol<String> plus_2 = new StdNamedRankedSymbol<String>("+",2);
 		StdNamedRankedSymbol<String> x_2 = new StdNamedRankedSymbol<String>("x",0);
 		StdNamedRankedSymbol<String> y_2 = new StdNamedRankedSymbol<String>("y",0);
-	
+
 		GenFTARule<StdNamedRankedSymbol<String>,State> r4 = new GenFTARule<StdNamedRankedSymbol<String>,State>(x_2,new LinkedList<State>(),s1);
 		List<State> src2 = new LinkedList<State>();
 		src2.add(s1); src2.add(s1);
@@ -240,7 +240,7 @@ public class CoreExamples {
 
 		// let fta1 be an automaton over trees of arithmetic expressions,
 		// which recognizes all trees containing no y.
-		Tree<RankedSymbol> tree_1 = null; 
+		Tree<RankedSymbol> tree_1 = null;
 		Tree<RankedSymbol> tree_2 = null;
 		try {
 			tree_1 = TreeParser.parseString("+(*(x,y),y)");
@@ -265,7 +265,7 @@ public class CoreExamples {
 		}
 		GenFTA<StdNamedRankedSymbol<String>,State> detftag2 = GenFTAOps.complete(ftag1, new NamedState<String>("qbot"));
 		FTAProperties.checkComplete(detftag2);
-		
+
 		EasyFTA ftar = EasyFTAOps.reduceBottomUp(fta1);
 		EasyFTA ftar2 = EasyFTAOps.reduceTopDown(ftar);
 		EasyFTA ftar3 = EasyFTAOps.reduceFull(fta1);
@@ -273,12 +273,12 @@ public class CoreExamples {
 		GenFTA<StdNamedRankedSymbol<String>,State>  ftar4 = GenFTAOps.reduceBottomUp(ftag2);
 		GenFTA<StdNamedRankedSymbol<String>,State>  ftar5 = GenFTAOps.reduceTopDown(ftar4);
 		GenFTA<StdNamedRankedSymbol<String>,State>  ftar6 = GenFTAOps.reduceFull(ftag2);
-		
-		
+
+
 		EasyFTA fta1m = EasyFTAOps.minimize(fta1);
 
 		GenFTA<StdNamedRankedSymbol<String>, NamedState<Set<State>>>  fta2m = GenFTAOps.minimize(ftag2, new NamedState<String>("qnew"));
-	
+
 		FTAProperties.subsetLanguage(fta1,fta2);
 		FTAProperties.sameLanguage(fta1,fta2);
 
@@ -287,18 +287,18 @@ public class CoreExamples {
 		    System.out.println("The regular tree language is finite, but not emtpy.");
 		  }
 		}
-		
+
 		EasyFTA fta1c = EasyFTAOps.complement(fta1);
 		Set<RankedSymbol> alphabet6 = new HashSet<RankedSymbol>();
 		alphabet6.add(plus_1); alphabet6.add(x_1); alphabet6.add(y_1);
 		EasyFTA fta1ca = EasyFTAOps.complementAlphabet(fta1,alphabet6);
-		
-		
+
+
 		EasyFTA ftaUnion = EasyFTAOps.union(fta1,fta2);
 		EasyFTA ftaIntersection = EasyFTAOps.intersectionTD(fta1,fta2);
 		EasyFTA ftaDifference = EasyFTAOps.difference(fta1,fta2);
-		
-		
+
+
 		Tree<RankedSymbol> witness = EasyFTAOps.constructTreeFrom(fta1);
 		EasyFTA ftaSingleton = EasyFTAOps.computeSingletonFTA(witness);
 
@@ -306,14 +306,14 @@ public class CoreExamples {
 		alphabet7.add(plus_2); alphabet7.add(x_2); alphabet7.add(y_2);
 		GenFTA<StdNamedRankedSymbol<String>,State> ftaAlphg = GenFTAOps.computeAlphabetFTA(alphabet7);
 
-		
+
 		// Let F extend StdNamedRankedSymbol<String> and
 		// let Q extend NamedState<String>
 		// Both shall be equipped with appropriate constructors.
-		// let list() be a method which takes arbitrarily many objects of a certain type 
+		// let list() be a method which takes arbitrarily many objects of a certain type
 		// and returns a list of these objects
 		CoreExamples blubbs = new CoreExamples();
-		
+
 		F x_3 = blubbs.new F("x",0);
 		F y_3 = blubbs.new F("y",0);
 		F plus_3 = blubbs.new F("+",2);
@@ -327,34 +327,34 @@ public class CoreExamples {
 		Set<GenFTARule<F,Q>> rules4 = new HashSet<GenFTARule<F,Q>>();
 		rules4.add(new GenFTARule<F,Q>(y_3,new LinkedList<Q>(), stat));
 		rules4.add(new GenFTARule<F,Q>(plus_3, Util.makeList(stat,stat), stat));
-		
+
 		GenFTA<F,Q> fta2s = new GenFTA<F,Q>(rules4,finalStates4);
 
 		Map<F,GenFTA<F,Q>> languages = new HashMap<F,GenFTA<F,Q>>();
-		languages.put(x_3,fta1s); 
+		languages.put(x_3,fta1s);
 		languages.put(y_3,fta2s);
 
 		Tree<F> t = new StdTree<F>(plus_3, Util.makeList(new StdTree<F>(x_3),new StdTree<F>(y_3)));
 
 		GenFTA<F, NamedState<?>> ftasubs = GenFTAOps.substitute(t,languages);
-		
-		
-		
-		
-		
+
+
+
+
+
 		// Homomorphism
-		
+
 		// creating the used symbols
 		RankedSymbol t1 = new StdNamedRankedSymbol<String>("1",0);
 		RankedSymbol f = new StdNamedRankedSymbol<String>("0",0);
 		RankedSymbol not = new StdNamedRankedSymbol<String>("not",1);
 		RankedSymbol and = new StdNamedRankedSymbol<String>("and",2);
 		RankedSymbol or = new StdNamedRankedSymbol<String>("or",2);
-		
+
 		// creating used variables
 		Variable v0 = new StdVariable(0);
 		Variable v1 = new StdVariable(0);
-		
+
 		// as BiSymbols
 		BiSymbol<RankedSymbol,Variable> bt1 = new InnerSymbol<RankedSymbol,Variable>(t1);
 		BiSymbol<RankedSymbol,Variable> bf = new InnerSymbol<RankedSymbol,Variable>(f);
@@ -363,7 +363,7 @@ public class CoreExamples {
 		BiSymbol<RankedSymbol,Variable> bor = new InnerSymbol<RankedSymbol,Variable>(or);
 		BiSymbol<RankedSymbol,Variable> bv0 = new LeafSymbol<RankedSymbol,Variable>(v0);
 		BiSymbol<RankedSymbol,Variable> bv1 = new LeafSymbol<RankedSymbol,Variable>(v1);
-		
+
 		// for creating trees
 		TreeFactory tf = TreeFactory.getTreeFactory();
 		Tree<BiSymbol<RankedSymbol,Variable>> vtree = tf.makeTreeFromSymbol(bnot,
@@ -388,7 +388,7 @@ public class CoreExamples {
 		map2.put(and,vtree);
 		EasyHom hom = new EasyHom(map2, alphabet);
 
-		
+
 		RankedSymbol wv0 = new StdNamedRankedSymbol<String>("v0",0);
 		RankedSymbol wv1 = new StdNamedRankedSymbol<String>("v1",0);
 
@@ -396,7 +396,7 @@ public class CoreExamples {
 		Tree<RankedSymbol> vtree3 = tf.makeTreeFromSymbol(not, Util.makeList(tf.makeTreeFromSymbol(or,
 						Util.makeList(tf.makeTreeFromSymbol(not, Util.makeList(tf.makeTreeFromSymbol(wv0))),
 								tf.makeTreeFromSymbol(not,Util.makeList(tf.makeTreeFromSymbol(wv1)))))));
-		
+
 		// build up
 		Map<RankedSymbol,Integer> toInts = new HashMap<RankedSymbol,Integer>();
 		toInts.put(wv0,new Integer(0));
@@ -407,8 +407,8 @@ public class CoreExamples {
 		map3.put(not,tf.makeTreeFromSymbol(not,Util.makeList(tf.makeTreeFromSymbol(wv0))));
 		map3.put(and,vtree3);
 		EasyHom hom2 = new EasyHom(toInts,map3);
-		
-		
+
+
 		// apply to trees
 		Tree<RankedSymbol> t3 = tf.makeTreeFromSymbol(t1);
 		Tree<RankedSymbol> t2 = tf.makeTreeFromSymbol(and,Util.makeList(tf.makeTreeFromSymbol(not,
@@ -424,9 +424,9 @@ public class CoreExamples {
 		// apply to inverse automaton
 		EasyFTA ftah2 = new EasyFTA();  // build up a tree automaton working on alphabet {or,not,0,1}
 		EasyFTA ftah4 = hom1.applyInverseOnAutomaton(ftah2);
-	
+
 	}
-	
-	
-	
+
+
+
 }

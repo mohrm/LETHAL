@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treeautomata.common;
 
@@ -41,27 +41,27 @@ import de.uni_muenster.cs.sev.lethal.utils.Converter;
  * states and symbols and {@link FTARuleSet} for the rules. Since the rule type is
  * variable, rule creation of appropriate type is left to the sub types. Thus, this
  * class is abstract.
- * 
+ *
  * @param <F> symbol type used in this finite tree automaton
  * @param <Q> state type used in this finite tree automaton
  * @param <R> rule type used in this finite tree automaton
- * 
+ *
  * @see ModifiableFTA
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public abstract class AbstractModFTA<F extends RankedSymbol, Q extends State, R extends FTARule<F,Q>> extends AbstractFTA<F,Q,R> implements ModifiableFTA<F,Q,R> {
-	
+
 	/**
 	 * The additional epsilon rules of this finite tree automaton. They are
-	 * eliminated before 
+	 * eliminated before
 	 */
 	protected ArrayList<FTAEpsRule<Q>> epsRules = new ArrayList<FTAEpsRule<Q>>();
-	
+
 	/**
 	 * Creates a new finite tree automaton from rules, final states and additional epsilon rules.
 	 * The epsilon rules are eliminated and thus converted into normal rules. It is possible, that
-	 * the new finite tree automaton has more final states than 
+	 * the new finite tree automaton has more final states than
 	 * @param newRules rules of the new finite tree automaton
 	 * @param newEpsRules epsilon rules of the new finite tree automaton
 	 * @param newFinals final states of the new finite tree automaton
@@ -103,7 +103,7 @@ public abstract class AbstractModFTA<F extends RankedSymbol, Q extends State, R 
 	public AbstractModFTA(Collection<F> newAlphabet, Collection<Q> newStates, Collection<Q> newFinalStates, Collection<? extends FTARule<F,Q>> newRules) {
 		super(newAlphabet, newStates, newFinalStates, newRules);
 	}
-	
+
 	/**
 	 * Creates a new AbstractModFTA out of an arbitrary finite tree automaton.
 	 * @param fta finite tree automaton out of which the new AbstractModFTA is to be created
@@ -118,13 +118,13 @@ public abstract class AbstractModFTA<F extends RankedSymbol, Q extends State, R 
 	 * @param grammar regular tree grammar out of which the new AbstractModFTA is to be created
 	 * @param stateBuilder creator object, which is used to create states out of non-terminals
 	 * and trees in the normalization process
-	 * @param <P> type of non-terminals occurring in the grammar rules 
+	 * @param <P> type of non-terminals occurring in the grammar rules
 	 * @see FTACreator#makeFTAFromGrammar
 	 */
 	public <P extends State> AbstractModFTA(RTG<F, P> grammar, Converter<Object, Q> stateBuilder) {
 		super(grammar, stateBuilder);
 	}
-	
+
 	/**
 	 * Returns the rules of this finite tree automaton. If there are epsilon rules,
 	 * they are eliminated first.
@@ -136,8 +136,8 @@ public abstract class AbstractModFTA<F extends RankedSymbol, Q extends State, R 
 			eliminateAddedEpsilonRules();
 		return super.getRules();
 	}
-	
-	
+
+
 	/**
 	 * Returns all rules, which have the specified symbol as their symbol. If there are
 	 * epsilon rules, they are eliminated first.
@@ -149,7 +149,7 @@ public abstract class AbstractModFTA<F extends RankedSymbol, Q extends State, R 
 			eliminateAddedEpsilonRules();
 		return super.getSymbolRules(f);
 	}
-	
+
 	/**
 	 * Eliminates the epsilon rules collected so far by {@link #addEpsilonRule}.
 	 * Used by getRules() and getFinalStates()
@@ -171,9 +171,9 @@ public abstract class AbstractModFTA<F extends RankedSymbol, Q extends State, R 
 			states = new HashSet<Q>();
 		states.add(state);
 	}
-	
+
 	/**
-	 * Adds multiple states to this finite tree automaton. 
+	 * Adds multiple states to this finite tree automaton.
 	 * @param states states to be added
 	 */
 	public void addStates(Collection<? extends Q> states) {
@@ -231,7 +231,7 @@ public abstract class AbstractModFTA<F extends RankedSymbol, Q extends State, R 
 	public boolean removeRule(FTARule<F,Q> rule) {
 		return rules.remove(rule);
 	}
-	
+
 	/**
 	 * @see de.uni_muenster.cs.sev.lethal.treeautomata.common.ModifiableFTA#removeFromFinals
 	 */
@@ -248,7 +248,7 @@ public abstract class AbstractModFTA<F extends RankedSymbol, Q extends State, R 
 	public void removeState(Q state, boolean cascade) {
 		if (states==null)
 			return;
-		
+
 		LinkedList<R> toDelete = new LinkedList<R>();
 		for (R rule: rules) {
 			if (rule.getSrcStates().contains(state) || rule.getDestState().equals(state)) {
@@ -290,5 +290,5 @@ public abstract class AbstractModFTA<F extends RankedSymbol, Q extends State, R 
 		states.add(qdest);
 	}
 
-	
+
 }

@@ -32,7 +32,7 @@ public class IntegerClass extends ScriptClass {
 
 	/** Singleton IntegerClass class instance */
 	public static final IntegerClass integerClass = new IntegerClass();
-	
+
 	private IntegerClass() {
 		super("Integer", null, RootClass.newStaticClassEnvironment(), false);
 	}
@@ -50,14 +50,14 @@ public class IntegerClass extends ScriptClass {
  *
  */
 class IntegerObject extends ScriptObject{
-	
+
 	private static final Environment integerInstEnv = IntegerClass.integerClass.newInstanceEnvironment(); //one shared instance env for all integer objects. Don't need one for each of them.
 	{
 		integerInstEnv.bindLocal("times", new Method(0){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
 				if (block == null) throw new ScriptRuntimeError("times() expects a block");
-				List<ScriptObject> blockArgs = new ArrayList<ScriptObject>(1); 
+				List<ScriptObject> blockArgs = new ArrayList<ScriptObject>(1);
 				blockArgs.add(null);
 				for (int i = 0; i < ((IntegerObject)env.getThis()).getValue(); i++){
 					blockArgs.set(0, ScriptObject.make(i));
@@ -105,7 +105,7 @@ class IntegerObject extends ScriptObject{
 				}
 			}
 		});
-		
+
 		integerInstEnv.bindLocal("+", new Method(1){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -182,8 +182,8 @@ class IntegerObject extends ScriptObject{
 				}
 			}
 		});
-		
-		
+
+
 		integerInstEnv.bindLocal("to_i", new Method(0){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -198,24 +198,24 @@ class IntegerObject extends ScriptObject{
 		});
 		integerInstEnv.setOwner(IntegerClass.integerClass); //it is actually  an instance env, but it is shared among all instances. So we set the class as the owner.
 	}
-	
+
 	private int value;
-	
+
 	public IntegerObject(int value) {
 		super(IntegerClass.integerClass, integerInstEnv.newFrame());
 		this.value = value;
 	}
-	
+
 	public int getValue(){
 		return this.value;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj){
 		return ((obj instanceof IntegerObject && ((IntegerObject)obj).getValue() == this.value)
 			  ||(obj instanceof FloatObject && ((FloatObject)obj).getValue() == this.value));
 	}
-	
+
 	@Override
 	public String toString(){
 		return String.valueOf(this.value);

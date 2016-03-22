@@ -21,9 +21,9 @@ package de.uni_muenster.cs.sev.lethal.utils;
 /**
  * Implements a pair.
  *
- * @param <S> type of the first component 
+ * @param <S> type of the first component
  * @param <T> type of the second component
- * 
+ *
  * @author Martin
  */
 public class Pair<S,T> {
@@ -31,14 +31,14 @@ public class Pair<S,T> {
 	/** First component. */
 	private S first;
 
-	
+
 	/** Second component. */
 	private T second;
 
 
 	/**
 	 * Constructs a pair out of two given objects.
-	 * 
+	 *
 	 * @param fst first component
 	 * @param snd second component
 	 */
@@ -50,7 +50,7 @@ public class Pair<S,T> {
 
 	/**
 	 * Returns the first component of the pair.
-	 * 
+	 *
 	 * @return the first component of the pair
 	 */
 	public S getFirst() {
@@ -60,7 +60,7 @@ public class Pair<S,T> {
 
 	/**
 	 * Returns the second component of the pair.
-	 * 
+	 *
 	 * @return the second component of the pair
 	 */
 	public T getSecond() {
@@ -70,9 +70,9 @@ public class Pair<S,T> {
 
 	/**
 	 * Sets the first component of the pair.
-	 * 
+	 *
 	 * @param fst the first component of the pair
-	 */	
+	 */
 	public void setFirst(S fst){
 		this.first = fst;
 	}
@@ -80,7 +80,7 @@ public class Pair<S,T> {
 
 	/**
 	 * Sets the second component of the pair.
-	 * 
+	 *
 	 * @param sec the first component of the pair
 	 */
 	public void setSecond(T sec){
@@ -90,7 +90,7 @@ public class Pair<S,T> {
 
 	/**
 	 * Computes the hash code of the pair.
-	 * 
+	 *
 	 * @return hash code of the pair
 	 */
 	@Override
@@ -103,7 +103,7 @@ public class Pair<S,T> {
 
 	/**
 	 * Two pairs are equal, if their components are equal.
-	 * 
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")

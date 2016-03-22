@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.symbol.special;
 
@@ -27,7 +27,7 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.RankedSymbol;
 /**
  * Special symbol of arity 0 for closing lists. <br>
  * Implemented as singleton.
- * 
+ *
  * @author Anton, Maria
  */
 public final class Nil implements RankedSymbol {
@@ -43,7 +43,7 @@ public final class Nil implements RankedSymbol {
 
 	/**
 	 * Returns the only instance of this class.
-	 * 
+	 *
 	 * @return the only instance of this class
 	 */
 	public static Nil getNil() {

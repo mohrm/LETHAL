@@ -25,7 +25,7 @@ import de.uni_muenster.cs.sev.lethal.parser.treetransducer.*;
 import de.uni_muenster.cs.sev.lethal.treetransducer.EasyTT;
 
 /**
- * GUI item representing a tree transducer. 
+ * GUI item representing a tree transducer.
  * @author Philipp
  *
  */
@@ -36,7 +36,7 @@ public class TreeTransducerItem extends Item {
 	 * @param parentElement XML Element to load from
 	 * @param project Project the item will be part of
 	 * @return the loaded TreeTransducerItem
-	 * @throws ParseException thrown if a parser error occurs 
+	 * @throws ParseException thrown if a parser error occurs
 	 * @throws TokenMgrError  thrown if a parser error occurs
 	 */
 	public static TreeTransducerItem fromXML(Element parentElement, Project project) throws ParseException, TokenMgrError{
@@ -48,7 +48,7 @@ public class TreeTransducerItem extends Item {
 		item.transducerString = transducerDescription;
 		return item;
 	}
-	
+
 	/**
 	 * Returns the user visible class name for the tree transducer items.
 	 * @return the user visible class name for the tree transducer items
@@ -56,11 +56,11 @@ public class TreeTransducerItem extends Item {
 	public static String getItemClassName(){
 		return "Tree Transducer";
 	}
-	
-	
+
+
 	private EasyTT transducer;
 	private String transducerString;
-	
+
 	/**
 	 * Creates a new, empty tree transducer item.
 	 * @param name name of the item
@@ -74,7 +74,7 @@ public class TreeTransducerItem extends Item {
 	public Editor getEditor() {
 		return new TreeTransducerEditor(this);
 	}
-	
+
 	/**
 	 * Returns the TreeTransducer stored in this item.
 	 * @return the TreeTransducer stored in this item
@@ -82,7 +82,7 @@ public class TreeTransducerItem extends Item {
 	public EasyTT getTreeTransducer(){
 		return this.transducer;
 	}
-	
+
 	/**
 	 * Returns the user entered string description of the tree transducer.
 	 * @return the user entered string description of the tree transducer
@@ -90,7 +90,7 @@ public class TreeTransducerItem extends Item {
 	public String getTreeTransducerString(){
 		return this.transducerString;
 	}
-	
+
 	/**
 	 * Update the tree transducer stored in this item.
 	 * @param transducer the new tree transducer
@@ -106,7 +106,7 @@ public class TreeTransducerItem extends Item {
 
 	@Override
 	public void toXML(Element parentElement) {
-		if (this.transducerString == null) return; 
+		if (this.transducerString == null) return;
 		parentElement.setTextContent(this.transducerString);
 	}
 

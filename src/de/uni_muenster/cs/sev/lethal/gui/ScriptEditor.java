@@ -65,7 +65,7 @@ public class ScriptEditor extends Editor {
 	public ScriptEditor(ScriptItem item) {
 		super(item);
 		this.item = item;
-		
+
 		this.toolbar.add(this.undoButton);
 		this.toolbar.add(this.redoButton);
 		this.toolbar.addSeparator();
@@ -122,7 +122,7 @@ public class ScriptEditor extends Editor {
 				updateUndoButtons();
 			}
 		});
-		
+
 		redoButton.setEnabled(false);
 		redoButton.addActionListener(new ActionListener(){
 			@Override
@@ -139,7 +139,7 @@ public class ScriptEditor extends Editor {
 				updateUndoButtons();
 			}
 		});
-		
+
 		runButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				run();
@@ -152,7 +152,7 @@ public class ScriptEditor extends Editor {
 				run();
 			}
 		});
-		
+
 		stopButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				stop();
@@ -206,7 +206,7 @@ public class ScriptEditor extends Editor {
 
 		this.runThread.start();
 	}
-	
+
 	private void stop(){
 		//stopButton.setEnabled(false);
 		runThread.stop();
@@ -221,7 +221,7 @@ public class ScriptEditor extends Editor {
 	public ScriptItem getItem(){
 		return this.item;
 	}
-	
+
 	@Override
 	public String getName() {
 		return "Script Editor";
@@ -230,13 +230,13 @@ public class ScriptEditor extends Editor {
 	//Output stream that writes to a text area.
 	static class TextAreaOutputStream extends OutputStream{
 		private final int MAX_LENGTH = 40960;
-		
+
 		private JTextArea textArea;
-		
+
 		public TextAreaOutputStream(JTextArea textArea){
 			this.textArea = textArea;
 		}
-		
+
 		@Override
 		public void write(int b) throws IOException {
 			addString(new String(new byte[]{(byte)b}));
@@ -249,10 +249,10 @@ public class ScriptEditor extends Editor {
 		public void write(byte b[]){
 			addString(new String(b));
 		}
-		
+
 		private void addString(String s){
 			String old = textArea.getText();
-			int spaceLeft = MAX_LENGTH - old.length(); 
+			int spaceLeft = MAX_LENGTH - old.length();
 			if (spaceLeft < s.length()){
 				textArea.setText(old.substring(s.length() - spaceLeft) + s);
 			} else {
@@ -261,13 +261,13 @@ public class ScriptEditor extends Editor {
 			textArea.setSelectionStart(textArea.getText().length());
 		}
 	}
-	
+
 	static abstract class ScriptRunThread extends Thread{
-		
+
 		protected Script script;
 		protected OutputStream out;
 		protected Project project;
-		
+
 		public ScriptRunThread(Project project, Script script, OutputStream out) {
 			super();
 			this.project = project;
@@ -300,10 +300,10 @@ public class ScriptEditor extends Editor {
 					e.printStackTrace();
 				}
 			}
-			
+
 			updateRunning(false);
 		}
-		
+
 		protected abstract void updateRunning(boolean running);
 	}
 }

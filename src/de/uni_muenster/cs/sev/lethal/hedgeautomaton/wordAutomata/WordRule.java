@@ -59,7 +59,7 @@ public class WordRule<G_State extends State> {
 
 	/**
 	 * Returns the symbol of the rule.
-	 * 
+	 *
 	 * @return the symbol of the rule
 	 */
 	HedgeState<G_State> getHSymbol() {
@@ -68,7 +68,7 @@ public class WordRule<G_State extends State> {
 
 	/**
 	 * Returns the start state of the rule.
-	 * 
+	 *
 	 * @return the start state of the rule
 	 */
 	HedgeState<G_State> getHSourceState() {
@@ -77,7 +77,7 @@ public class WordRule<G_State extends State> {
 
 	/**
 	 * Returns destination state of the rule.
-	 * 
+	 *
 	 * @return state in which passes the wordautomaton, by applying of this rule
 	 */
 	HedgeState<G_State> getHDestState() {

@@ -23,10 +23,10 @@ package de.uni_muenster.cs.sev.lethal.symbol.common;
 
 /**
  * Represents symbols.<br>
- * 
+ *
  * Every subclass has to implement the java functions hashcode and equals
  * correctly.
- * 
+ *
  * @author Anton, Dorothea, Irene, Maria, Martin, Philipp, Sezar
  */
 public interface Symbol {

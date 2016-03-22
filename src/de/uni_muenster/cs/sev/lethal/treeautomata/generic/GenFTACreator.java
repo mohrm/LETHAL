@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treeautomata.generic;
 
@@ -33,12 +33,12 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.common.FTARule;
 /**
  * FTACreator for GenFTA.<br>
  * To create rules and finite tree automata with generic type parameters.
- * 
+ *
  * @param <Q> state type of the finite tree automata to be created
  * @param <F> symbol type of the finite tree automata to be created
- * 
+ *
  * @author Dorothea, Martin, Irene
- * 
+ *
  * @see FTACreator
  * @see GenFTA
  */
@@ -51,7 +51,7 @@ public class GenFTACreator<F extends RankedSymbol,Q extends State> extends FTACr
 	public GenFTA<F,Q> createFTA(final Collection<F> alphabet, final Collection<Q> states, final Collection<Q> finalStates, final Collection<? extends FTARule<F,Q>> rules) {
 		return new GenFTA<F,Q>(alphabet, states, finalStates, rules);
 	}
-	
+
 
 	/**
 	 * @see de.uni_muenster.cs.sev.lethal.treeautomata.common.FTACreator#createFTA(java.util.Collection, java.util.Collection)

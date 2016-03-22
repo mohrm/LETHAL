@@ -24,12 +24,12 @@ import java.util.List;
 import de.uni_muenster.cs.sev.lethal.script.exceptions.ScriptRuntimeError;
 
 /**
- * Class for ranges of Integer numbers inside min and max bounds (inclusive). 
+ * Class for ranges of Integer numbers inside min and max bounds (inclusive).
  * @author Philipp
  *
  */
 public class RangeClass extends ScriptClass {
-	
+
 	/** Singleton RangeClass class instance */
 	public static final RangeClass rangeClass = new RangeClass();
 
@@ -42,7 +42,7 @@ public class RangeClass extends ScriptClass {
 		if (args.size() != 2 ||
 			!(args.get(0) instanceof IntegerObject) ||
 			!(args.get(1) instanceof IntegerObject)) throw new ScriptRuntimeError("Range.new(min,max) expects 2 integer arguments");
-		
+
 		ScriptObject obj = new RangeObject(((IntegerObject)args.get(0)).getValue() ,((IntegerObject)args.get(1)).getValue());
 		return obj;
 	}
@@ -51,15 +51,15 @@ public class RangeClass extends ScriptClass {
 
 
 /**
- * Class for ranges of Integer numbers inside min and max bounds (inclusive). 
+ * Class for ranges of Integer numbers inside min and max bounds (inclusive).
  * @author Philipp
  *
  */
 class RangeObject extends ScriptObject{
-	
+
 	private int min;
 	private int max;
-	
+
 	/**
 	 * Creates a new array instance. Only to be called by ArrayClass.newInstance
 	 * @param min the lower bound of the Range (inclusive)
@@ -71,7 +71,7 @@ class RangeObject extends ScriptObject{
 		this.max = max;
 		this.setMember("min", this.setMember("left", ScriptObject.make(min)));
 		this.setMember("max", this.setMember("right", ScriptObject.make(max)));
-		
+
 		this.setMember("each", new Method(0){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block){
@@ -111,12 +111,12 @@ class RangeObject extends ScriptObject{
 			}
 		});
 	}
-	
+
 	@Override
 	public String toString(){
 		return "(" + min + ".." + max + ")";
 	}
-	
+
 	@Override
 	public boolean equals(Object o){
 		if (!(o instanceof RangeObject)) return false;

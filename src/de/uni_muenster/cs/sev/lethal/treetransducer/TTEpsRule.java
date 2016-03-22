@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treetransducer;
 
@@ -32,12 +32,12 @@ import de.uni_muenster.cs.sev.lethal.utils.Pair;
 
 /**
  * Represents an epsilon rule q1-> (q2,v) of a tree transducer,
- * where v is a tree containig variables with at most one variable. 
+ * where v is a tree containig variables with at most one variable.
  * This variable has the number 0.
- *    
+ *
  * @param <G> type of symbols of the destination alphabet
  * @param <Q> type of used states
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public class TTEpsRule<G extends RankedSymbol, Q extends State> extends Pair<TTState<Q,G>,TTState<Q,G>> implements FTAEpsRule<TTState<Q,G>>{
@@ -45,9 +45,9 @@ public class TTEpsRule<G extends RankedSymbol, Q extends State> extends Pair<TTS
 
 	/**
 	 * Constructs a new epsilon rule of a tree transducer. It has the
-	 * form q1-> (q2,v), where v is a variable tree with at most one 
+	 * form q1-> (q2,v), where v is a variable tree with at most one
 	 * variable. This variable has the number 0.
-	 * 
+	 *
 	 * @param src source state
 	 * @param dest destination state
 	 * @param var variable tree with at most one variable
@@ -60,12 +60,12 @@ public class TTEpsRule<G extends RankedSymbol, Q extends State> extends Pair<TTS
 
 
 	/**
-	 * Constructs a new epsilon rule of a tree transducer out of two given 
+	 * Constructs a new epsilon rule of a tree transducer out of two given
 	 * {@link TTState tree transducer states}.<br>
-	 * The tree contained in the destination state must not be null and 
+	 * The tree contained in the destination state must not be null and
 	 * must not contain any variable with a number greater than 0, otherwise
-	 * an exception is thrown. 
-	 * 
+	 * an exception is thrown.
+	 *
 	 * @param q source state
 	 * @param p destination state
 	 */
@@ -82,7 +82,7 @@ public class TTEpsRule<G extends RankedSymbol, Q extends State> extends Pair<TTS
 	/**
 	 * Returns the destination state, i.e. the state on the right side
 	 * of the rule.
-	 * 
+	 *
 	 * @return destination state, i.e. the state on the right side
 	 * of the rule
 	 */
@@ -93,7 +93,7 @@ public class TTEpsRule<G extends RankedSymbol, Q extends State> extends Pair<TTS
 	/**
 	 * Returns the tree containing variables on the right side of the epsilon rule.
 	 * In the variable tree the variable can be replaced by another tree.
-	 * 
+	 *
 	 * @return destination variable tree, where you can replace on variable
 	 */
 	public Tree<BiSymbol<G,Variable>> getDestTree(){
@@ -103,7 +103,7 @@ public class TTEpsRule<G extends RankedSymbol, Q extends State> extends Pair<TTS
 	/**
 	 * Returns the source state, i.e. the left side of the tree transducer
 	 * rule.
-	 * 
+	 *
 	 * @return source state, i.e. the left side of the epsilon rule
 	 */
 	public Q getSrcAsQ(){
@@ -113,7 +113,7 @@ public class TTEpsRule<G extends RankedSymbol, Q extends State> extends Pair<TTS
 	/**
 	 * Returns the destination state, so the state on the right side
 	 * of the rule.
-	 * 
+	 *
 	 * @return destination state
 	 */
 	public Q getDestStateAsQ(){

@@ -31,13 +31,13 @@ import de.uni_muenster.cs.sev.lethal.utils.Pair;
 /**
  * Factory for creating trees.
  * It uses a cache to re-use an existing tree if an equivalent tree shall be created.
- * 
+ *
  * @author Philipp
  */
 public class StdTreeFactory extends TreeFactory {
-		
-	private HashMap<Object, WeakReference<StdFactoryTree<? extends Symbol>>> cache = new HashMap<Object, WeakReference<StdFactoryTree<? extends Symbol>>>(); 
-	
+
+	private HashMap<Object, WeakReference<StdFactoryTree<? extends Symbol>>> cache = new HashMap<Object, WeakReference<StdFactoryTree<? extends Symbol>>>();
+
 	/**
 	 * Creates a Tree with no subtrees (that means a leaf) from a given symbol.<br>
 	 * Trees are cached and the old tree is returned if there already is a leaf tree with the same symbol.
@@ -49,7 +49,7 @@ public class StdTreeFactory extends TreeFactory {
 	public <S extends Symbol> Tree<S> makeTreeFromSymbol(S rootSymbol){
 		return makeTreeFromSymbol(rootSymbol, Collections.<Tree<S>>emptyList());
 	}
-	
+
 	/**
 	 * Creates a new Tree with given subtrees. <br>
 	 * Trees are cached and the old tree is returned if there already is a tree with the same symbol and subtrees.
@@ -65,22 +65,22 @@ public class StdTreeFactory extends TreeFactory {
 		StdFactoryTree<? extends Symbol> tree = null;
 		WeakReference<StdFactoryTree<? extends Symbol>> wref = this.cache.get(key);
 		if (wref != null) tree = wref.get();
-		
+
 		if (tree == null) {
 			tree = new StdFactoryTree<S>(rootSymbol, subtrees);
 			cache.put(key, new WeakReference<StdFactoryTree<? extends Symbol>>(tree));
 		}
 		/*
 		 * If a tree is found, its symbol type is determined by the key and thus by the
-		 * inferred symbol type. 
+		 * inferred symbol type.
 		 * Otherwise, a new tree of the inferred symbol type is created.
 		 * In both cases, the variable tree holds a StdFactoryTree of the inferred symbol
-		 * type, so the following cast is safe: 
+		 * type, so the following cast is safe:
 		 */
 		return (StdFactoryTree<S>)tree;
 	}
-	
-	
+
+
 	/**
 	 * Private subclass for trees created by this factory.<br>
 	 * Uses fast reference compare because equivalent trees are returned from cache.
@@ -88,13 +88,13 @@ public class StdTreeFactory extends TreeFactory {
 	 * @param <S> type of the tree symbol
 	 */
 	private class StdFactoryTree<S extends Symbol> extends StdTree<S>{
-		
+
 		/**Used tree factory.*/
-		
+
 		protected TreeFactory tf;
 		/**
 		 * Constructs a new tree.
-		 * 
+		 *
 		 * @see StdTree
 		 * @param symbol root symbol of the tree
 		 * @param subtrees subtrees of the tree
@@ -103,8 +103,8 @@ public class StdTreeFactory extends TreeFactory {
 			super(symbol, subtrees);
 			tf = StdTreeFactory.this;
 		}
-		
-		
+
+
 		/**
 		 * @see de.uni_muenster.cs.sev.lethal.tree.standard.StdAbstractTree#equals(java.lang.Object)
 		 */
@@ -112,7 +112,7 @@ public class StdTreeFactory extends TreeFactory {
 		public boolean equals(Object t){ //Optimized compare for trees that are created with this factory.
 			if (t == null) return false;
 			if (!(t instanceof Tree<?>)) return false;
-			if (!(t instanceof StdFactoryTree<?>)) 
+			if (!(t instanceof StdFactoryTree<?>))
 				return super.equals(t);
 			else {
 				StdFactoryTree<?> sftt = (StdFactoryTree<?>)t;
@@ -122,7 +122,7 @@ public class StdTreeFactory extends TreeFactory {
 					return super.equals(t);
 			}
 		}
-		
+
 	}
-	
+
 }

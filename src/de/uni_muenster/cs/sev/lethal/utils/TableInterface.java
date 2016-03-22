@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.utils;
 
@@ -26,11 +26,11 @@ import java.util.Set;
 /**
  * Represents a mapping between pairs (u,v) in UxV and a value type W.<br>
  * The elements of U and V are also called 'indices'.
- * 
+ *
  * @param <U> type of the row indices
  * @param <V> type of the column indices
  * @param <W> type of the values in the cells
- * 
+ *
  * @author Martin
  */
 public interface TableInterface<U, V, W> {

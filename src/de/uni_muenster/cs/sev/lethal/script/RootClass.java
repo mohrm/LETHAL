@@ -46,7 +46,7 @@ class RootClass extends ScriptClass{
 
 	public static final Environment rootEnv = new Environment(null);
 	public static final RootClass rootClass = new RootClass();
-	
+
 	private RootClass() {
 		super("Root", null, rootEnv, false);
 		Environment env = this.getEnvironment();
@@ -59,11 +59,11 @@ class RootClass extends ScriptClass{
 		env.bindLocal("Float"  , FloatClass.floatClass);
 		env.bindLocal("String" , StringClass.stringClass);
 		env.bindLocal("Boolean", BooleanClass.booleanClass);
-		
+
 		env.bindLocal("Array"  , ArrayClass.arrayClass);
 		env.bindLocal("Hash"   , HashClass.hashClass);
 		env.bindLocal("Range"  , RangeClass.rangeClass);
-		
+
 		env.bindLocal("Tree",           TreeClass.treeClass);
 		env.bindLocal("FTA" ,           FTAClass.ftaClass);
 		env.bindLocal("Homomorphism",   HomomorphismClass.homClass);
@@ -78,7 +78,7 @@ class RootClass extends ScriptClass{
 	public ScriptObject newInstance(List<ScriptObject> args, MethodObject block) {
 		throw new UnsupportedOperationException("Cannot create an instance of the script root class");
 	}
-	
+
 	/**
 	 * Creates a new environment for static classes (classes that are the same for all scripts running)
 	 * @return the new environment
@@ -86,7 +86,7 @@ class RootClass extends ScriptClass{
 	public static Environment newStaticClassEnvironment(){
 		return rootEnv.newFrame();
 	}
-	
+
 }
 
 class RootObject extends ScriptObject{
@@ -96,7 +96,7 @@ class RootObject extends ScriptObject{
 		this.setMember("print"  , new PrintMethod(outputStream));
 		if (project != null) this.setMember("show"   , new ShowMethod(project));
 	}
-	
+
 }
 
 
@@ -110,7 +110,7 @@ class RootObject extends ScriptObject{
 class PrintMethod extends Method {
 
 	private PrintStream out;
-	
+
 	public PrintMethod(PrintStream out) {
 		super(ARITY_ARBITARY);
 		this.out = out;
@@ -124,22 +124,22 @@ class PrintMethod extends Method {
 		this.out.println();
 		return ScriptObject.nullValue;
 	}
-	
+
 	public void setOutputStream(PrintStream out){
 		this.out = out;
 	}
-	
+
 }
 
 class ShowMethod extends Method{
 
 	private Project project;
-	
+
 	ShowMethod(Project project){
 		super(ARITY_ONE_OR_TWO);
 		this.project = project;
 	}
-	
+
 	@Override
 	public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
 		String title = null;
@@ -147,31 +147,31 @@ class ShowMethod extends Method{
 			if (!(args.get(1) instanceof StringObject)) throw new ScriptRuntimeError("show(tree|fta [,title]) expects a string argument as second parameter");
 			title = ((StringObject)args.get(1)).getValue();
 		}
-		
-		if ((args.get(0) instanceof TreeObject)){ 
+
+		if ((args.get(0) instanceof TreeObject)){
 			Tree<RankedSymbol> tree = ((TreeObject)args.get(0)).getTree();
 			new TreeDisplayWindow(tree, this.project, title, null, null, title);
-		} else if ((args.get(0) instanceof HedgeObject)){ 
+		} else if ((args.get(0) instanceof HedgeObject)){
 			Tree<UnrankedSymbol> hedge = ((HedgeObject)args.get(0)).getTree();
 			new TreeDisplayWindow(hedge, this.project, title, null, null, title);
-		} else if ((args.get(0) instanceof FTAObject)){ 
+		} else if ((args.get(0) instanceof FTAObject)){
 			EasyFTA fta = ((FTAObject)args.get(0)).getAutomaton();
 			new TreeAutomatonDisplayWindow(fta, this.project, title, null, title);
-		} else if ((args.get(0) instanceof HAObject)){ 
+		} else if ((args.get(0) instanceof HAObject)){
 			EasyHedgeAutomaton ha = ((HAObject)args.get(0)).getAutomaton();
 			new TreeAutomatonDisplayWindow(ha, this.project, title, null, title);
 		} else if ((args.get(0) instanceof FTATraceObject)){
 		    Tree<RankedSymbol> tree = ((FTATraceObject)args.get(0)).getTree();
 			Map<Tree<RankedSymbol>, Set<FTARule<RankedSymbol,State>>> tracemap = ((FTATraceObject)args.get(0)).getTracemap();
 			FTA<RankedSymbol, State, ? extends FTARule<RankedSymbol,State>> fta = ((FTATraceObject)args.get(0)).getFTA();
-			new TreeDisplayWindow(tree, null, null, fta.getFinalStates(), tracemap, title);	
+			new TreeDisplayWindow(tree, null, null, fta.getFinalStates(), tracemap, title);
 		} else {
 			throw new ScriptRuntimeError("show(tree|fta [,title]) expects a tree, fta or ftatrace argument as first parameter");
 		}
-		
+
 		return ScriptObject.nullValue;
 	}
-	
+
 }
 
 /**
@@ -218,5 +218,5 @@ class SqrtMethod extends Method {
 			throw new ScriptRuntimeError("sqrt() expects numeric argument");
 		}
 	}
-	
+
 }

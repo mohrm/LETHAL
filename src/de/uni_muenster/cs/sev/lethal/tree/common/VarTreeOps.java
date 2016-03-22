@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.tree.common;
 
@@ -36,12 +36,12 @@ import de.uni_muenster.cs.sev.lethal.symbol.standard.InnerSymbol;
 import de.uni_muenster.cs.sev.lethal.symbol.standard.LeafSymbol;
 
 /**
- * This class encapsulates some operations on variable trees, 
- * for example in order to find some variables in a variable tree or 
- * or to get the highest number of variables, which is relevant for applying homomorphisms.  
- * 
+ * This class encapsulates some operations on variable trees,
+ * for example in order to find some variables in a variable tree or
+ * or to get the highest number of variables, which is relevant for applying homomorphisms.
+ *
  * @see de.uni_muenster.cs.sev.lethal.hom.EasyHom
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public class VarTreeOps {
@@ -49,7 +49,7 @@ public class VarTreeOps {
 
 	/**
 	 * Computes the highest variable number occurring in a given variable tree.
-	 * 
+	 *
 	 * @param <F> type of function symbols occurring in the specified tree
 	 * @param <V> type of variables occurring in the specified tree
 	 * @param varTree tree to compute the highest variable number of
@@ -62,7 +62,7 @@ public class VarTreeOps {
 	/**
 	 * Helper method for getHighestVariableTree() - computes the highest variable number relative
 	 * to a given maximum.
-	 * 
+	 *
 	 * @param <F> type of function symbols occurring in the specified tree
 	 * @param <V> type of variables occurring in the specified tree
 	 * @param varTree tree to compute the highest variable number of
@@ -83,7 +83,7 @@ public class VarTreeOps {
 					int nr = VarTreeOps.<F,V>getHighestNumber(sub, max);
 					if (nr > max){
 						max = nr;
-					}		
+					}
 				}
 				return max;
 			}
@@ -93,7 +93,7 @@ public class VarTreeOps {
 
 	/**
 	 * Checks whether a variable with the given number is contained in the given tree.
-	 * 
+	 *
 	 * @param <F> type of function symbols occurring in the specified tree
 	 * @param <V> type of variables occurring in the specified tree
 	 * @param i the component number of the searched variable
@@ -110,14 +110,14 @@ public class VarTreeOps {
 					return true;
 				}
 			}
-			return false;	    
+			return false;
 		}
 	}
 
 
 	/**
 	 * Checks whether a variable with the given number is contained in the given tree.
-	 * 
+	 *
 	 * @param <F> type of function symbols occurring in the specified tree
 	 * @param <V> type of variables occurring in the specified tree
 	 * @param x the searched variable
@@ -133,17 +133,17 @@ public class VarTreeOps {
 					return true;
 				}
 			}
-			return false;	    
+			return false;
 		}
-	} 
+	}
 
 	/**
 	 * Collects the variables occurring in the given tree.
-	 * 
+	 *
 	 * @param <F> type of function symbols occurring in the specified tree
 	 * @param <V> type of variables occurring in the specified tree
 	 * @param varTree tree to collect the variables from
-	 * @return all variables contained in the given tree 
+	 * @return all variables contained in the given tree
 	 */
 	public static <F extends RankedSymbol, V extends Variable> Set<V> getVariables(Tree<BiSymbol<F,V>> varTree) {
 		Set<V> vars = new HashSet<V>();
@@ -153,7 +153,7 @@ public class VarTreeOps {
 		} else {
 			for (Tree<BiSymbol<F,V>> sub: varTree.getSubTrees()){
 				vars.addAll(VarTreeOps.<F,V>getVariables(sub));
-			}  
+			}
 		}
 		return vars;
 	}
@@ -161,7 +161,7 @@ public class VarTreeOps {
 
 	/**
 	 * Computes the set of all function symbols occurring in the given tree.
-	 * 
+	 *
 	 * @param <F> type of function symbols occurring in the specified tree
 	 * @param <V> type of variables occurring in the specified tree
 	 * @param varTree tree to collect the function symbols from
@@ -186,7 +186,7 @@ public class VarTreeOps {
 	 * list members correspond to the numbers of the variables to be replaced, i.e.
 	 * if a variable with number i occurs in the variable tree, it is replaced by
 	 * the i-th list member.
-	 * 
+	 *
 	 * @param <F> type of function symbols occurring in specified tree
 	 * @param <V> type of variables occurring in specified tree
 	 * @param <U> type of tree to be returned
@@ -196,9 +196,9 @@ public class VarTreeOps {
 	 * @param tc a tree creator to produce the substituted tree
 	 * @return a tree on which the variables are replaced by the trees specified in the given list
 	 */
-	public static <F extends RankedSymbol, 
-	V extends Variable, 
-	U extends Tree<F>> 
+	public static <F extends RankedSymbol,
+	V extends Variable,
+	U extends Tree<F>>
 	U replaceVariables(Tree<? extends BiSymbol<F,V>> varTree, List<U> replaceTrees, TreeCreator<F,U> tc) {
 		// if the symbol is an Variable, replace it by the according subtree
 		if (varTree.getSymbol().isLeafType()) {
@@ -207,7 +207,7 @@ public class VarTreeOps {
 				throw new IllegalArgumentException("The given List of replacing trees is not long enough, it must be bigger than " + nr );
 			} else
 				return replaceTrees.get(nr);
-		} 
+		}
 		// else it is a function symbol
 		// look in all subtrees for variables and replace them recursively
 		else {
@@ -229,7 +229,7 @@ public class VarTreeOps {
 	 * list members correspond to the numbers of the variables to be replaced, i.e.
 	 * if a variable with number i occurs in the variable tree, it is replaced by
 	 * the i-th list member.
-	 * 
+	 *
 	 * @param <F> type of function symbols occurring in the specified tree
 	 * @param <V> type of variables occurring in the specified tree
 	 * @param <U> type of tree to be returned
@@ -238,9 +238,9 @@ public class VarTreeOps {
 	 * @param tc a tree creator to produce the substituted tree
 	 * @return a tree on which the only one variable is replaced by another tree, which can contain variables, too.
 	 */
-	public static <F extends RankedSymbol, 
-	V extends Variable, 
-	U extends Tree<BiSymbol<F,V>>> 
+	public static <F extends RankedSymbol,
+	V extends Variable,
+	U extends Tree<BiSymbol<F,V>>>
 	U replaceOneVariable(Tree<? extends BiSymbol<F,V>> varTree, U replaceTree, TreeCreator<BiSymbol<F,V>,U> tc) {
 
 		if (varTree == null){
@@ -253,7 +253,7 @@ public class VarTreeOps {
 		// if the symbol is an Variable, replace it by the given replacing tree
 		if (varTree.getSymbol().isLeafType()) {
 			return replaceTree;
-		} 
+		}
 		// else it is a function symbol
 		// look in all subtrees for variables and replace them recursively
 		else {
@@ -274,7 +274,7 @@ public class VarTreeOps {
 	 * list members correspond to the numbers of the variables to be replaced, i.e.
 	 * if a variable with number i occurs in the variable tree, it is replaced by
 	 * the i-th list member.
-	 * 
+	 *
 	 * @param <F> type of function symbols occurring in the specified tree
 	 * @param <V> type of variables occurring in the specified tree
 	 * @param <U> type of tree to be returned
@@ -284,9 +284,9 @@ public class VarTreeOps {
 	 * @param tc a tree creator to produce the substituted tree
 	 * @return a tree on which the variables are replaced by the trees specified in the given list
 	 */
-	public static <F extends RankedSymbol, 
-	V extends Variable, 
-	U extends Tree<F>> 
+	public static <F extends RankedSymbol,
+	V extends Variable,
+	U extends Tree<F>>
 	U replaceVariables(Tree<BiSymbol<F,V>> varTree, Map<V,U> replaceTrees, TreeCreator<F,U> tc) {
 		// if the symbol is an Variable, replace it by the according subtree
 		if (varTree.getSymbol().isLeafType()) {
@@ -295,7 +295,7 @@ public class VarTreeOps {
 				throw new IllegalArgumentException("The given map for replacing trees does not contain this variable in the tree: " + v);
 			} else
 				return replaceTrees.get(varTree.getSymbol().asLeafSymbol());
-		} 
+		}
 		// else it is a function symbol
 		// look in all subtrees for variables and replace them recursively
 		else {
@@ -314,7 +314,7 @@ public class VarTreeOps {
 
 	/**
 	 * Checks whether a given variable tree is linear, i.e. each variable occurs at most once.
-	 * 
+	 *
 	 * @param <F> type of function symbols occurring in the specified tree
 	 * @param <V> type of variables occurring in the specified tree
 	 * @param varTree tree to be analyzed
@@ -329,9 +329,9 @@ public class VarTreeOps {
 
 	/**
 	 * Helper method for isLinear() - collects variables occurring in tree until a variable is found twice
-	 * or until the whole tree has been traversed. The method checks if there are doubles, so returns true, 
+	 * or until the whole tree has been traversed. The method checks if there are doubles, so returns true,
 	 * if there are any double occurrences of variables found.
-	 * 
+	 *
 	 * @param <F> type of function symbols occurring in the specified tree
 	 * @param <V> type of variables occurring in the specified tree
 	 * @param varTree tree to be analyzed
@@ -344,12 +344,12 @@ public class VarTreeOps {
 			// if some variable is already there
 			if (usedVariables.contains(v)){
 				return true;
-			} 
+			}
 			// otherwise add it
 			else {
 				usedVariables.add(v);
 			}
-		} 
+		}
 		// otherwise look in the subTrees
 		else {
 			for (Tree<? extends BiSymbol<F,V>> sub: varTree.getSubTrees()){
@@ -363,21 +363,21 @@ public class VarTreeOps {
 
 
 	/**
-	 * Converts a tree into a tree containig variables via a given map that maps 
+	 * Converts a tree into a tree containig variables via a given map that maps
 	 * some constants to variables which shall occur in the new tree. <br>
-	 * 
-	 * @param <F> type of ranked symbols of the trees 
+	 *
+	 * @param <F> type of ranked symbols of the trees
 	 * @param <W> type of variables that shall occur in the destination tree
 	 * @param <Y> type of the returning variable tree
 	 * @param vTree tree which shall be converted
 	 * @param map map which maps constants of the tree to variables
 	 * @param tc tree creator for the destination variable trees
-	 * @return a variable tree where some constants of the old tree are replaced by some variables 
-	 * via the given map 
+	 * @return a variable tree where some constants of the old tree are replaced by some variables
+	 * via the given map
 	 */
-	public static <F extends RankedSymbol, 
+	public static <F extends RankedSymbol,
 	W extends Variable,
-	Y extends Tree<BiSymbol<F,W>>>  
+	Y extends Tree<BiSymbol<F,W>>>
 	Y makeTreeToBiTree(Tree<F> vTree,
 			Map<F ,? extends W> map, TreeCreator<BiSymbol<F,W>,Y> tc) {
 		F symbol = vTree.getSymbol();
@@ -387,7 +387,7 @@ public class VarTreeOps {
 				throw new IllegalArgumentException("All symbols that shall be replaced must have arity 0.");
 			W newVar = map.get(symbol);
 			return tc.makeTree(new LeafSymbol<F,W>(newVar));
-		} 
+		}
 		// at the other hand, recursively convert the subtrees
 		else {
 			List<Y> subs = new LinkedList<Y>();

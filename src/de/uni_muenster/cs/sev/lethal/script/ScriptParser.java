@@ -38,21 +38,21 @@ public class ScriptParser {
 	public static Script parseScript(String scriptString){
 		StringReader script = new StringReader(scriptString);
 		List<Statement> statements;
-		
+
 		statements = parseStatementList(script, null);
-		
+
 		return new Script(statements);
 	}
-	
+
 	/**
 	 * Reads and parses statements until eof or the gieven terminator is reached
-	 * @param script script string reader to read from 
+	 * @param script script string reader to read from
 	 * @param terminator regexp to terminate at.
 	 * @return List of parsed statements
 	 */
 	private static List<Statement> parseStatementList(StringReader script, String terminator){
 		List<Statement> statements = new ArrayList<Statement>();
-		
+
 		while (true){
 			script.skipAll(" \t\n");
 			if (script.eof()) {break;}
@@ -65,10 +65,10 @@ public class ScriptParser {
 		}
 		return statements;
 	}
-	
+
 	/**
 	 * Parses a single statement
-	 * @param script script string reader to read from 
+	 * @param script script string reader to read from
 	 * @return Parsed statement
 	 */
 	private static Statement parseStatement(StringReader script){
@@ -100,10 +100,10 @@ public class ScriptParser {
 			script.skip(script.lastMatch.length());
 			return new Return(parseExpression(null, script, "^\n|^(;)|^}"));
 		}
-		
+
 		return parseExpression(null, script, "^\n|^(;)|^}");
 	}
-	
+
 	/**
 	 * Parses a single expression
 	 * @param source expression evaluating to the namespace source for the following expression (e.g. in foo.bar() the expression "foo" is the namespace source for bar())
@@ -186,12 +186,12 @@ public class ScriptParser {
 				exp =  parseExpression(exp, script, terminatorRegexp);
 			}
 			expressions.add(exp);
-			
+
 			//if we are parsing a . expression (source != null) and no further . term is coming, we are done here.
 			if (!script.eof() && script.currentChar() != '.' && source != null){
 				break;
 			}
-				
+
 		}
 
 		if (expressions.size() > 1){
@@ -204,7 +204,7 @@ public class ScriptParser {
 		}
 
 	}
-	
+
 	/**
 	 * Binds all unary operators in the given expression list to their right hand arguments
 	 * @param script script string reader to read from
@@ -222,14 +222,14 @@ public class ScriptParser {
 				expressions.remove(i+1);
 			}
 		}
-		
+
 	}
-	
+
 	/**
 	 * Binds all binary operators in the given expression list
 	 * @param script script string reader to read from
 	 * @param expressions expression list
-	 * @return single expression referencing all bound expressions 
+	 * @return single expression referencing all bound expressions
 	 */
 	private static Expression fuseExpressionList(StringReader script, List<Expression> expressions){
 		if (expressions.size() == 1){
@@ -238,7 +238,7 @@ public class ScriptParser {
 			throw new ScriptParseException(script.getCurrentLine(), "Even number of expressions in list");
 		} else {
 			//bind unary ops
-			
+
 			boolean binOperator = false;
 			int minWeight = Integer.MAX_VALUE;
 			int minWeightPos = -1;
@@ -257,9 +257,9 @@ public class ScriptParser {
 					}
 				}
 				binOperator = !binOperator;
-				
+
 			}
-			
+
 			//Assign left and right expressions to the weakest binding operator (calculated last).
 			BinaryOperator op = (BinaryOperator)expressions.get(minWeightPos);
 			Expression left = fuseExpressionList(script,  expressions.subList(0, minWeightPos));
@@ -268,7 +268,7 @@ public class ScriptParser {
 			return op;
 		}
 	}
-		
+
 	/**
 	 * Parses a method call statement (with parameter expressions if present)
 	 * @param source expression evaluating to the namespace source for the following expression (e.g. in foo.bar() the expression "foo" is the namespace source for bar())
@@ -300,7 +300,7 @@ public class ScriptParser {
 			script.skip(1);
 			block = parseBlockDefinition(script);
 		}
-		
+
 		return new Call(source,name,arguments, block);
 	}
 
@@ -322,7 +322,7 @@ public class ScriptParser {
 		}
 		return new If(condition, ifStatements, elseStatements);
 	}
-	
+
 	/**
 	 * Parses an if statement with condition and loop block
 	 * @param script script string reader to read from
@@ -333,7 +333,7 @@ public class ScriptParser {
 		List<Statement> statements = parseStatementList(script, "^(end)");
 		return new While(condition, statements);
 	}
-	
+
 	/**
 	 * Parses a user class definition with inner definition block
 	 * @param script script string reader to read from
@@ -342,20 +342,20 @@ public class ScriptParser {
 	private static Statement parseClass(StringReader script){
 		String className = script.readUntil("(\n)");
 		script.skip(className.length());
-		List<Statement> statements = parseStatementList(script, "^(end)"); 
-		
+		List<Statement> statements = parseStatementList(script, "^(end)");
+
 		return new ClassDefinition(className,statements);
 	}
-	
+
 	/**
 	 * Parses a user method definition with inner definition block
 	 * @param script script string reader to read from
 	 * @return parsed class definition expression
 	 */
-	private static Method parseMethod(StringReader script){		
+	private static Method parseMethod(StringReader script){
 		List<String> argNames = parseMethodArgList(script);
-		List<Statement> statements = parseStatementList(script, "^(end)"); 
-		
+		List<Statement> statements = parseStatementList(script, "^(end)");
+
 		return new UserMethod(argNames, statements, true);
 	}
 
@@ -364,19 +364,19 @@ public class ScriptParser {
 	 * @param script script string reader to read from
 	 * @return parsed class definition expression
 	 */
-	private static MethodDefinition parseBlockDefinition(StringReader script){		
+	private static MethodDefinition parseBlockDefinition(StringReader script){
 		List<String> argNames = parseMethodArgList(script);
-		List<Statement> statements = parseStatementList(script, "^(})"); 
-		
+		List<Statement> statements = parseStatementList(script, "^(})");
+
 		return new MethodDefinition(new UserMethod( argNames, statements, false));
 	}
-	
+
 	/**
 	 * Reads the argument name list for a method definition
 	 * @param script script string reader to read from
 	 * @return List of the argument names
 	 */
-	private static List<String> parseMethodArgList(StringReader script){		
+	private static List<String> parseMethodArgList(StringReader script){
 		List<String> argNames = new ArrayList<String>();
 		boolean barSep = false;
 		switch (script.currentChar()){
@@ -399,5 +399,5 @@ public class ScriptParser {
 		}
 		return argNames;
 	}
-	
+
 }

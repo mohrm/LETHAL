@@ -27,11 +27,11 @@ import java.util.prefs.Preferences;
  *
  */
 public class Settings {
-	
+
 	private static final int MAX_RECENT_FILES = 10;
-	
+
 	private static final Preferences prefs = Preferences.userNodeForPackage(Settings.class);
-	
+
 	/**
 	 * Checks whether the main window is supposed to be maximized or not.
 	 * @return true if maximized, false if not
@@ -46,7 +46,7 @@ public class Settings {
 	public static void setMainWindowMaximized(boolean max){
 		prefs.put("MainWindow/maximized", String.valueOf(max));
 	}
-	
+
 	/**
 	 * Reads the bounding rectangle of the main window.
 	 * @return the bounding rectangle of the main window
@@ -56,7 +56,7 @@ public class Settings {
 							 prefs.getInt("MainWindow/top", 0),
 							 prefs.getInt("MainWindow/width", 800),
 							 prefs.getInt("MainWindow/height", 600));
-		
+
 	}
 	/**
 	 * Stores the bounding rectangle of the main window.
@@ -67,9 +67,9 @@ public class Settings {
 		prefs.put("MainWindow/top",   String.valueOf(rect.y));
 		prefs.put("MainWindow/width", String.valueOf(rect.width));
 		prefs.put("MainWindow/height",String.valueOf(rect.height));
-		
+
 	}
-	
+
 	/**
 	 * Reads the location of the splitter bar in the main window.
 	 * @return the location of the splitter bar in the main window
@@ -84,7 +84,7 @@ public class Settings {
 	public static void setMainWindowSplitterLocation(int val){
 		prefs.put("MainWindow/splitter", String.valueOf(val));
 	}
-	
+
 	/**
 	 * Reads the list of up to MAX_RECENT_FILES recently opened files.
 	 * @return the list of up to MAX_RECENT_FILES recently opened files
@@ -93,7 +93,7 @@ public class Settings {
 		String recentFiles[] = new String[MAX_RECENT_FILES];
 		for (int i = 0; i < MAX_RECENT_FILES; i++){
 			String s = prefs.get("RecentFile" + i, "");
-			recentFiles[i] = (s.length() != 0) ? s : null; 
+			recentFiles[i] = (s.length() != 0) ? s : null;
 		}
 		return recentFiles;
 	}
@@ -106,7 +106,7 @@ public class Settings {
 	public static  void addRecentFile(String filename){
 		String[] oldRecent = getRecentFiles();
 		String[] recent = new String[oldRecent.length];
-	
+
 		prefs.put("RecentFile" + 0 , filename);
 		int d = 1;
 		for (int i = 1; i < recent.length; i++){
@@ -131,5 +131,5 @@ public class Settings {
 			prefs.remove("RecentFile" + i);
 		}
 	}
-	
+
 }

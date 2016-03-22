@@ -28,7 +28,7 @@ import java.util.List;
  * else
  * ...
  * end
- * 
+ *
  * Else is optional
  * condition can by any expression, any resulting value that is not null or false is considered true (including 0!)
  * @author Philipp
@@ -39,7 +39,7 @@ public class If extends Statement {
 	private Expression condition;
 	private List<Statement> ifStatements;
 	private List<Statement> elseStatements;
-	
+
 	/**
 	 * Creates a new If expression.
 	 * @param condition condition expression to evaluate

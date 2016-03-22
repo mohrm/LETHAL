@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treetransducer;
 
@@ -29,9 +29,9 @@ import de.uni_muenster.cs.sev.lethal.tree.common.Tree;
 
 /**
  * Represents an epsilon rule q1-> (q2,v) of a tree transducer,
- * where v is a homomorphism variable tree with at most one variable. 
+ * where v is a homomorphism variable tree with at most one variable.
  * The variable has the number 0.
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public class EasyTTEpsRule extends TTEpsRule<RankedSymbol,State>{
@@ -39,9 +39,9 @@ public class EasyTTEpsRule extends TTEpsRule<RankedSymbol,State>{
 
 	/**
 	 * Constructs a new epsilon rule of a tree transducer. It has the
-	 * form q1-> (q2,v), where v is a variable tree with at most one 
+	 * form q1-> (q2,v), where v is a variable tree with at most one
 	 * variable with number 0, out of two states and a variable tree.
-	 * 
+	 *
 	 * @param src source state
 	 * @param dest destination state
 	 * @param var variable tree with at most one variable. The variable has the number 0.
@@ -49,12 +49,12 @@ public class EasyTTEpsRule extends TTEpsRule<RankedSymbol,State>{
 	/*public EasyTTEpsRule(State src, State dest, StdBiTree<RankedSymbol,Variable> var) {
 		super(src,dest,var);
 	}*/
-	
+
 	/**
 	 * Constructs a new epsilon rule of a tree transducer. It has the
-	 * form q1-> (q2,v), where v is a variable tree with at most one 
+	 * form q1-> (q2,v), where v is a variable tree with at most one
 	 * variable with number 0, out of two states and a variable tree.
-	 * 
+	 *
 	 * @param src source state
 	 * @param dest destination state
 	 * @param var variable tree with at most one variable. The variable has the number 0.

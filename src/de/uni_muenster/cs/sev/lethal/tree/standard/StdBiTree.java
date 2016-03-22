@@ -34,14 +34,14 @@ import de.uni_muenster.cs.sev.lethal.tree.common.Tree;
  *
  * @param <I> type of symbols which can be used for leaves or inner nodes
  * @param <L> type of symbols which must be used as leaves
- *  
+ *
  * @author Martin
  */
 public class StdBiTree<I extends Symbol,L> extends StdTree<BiSymbol<I,L>>{
 
 	/**
 	 * Creates a BiTree out of a leaf.
-	 * 
+	 *
 	 * @param leaf leaf to be put into a tree
 	 */
 	public StdBiTree(final L leaf) {
@@ -50,9 +50,9 @@ public class StdBiTree<I extends Symbol,L> extends StdTree<BiSymbol<I,L>>{
 
 	/**
 	 * Creates a BiTree out of a root symbol and subtrees.
-	 * 
+	 *
 	 * @param symbol root symbol of the new bitree
-	 * @param subTrees subtrees of the new bitree 
+	 * @param subTrees subtrees of the new bitree
 	 */
 	public StdBiTree(final I symbol, List<? extends Tree<BiSymbol<I,L>>> subTrees) {
 		super(new InnerSymbol<I,L>(symbol), subTrees);

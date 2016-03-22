@@ -39,33 +39,33 @@ import de.uni_muenster.cs.sev.lethal.hedgeautomaton.EasyHedgeAutomaton;
  *
  */
 public class TreeAutomatonDisplayWindow extends JFrame {
-	
+
 	private JTextArea ftaDisplay = new JTextArea();
 	private JToolBar toolbar = new JToolBar();
 	private JButton closeButton = new JButton("Discard");
 	private JTextField itemNameField = new JTextField();
 	private JButton saveButton = new JButton("Add to Project");
 	private JButton overwriteButton = new JButton("Overwrite");
-	
+
 	/**
 	 * Creates and shows a new TreeAutomatonDisplayWindow for a finite tree automaton.
 	 * @param fta finite tree automaton to show
-	 * @param project project to add the automaton to when the user clicks "Add to Project". 
+	 * @param project project to add the automaton to when the user clicks "Add to Project".
 	 * If null, the automaton cannot be added to a project and the controls for that will be removed.
 	 * @param suggestedName suggested name when added to the project. may be null
-	 * @param sourceItem if the automaton is derived from an existing item in the project and this is 
-	 * passed here, the user can replace the FTA in that item with the one shown here by clicking "Overwrite". 
+	 * @param sourceItem if the automaton is derived from an existing item in the project and this is
+	 * passed here, the user can replace the FTA in that item with the one shown here by clicking "Overwrite".
 	 * If sourceItem is null this feature is disabled.
 	 * @param title title of the window. May be null, the window title will just be "FTAView" in this case.
 	 */
 	public TreeAutomatonDisplayWindow(final EasyFTA fta, final Project project, String suggestedName, final FTAItem sourceItem, String title){
 		this.setTitle("FTA View" + ((title != null) ? " - " + title : ""));
-		
+
 		this.ftaDisplay.setText(fta.toString());
 		this.ftaDisplay.setEditable(false);
-		
+
 		initCommon(project, suggestedName);
-				
+
 		if (sourceItem != null){
 			this.toolbar.add(overwriteButton);
 			this.overwriteButton.addActionListener(new ActionListener(){
@@ -74,10 +74,10 @@ public class TreeAutomatonDisplayWindow extends JFrame {
 					sourceItem.setAutomaton(fta, fta.rulesToString(), AbstractTreeAutomatonItem.INPUT_MODE_RULES);
 					TreeAutomatonDisplayWindow.this.dispose();
 				}
-				
+
 			});
 		}
-		
+
 		if (project != null){
 			this.saveButton.addActionListener(new ActionListener(){
 				@Override
@@ -90,17 +90,17 @@ public class TreeAutomatonDisplayWindow extends JFrame {
 						return;
 					}
 					String s = fta.rulesToString();
-					
+
 					try {
 						//use FTAParser to convert possible complex states/symbol to their string version, so that they actually are what they look like on the GUI
-						project.addItem(new FTAItem(name, project, FTAParser.parseString(s),s)); 
+						project.addItem(new FTAItem(name, project, FTAParser.parseString(s),s));
 					} catch (ParseException e1) {
 						e1.printStackTrace();
 					}
 					TreeAutomatonDisplayWindow.this.dispose();
 				}
 			});
-			
+
 			try{
 				FTAParser.parseString(fta.rulesToString());
 			} catch (TokenMgrError ex){
@@ -114,9 +114,9 @@ public class TreeAutomatonDisplayWindow extends JFrame {
 				this.itemNameField.setEnabled(false);
 				this.saveButton.setEnabled(false);
 			}
-			
+
 		}
-		
+
 		this.setVisible(true);
 	}
 
@@ -125,20 +125,20 @@ public class TreeAutomatonDisplayWindow extends JFrame {
 	 * @param project project to add the automaton to when the user clicks "Add to Project".
 	 *  FIXME: HA's don't have a parseable output, so this does NOT work and is disabled.
 	 * @param suggestedName suggested name when added to the project. may be null
-	 * @param sourceItem if the automaton is derived from an existing item in the project and this is passed here, 
-	 * the user can replace the finite tree automaton in that item with the one shown here by clicking "Overwrite".  
+	 * @param sourceItem if the automaton is derived from an existing item in the project and this is passed here,
+	 * the user can replace the finite tree automaton in that item with the one shown here by clicking "Overwrite".
 	 * FIXME: HA's don't have a parse able output, so this does NOT work and is disabled.
 	 * @param title title of the window. May be null, the window title will just be "Hedge Automaton View" in this case.
 	 * @param ha hedge automaton to show
 	*/
 	public TreeAutomatonDisplayWindow(final EasyHedgeAutomaton ha, final Project project, String suggestedName, final HedgeAutomatonItem sourceItem, String title){
 		this.setTitle("Hedge Automaton View" + ((title != null) ? " - " + title : ""));
-		
+
 		this.ftaDisplay.setText(ha.toString());
 		this.ftaDisplay.setEditable(false);
-		
+
 		initCommon(project, suggestedName);
-		
+
 		if (sourceItem != null){
 			this.toolbar.add(overwriteButton);
 			this.overwriteButton.addActionListener(new ActionListener(){
@@ -147,10 +147,10 @@ public class TreeAutomatonDisplayWindow extends JFrame {
 					sourceItem.setAutomaton(ha, ha.toString(), AbstractTreeAutomatonItem.INPUT_MODE_RULES);
 					TreeAutomatonDisplayWindow.this.dispose();
 				}
-				
+
 			});
 		}
-		
+
 		if (project != null){
 			this.saveButton.addActionListener(new ActionListener(){
 				@Override
@@ -167,24 +167,24 @@ public class TreeAutomatonDisplayWindow extends JFrame {
 				}
 			});
 		}
-		
-		//FIXME: Can't parse the HA.toString() text representation back in and thus not create an user-reditable item. 
+
+		//FIXME: Can't parse the HA.toString() text representation back in and thus not create an user-reditable item.
 		this.overwriteButton.setEnabled(false);
 		this.itemNameField.setEnabled(false);
 		this.saveButton.setEnabled(false);
-		
+
 		this.setVisible(true);
 	}
 
-	
-	
-	
+
+
+
 	private void initCommon(Project project, String suggestedName){
 		this.setLayout(new BorderLayout());
 		this.add(new JScrollPane(ftaDisplay), BorderLayout.CENTER);
-		
+
 		this.add(this.toolbar, BorderLayout.NORTH);
-		
+
 		this.toolbar.add(this.closeButton);
 		this.closeButton.addActionListener(new ActionListener(){
 			@Override
@@ -192,7 +192,7 @@ public class TreeAutomatonDisplayWindow extends JFrame {
 				TreeAutomatonDisplayWindow.this.dispose();
 			}
 		});
-		
+
 		if (project != null){
 			this.toolbar.addSeparator();
 			this.toolbar.add(new JLabel("Name:"));
@@ -200,11 +200,11 @@ public class TreeAutomatonDisplayWindow extends JFrame {
 			if (suggestedName == null) suggestedName = "newautomaton";
 			suggestedName = project.convertToValidNewItemName(suggestedName);
 			this.itemNameField.setText(suggestedName);
-			
+
 			this.toolbar.add(saveButton);
 		}
 
 		this.setSize(500,400);
 	}
-	
+
 }

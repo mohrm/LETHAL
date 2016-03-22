@@ -50,7 +50,7 @@ public class HomomorphismItem extends Item {
 		item.homomorphismString = homomorphismDescription;
 		return item;
 	}
-	
+
 	/**
 	 * Returns the user visible class name for homomorphism items.
 	 * @return the user visible class name for homomorphism items
@@ -58,17 +58,17 @@ public class HomomorphismItem extends Item {
 	public static String getItemClassName(){
 		return "Tree Homomorphism";
 	}
-	
+
 	/**
 	 * Homomorphism stored in this item.
 	 */
 	private EasyHom homomorphism;
-	
+
 	/**
 	 * User entered string description of the homomorphism in this item.
 	 */
 	private String homomorphismString;
-	
+
 	/**
 	 * Creates a new homomorphism item with an empty homomorphism.
 	 * @param name name of this homomorphism item
@@ -86,7 +86,7 @@ public class HomomorphismItem extends Item {
 	public EasyHom getHomomorphism(){
 		return this.homomorphism;
 	}
-	
+
 	/**
 	 * Returns the user entered string description of the homomorphism in this item.
 	 * @return the user entered string description of the homomorphism in this item
@@ -94,7 +94,7 @@ public class HomomorphismItem extends Item {
 	public String getHomomorphismString(){
 		return this.homomorphismString;
 	}
-	
+
 	/**
 	 * Updates the homomorphism stored in this item.
 	 * @param homomorphism the new homomorphism to be stored in this item
@@ -107,12 +107,12 @@ public class HomomorphismItem extends Item {
 		this.homomorphismString = homomorphismString;
 		super.fireItemContentSet();
 	}
-	
+
 	@Override
 	public Editor getEditor() {
 		return new HomomorphismEditor(this);
 	}
-	
+
 	@Override
 	public void toXML(Element parentElement) {
 		if (this.homomorphismString == null) return;

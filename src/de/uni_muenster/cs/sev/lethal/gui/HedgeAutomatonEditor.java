@@ -80,7 +80,7 @@ public class HedgeAutomatonEditor extends AbstractTreeAutomatonEditor {
 		this.quickApplyButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				final HedgeAutomaton<UnrankedSymbol,State> automaton = tryParseCurrentAutomaton();
-				if (automaton == null) return; 
+				if (automaton == null) return;
 
 				JPopupMenu menu = new JPopupMenu();
 				ApplyEvent<HedgeItem> hedgeApplyAction = new ApplyEvent<HedgeItem>(){
@@ -99,7 +99,7 @@ public class HedgeAutomatonEditor extends AbstractTreeAutomatonEditor {
 					}
 				};
 				menu.add(generateApplyMenu(item.getProject(), HedgeItem.class, hedgeApplyAction));
-				
+
 				menu.addSeparator();
 				JMenuItem complementApplyMenu = new JMenuItem("Complement");
 				menu.add(complementApplyMenu);
@@ -139,13 +139,13 @@ public class HedgeAutomatonEditor extends AbstractTreeAutomatonEditor {
 												  null,
 												  null,
 												  "Example tree accepted by " + item.getName());
-							
+
 						}
 					}
 				});
-				
+
 				menu.addSeparator();
-				
+
 				JMenuItem convertApplyMenu = new JMenuItem("Convert to Finite Tree Automaton");
 				menu.add(convertApplyMenu);
 				convertApplyMenu.addActionListener(new ActionListener(){
@@ -171,12 +171,12 @@ public class HedgeAutomatonEditor extends AbstractTreeAutomatonEditor {
 								HedgeAutomatonEditor.this.item.getProject(),
 								HedgeAutomatonEditor.this.item.getName() + "_converted",
 								null,
-								"Convert HA '" + HedgeAutomatonEditor.this.item.getName() + "' to FTA"); 
+								"Convert HA '" + HedgeAutomatonEditor.this.item.getName() + "' to FTA");
 					}
 				});
-				
+
 				initTreePreview(menu);
-				
+
 				menu.show(quickApplyButton, 0, quickApplyButton.getHeight());
 			}
 		});

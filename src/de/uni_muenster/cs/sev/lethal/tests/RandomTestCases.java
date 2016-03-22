@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.tests;
 
@@ -57,7 +57,7 @@ import de.uni_muenster.cs.sev.lethal.treetransducer.EasyTTRule;
 
 /**
  * Generates some random test cases, for example trees and homomorphisms.
- * 
+ *
  * @author Irene
  *
  */
@@ -77,7 +77,7 @@ class RandomTestCases {
 
 	/**
 	 * Generates a tree over the given alphabet.
-	 * 
+	 *
 	 * @param alphabet alphabet over which the tree shall be produced
 	 * @param maxHeight maximal height of the tree
 	 * @return generated tree
@@ -106,15 +106,15 @@ class RandomTestCases {
 
 	/**
 	 * Generates a homomorphism with the given parameters.
-	 * 
-	 * @param startAlph start alphabet 
+	 *
+	 * @param startAlph start alphabet
 	 * @param destAlph destination alphabet
 	 * @param maxTreeHeight maximum height of the trees in the homomorphism
 	 * @param linear whether the homomorphism shall be linear
 	 * @return Homomorphism over the given alphabets
 	 */
 	public EasyHom randomHom(RankedSymbol[] startAlph, RankedSymbol[] destAlph, int maxTreeHeight, boolean linear){
-		Map<RankedSymbol, Tree<? extends BiSymbol<RankedSymbol, Variable>>> hom = 
+		Map<RankedSymbol, Tree<? extends BiSymbol<RankedSymbol, Variable>>> hom =
 			new HashMap<RankedSymbol,Tree<? extends BiSymbol<RankedSymbol,Variable>>>();
 		for (RankedSymbol f: startAlph){
 			LinkedList<Variable> vars = new LinkedList<Variable>();
@@ -128,7 +128,7 @@ class RandomTestCases {
 
 	/**
 	 * Generates a tree over ranked symbols and variables. Used to generate a homomorphism.
-	 * 
+	 *
 	 * @param alphabet alphabet of ranked symbols
 	 * @param vars list of variables can occur in the tree
 	 * @param maxHeight maximum height of the tree
@@ -179,14 +179,14 @@ class RandomTestCases {
 
 	/**
 	 * Generates a random tree transducer with the given parameters.
-	 * 
+	 *
 	 * @param startAlph start alphabet
 	 * @param destAlph destination alphabet
 	 * @param maxTreeHeight maximum tree height
 	 * @param linear whether the tree transducer shall be linear
 	 * @param numStates maximal number of states
 	 * @param numRules number of rules
-	 * @param numFinal number of final states 
+	 * @param numFinal number of final states
 	 * @return generated tree transducer
 	 */
 	public EasyTT randomTT(RankedSymbol[] startAlph, RankedSymbol[] destAlph, int maxTreeHeight,
@@ -199,13 +199,13 @@ class RandomTestCases {
 
 		// Final states
 		ArrayList<State> finals = new ArrayList<State>();
-		for (int i=0;i<numFinal;++i) 
+		for (int i=0;i<numFinal;++i)
 			finals.add(states[i]);
 
 		// Rules
-		ArrayList<EasyTTRule> rules = new ArrayList<EasyTTRule>(); 
+		ArrayList<EasyTTRule> rules = new ArrayList<EasyTTRule>();
 		for (int i=0;i<numRules;++i) {
-			// Create rule 
+			// Create rule
 			RankedSymbol f = startAlph[rand.nextInt(startAlph.length)];
 			State dest = states[rand.nextInt(numStates)];
 			List<State> source = new ArrayList<State>(f.getArity());
@@ -219,11 +219,11 @@ class RandomTestCases {
 		}
 		return new EasyTT(finals,Arrays.asList(startAlph),Arrays.asList(destAlph),rules);
 	}
-	
-	
+
+
 	/**
 	 * Generates a language with unranked symbols for hedge automata.
-	 * 
+	 *
 	 * @param numSymbols number of symbols which shall be generated.
 	 */
 	public void generateUnrankedLanguage(int numSymbols){
@@ -232,10 +232,10 @@ class RandomTestCases {
 			unrankedSymbols[i]= new StdNamedUnrankedSymbol<Integer>(i);
 		}
 	}
-	
+
 	/**
 	 * Generates a hedge grammar with the given parameters.
-	 * 
+	 *
 	 * @param numNonterminals number of nonterminals occuring
 	 * @param numRules number of rules occuring
 	 * @param maxDeepthExp maximal deepth of regular expressions
@@ -244,9 +244,9 @@ class RandomTestCases {
 	public HedgeGrammar<UnrankedSymbol> randomHedgeGrammar(int numNonterminals, int numRules, int maxDeepthExp){
 		if (unrankedSymbols == null)
 			generateUnrankedLanguage(10);
-		
+
 		HedgeGrammar<UnrankedSymbol> schema =  new HedgeGrammar<UnrankedSymbol>();
-		
+
 		//generate nonterminals and start symbol
 		Nonterminal<UnrankedSymbol>[] nonterminals = new Nonterminal[numNonterminals];
 		for (int i=0; i<numNonterminals; i++){
@@ -254,13 +254,13 @@ class RandomTestCases {
 			if (rand.nextInt(3)==0)
 				schema.addStart(nonterminals[i]);
 		}
-		
+
 		// generate terminals
-		Terminal<UnrankedSymbol>[] terminals = new Terminal[unrankedSymbols.length]; 
+		Terminal<UnrankedSymbol>[] terminals = new Terminal[unrankedSymbols.length];
 		for (int i=0; i<unrankedSymbols.length; i++){
 			terminals[i] = new Terminal<UnrankedSymbol>(unrankedSymbols[i]);
 		}
-		
+
 		// generate rules
 		for (int i=0; i<numRules;i++){
 			GrammarExpression<UnrankedSymbol> exp = randomExpression(nonterminals,terminals,maxDeepthExp);
@@ -268,7 +268,7 @@ class RandomTestCases {
 					nonterminals[rand.nextInt(numNonterminals)],
 					terminals[rand.nextInt(terminals.length)], exp));
 		}
-		
+
 		return schema;
 	}
 

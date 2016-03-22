@@ -31,21 +31,21 @@ import de.uni_muenster.cs.sev.lethal.script.exceptions.ScriptRuntimeError;
  * @author Philipp
  *
  */
-public class ProjectClass extends ScriptClass { 
-	
+public class ProjectClass extends ScriptClass {
+
 	/**
 	 * Creates a new instance of the project class. To be used on script start.
 	 * @param scriptObjects script objects to bind in the Project class environment
 	 */
 	public ProjectClass(final HashMap<String,ScriptObject> scriptObjects) {
 		super("Project", null, RootClass.newStaticClassEnvironment(), false);
-		
+
 		final HashMap<ScriptObject, ArrayList<ScriptObject>> objectsByClass = new HashMap<ScriptObject, ArrayList<ScriptObject>>();
-		
+
 		for (String name : scriptObjects.keySet()){
 			ScriptObject sobj = scriptObjects.get(name);
 			this.setMember(name, sobj);
-			
+
 			ArrayList<ScriptObject> clist = objectsByClass.get(sobj.getParentClass());
 			if (clist == null){
 				clist = new ArrayList<ScriptObject>();
@@ -53,18 +53,18 @@ public class ProjectClass extends ScriptClass {
 			}
 			clist.add(sobj);
 		}
-		
+
 		this.setMember("all", new Method(Method.ARITY_ARBITARY){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
 				Collection<ScriptObject> classes;
-				
+
 				if (args.size() != 0){
 					classes = args;
 				} else {
 					classes = objectsByClass.keySet();
 				}
-				
+
 				List<ScriptObject> result;
 				result = new ArrayList<ScriptObject>();
 				for (ScriptObject sclass : classes){
@@ -76,20 +76,20 @@ public class ProjectClass extends ScriptClass {
 				return new ArrayObject(result);
 			}
 		});
-		
+
 		this.setMember("each", new Method(Method.ARITY_ARBITARY){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
 				if (block == null) throw new ScriptRuntimeError("Project.each() needs a block");
 				int count = 0;
 				Collection<ScriptObject> classes;
-				
+
 				if (args.size() != 0){
 					classes = args;
 				} else {
 					classes = objectsByClass.keySet();
 				}
-				
+
 				List<ScriptObject> argList = new ArrayList<ScriptObject>(1);
 				argList.add(null); //dummy to make set work.)
 				for (ScriptObject sclass : classes){
@@ -106,7 +106,7 @@ public class ProjectClass extends ScriptClass {
 			}
 		});
 	}
-	
+
 	@Override
 	public ScriptObject newInstance(List<ScriptObject> args, MethodObject block) {
 		return null;

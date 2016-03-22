@@ -24,9 +24,9 @@ package de.uni_muenster.cs.sev.lethal.script.exceptions;
  *
  */
 public class ScriptParseException extends RuntimeException {
-	
+
 	private int line;
-	
+
 	/**
 	 * Creates a ScriptParseException
 	 * @param line text line the error occurred in.
@@ -44,5 +44,5 @@ public class ScriptParseException extends RuntimeException {
 	public int getLine() {
 		return line;
 	}
-	
+
 }

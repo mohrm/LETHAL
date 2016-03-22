@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.utils;
 
@@ -26,17 +26,17 @@ package de.uni_muenster.cs.sev.lethal.utils;
  * This conversion has to be well-defined, that means
  * if you have assignments c = convert(a) and d = convert(a), then
  * c.equals(d).
- * 
+ *
  * @param <A> type to be converted
  * @param <B> type to be converted into
- * 
+ *
  * @author Martin
  */
 public interface Converter<A, B> {
 
 	/**
 	 * Converts an object of type A into an object of type B.
-	 * 
+	 *
 	 * @param a object to be converted
 	 * @return converted version of the given object
 	 */

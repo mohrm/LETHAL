@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.states;
 

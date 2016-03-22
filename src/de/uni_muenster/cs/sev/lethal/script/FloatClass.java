@@ -31,7 +31,7 @@ public class FloatClass extends ScriptClass {
 
 	/** Singleton FloatClass class instance */
 	public static final FloatClass floatClass = new FloatClass();
-	
+
 	private FloatClass() {
 		super("Float", null, RootClass.newStaticClassEnvironment(), false);
 	}
@@ -49,7 +49,7 @@ public class FloatClass extends ScriptClass {
  *
  */
 class FloatObject extends ScriptObject{
-	
+
 	private static final Environment floatInstEnv = FloatClass.floatClass.newInstanceEnvironment(); //one shared instance env for all float objects. Don't need one for each of them.
 	{
 		floatInstEnv.bindLocal("<", new Method(1){
@@ -144,8 +144,8 @@ class FloatObject extends ScriptObject{
 				}
 			}
 		});
-		
-		
+
+
 		floatInstEnv.bindLocal("to_i", new Method(0){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -160,9 +160,9 @@ class FloatObject extends ScriptObject{
 		});
 		floatInstEnv.setOwner(FloatClass.floatClass); //it is actually  an instance env, but it is shared among all instances. So we set the class as the owner.
 	}
-	
+
 	private double value;
-	
+
 	/**
 	 * Create a new FloatObject
 	 * @param value value to represent
@@ -171,7 +171,7 @@ class FloatObject extends ScriptObject{
 		super(FloatClass.floatClass, floatInstEnv.newFrame());
 		this.value = value;
 	}
-	
+
 	/**
 	 * Returns the value represented by this FloatObject
 	 * @return the value represented by this FloatObject
@@ -179,7 +179,7 @@ class FloatObject extends ScriptObject{
 	public double getValue(){
 		return this.value;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj){
 		return ((obj instanceof IntegerObject && ((IntegerObject)obj).getValue() == this.value)
@@ -190,7 +190,7 @@ class FloatObject extends ScriptObject{
 	public String toString(){
 		return String.valueOf(this.value);
 	}
-	
+
 	@Override
 	public int hashCode(){
 		return ((Double)this.value).hashCode();

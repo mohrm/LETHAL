@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.tree.standard;
 
@@ -31,9 +31,9 @@ import de.uni_muenster.cs.sev.lethal.factories.TreeFactory;
 
 /**
  * Standard implementation of TreeCreator using the global factory.
- * 
+ *
  * @param <S> symbol type of trees to be created
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public class StdTreeCreator<S extends Symbol> implements TreeCreator<S,Tree<S>> {

@@ -63,18 +63,18 @@ public abstract class AbstractTreeEditor extends Editor {
 		this.invalidLabel.setForeground(Color.RED);
 
 		this.toolbar.add(this.randomButton);
-		
+
 		this.toolbar.add(quickApplyButton);
-		
+
 		this.treeViewer = new TreeViewer(item.getTree());
 		this.add(this.treeViewer, BorderLayout.CENTER);
-		
+
 		// load tree if it has been saved
 		if (item.getTree()!=null) {
 			this.insertField.setText(item.getTree().toString());
 			this.setValid(true);
 		}
-		
+
 		insertField.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void changedUpdate(DocumentEvent e) {_drawTerm(false); setDirty(true);}
@@ -83,9 +83,9 @@ public abstract class AbstractTreeEditor extends Editor {
 			@Override
 			public void removeUpdate(DocumentEvent e) {_drawTerm(false); setDirty(true);}
 		});
-		
+
 		drawTerm(false);
-		
+
 		this.randomButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -95,9 +95,9 @@ public abstract class AbstractTreeEditor extends Editor {
 			}
 		});
 	}
-	
+
 	/**
-	 * Sets the valid state of the editor. 
+	 * Sets the valid state of the editor.
 	 * @param valid true if the currently entered string is a valid tree, false if not.
 	 */
 	protected void setValid(boolean valid){
@@ -122,10 +122,10 @@ public abstract class AbstractTreeEditor extends Editor {
 		}
 		drawTerm(showError);
 	}
-	
+
 	private TreeViewer tb;
-	
+
 	protected abstract void drawTerm(boolean showError);
-	
+
 	protected abstract Class<? extends Symbol> getTreeSymbolClass();
 }

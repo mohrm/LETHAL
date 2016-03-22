@@ -32,7 +32,7 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.UnrankedSymbol;
  * {@link RegularExpression}.
  * <p/>
  * The subclasses represent different ways of producing regular expressions.
- * 
+ *
  * @author Anton, Maria
  * @param <G_Symbol> symbol type of the hedge grammar
  */

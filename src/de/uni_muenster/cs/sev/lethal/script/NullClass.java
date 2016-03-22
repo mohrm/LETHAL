@@ -26,10 +26,10 @@ import java.util.List;
  *
  */
 public final class NullClass extends ScriptClass {
-	
+
 	/** Singleton NullClass class instance */
 	public static final NullClass nullClass = new NullClass();
-	
+
 	private NullClass() {
 		super("NullClass", null, RootClass.newStaticClassEnvironment(), false);
 	}
@@ -43,14 +43,14 @@ public final class NullClass extends ScriptClass {
 }
 
 /**
- * Script "null" Object 
+ * Script "null" Object
  * @author Philipp
  *
  */
 class NullObject extends ScriptObject {
 
 	public static final NullObject nullObject = new NullObject();
-	
+
 	protected NullObject() {
 		super(NullClass.nullClass);
 		this.getEnvironment().bindLocal("==", new Method(1){
@@ -66,25 +66,25 @@ class NullObject extends ScriptObject {
 			}
 		});
 	}
-	
+
 	@Override
 	public boolean isTrue() {
 		return false;
 	}
-	
+
 	@Override
 	public String toString(){
 		return "null";
 	}
-	
+
 	@Override
 	public boolean equals(Object o){
 		return o == nullObject;
 	}
-	
+
 	@Override
 	public int hashCode(){
 		return 0;
 	}
-	
+
 }

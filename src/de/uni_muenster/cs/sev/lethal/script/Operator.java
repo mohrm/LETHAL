@@ -31,14 +31,14 @@ import de.uni_muenster.cs.sev.lethal.script.exceptions.ScriptRuntimeError;
  */
 public abstract class Operator extends Expression {
 	protected Expression right;
-	
+
 	protected boolean bound;
-	
+
 	/**
 	 * Returns a binary operator of the for a given name
 	 * The operator is in unbound state, meaning that no operands have been given to it yet.
 	 * This has to be done by using the bind() method before using it.
-	 * @param script currently parsed script 
+	 * @param script currently parsed script
 	 * @param name name of the operator
 	 * @return operator of the for a given name
 	 */
@@ -67,7 +67,7 @@ public abstract class Operator extends Expression {
 	 * Returns an unary operator of the for a given name
 	 * The operator is in unbound state, meaning that no operands have been given to it yet.
 	 * This has to be done by using the bind() method before using it.
-	 * @param script currently parsed script 
+	 * @param script currently parsed script
 	 * @param name name of the operator
 	 * @return operator of the for a given name
 	 */
@@ -78,7 +78,7 @@ public abstract class Operator extends Expression {
 			return new Not();
 		} else throw new ScriptParseException(script.getCurrentLine(), "Unary Operator '" + name + "' not found");
 	}
-	
+
 	/**
 	 * Returns true if the operator has been bound to its operands, false if not.
 	 * @return true if the operator has been bound to its operands, false if not.
@@ -86,7 +86,7 @@ public abstract class Operator extends Expression {
 	public boolean isBound(){
 		return bound;
 	}
-	
+
 	/**
 	 * Get the bind weight of this operator
 	 * A higher value means a stronger binding to its neighbor expressions.
@@ -123,7 +123,7 @@ class Sign extends UnaryOperator{
 		ScriptObject vright = right.execute(env);
 		//Ugh...
 		if (vright instanceof IntegerObject){
-			return ScriptObject.make( - ((IntegerObject)vright).getValue()); 
+			return ScriptObject.make( - ((IntegerObject)vright).getValue());
 		} else if (vright instanceof FloatObject){
 			return ScriptObject.make( - ((FloatObject)vright).getValue());
 		} else {
@@ -145,7 +145,7 @@ class Not extends UnaryOperator{
 		ScriptObject vright = right.execute(env);
 		//Ugh...
 		if (vright instanceof BooleanObject){
-			return ScriptObject.make( !((BooleanObject)vright).getValue()); 
+			return ScriptObject.make( !((BooleanObject)vright).getValue());
 		} else {
 			throw new ScriptRuntimeError("Operator ! expects boolean argument");
 		}
@@ -161,9 +161,9 @@ class Not extends UnaryOperator{
  */
 abstract class BinaryOperator extends Operator{
 	protected Expression left;
-	
+
 	/**
-	 * Bind the binary operator to its left and right expressions 
+	 * Bind the binary operator to its left and right expressions
 	 * @param left left side expression
 	 * @param right right side expression
 	 */
@@ -175,7 +175,7 @@ abstract class BinaryOperator extends Operator{
 }
 
 /**
- * Assignment operator (binds name left side to the right side value) 
+ * Assignment operator (binds name left side to the right side value)
  * @author Philipp
  *
  */
@@ -201,18 +201,18 @@ class Assign extends BinaryOperator{
  *
  */
 class MethodOperator extends BinaryOperator{
-	
+
 	private String method;
 	private boolean swap;
 	private int bindWeight;
-	
+
 	public MethodOperator(String method, boolean swap, int bindWeight){
 		this.method = method;
 		this.swap = swap;
 		this.bindWeight = bindWeight;
 	}
-	
-	
+
+
 	@Override
 	public void bind(Expression left, Expression right) {
 		if (swap){

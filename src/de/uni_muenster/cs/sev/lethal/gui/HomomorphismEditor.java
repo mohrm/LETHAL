@@ -42,7 +42,7 @@ public class HomomorphismEditor extends Editor {
 	private JButton helpButton = new JButton("Help",Resources.loadIcon("help.png"));
 
 	protected JButton quickApplyButton = new JButton("Quick Operations", Resources.loadIcon("fta-quickops.png"));
-	
+
 	/** Text field in which the user enters new rules. */
 	private JTextArea editorTextField = new JTextArea();
 
@@ -77,9 +77,9 @@ public class HomomorphismEditor extends Editor {
 			public void actionPerformed(ActionEvent e) {
 				final EasyHom hom = tryParseCurrentHomomorphism();
 				if (hom == null) return;
-				
+
 				JPopupMenu menu = new JPopupMenu();
-				
+
 				ApplyEvent<TreeItem> treeApplyAction = new ApplyEvent<TreeItem>(){
 					@Override
 					public void apply(TreeItem treeItem){
@@ -92,7 +92,7 @@ public class HomomorphismEditor extends Editor {
 									item.getProject(),
 									treeItem.getName() + "_" + item.getName(),
 									null,
-									null, 
+									null,
 									"Transformation result: " + HomomorphismEditor.this.item.getName() + " on " + treeItem.getName()
 							);
 						} catch (Exception ex) {
@@ -121,14 +121,14 @@ public class HomomorphismEditor extends Editor {
 					}
 				};
 				menu.add(generateApplyMenu(item.getProject(), FTAItem.class, ftaApplyAction));
-				
+
 				initTreePreview(menu);
 				menu.show(quickApplyButton, 0, quickApplyButton.getHeight());
 			}
 		});
-		
-		
-		
+
+
+
 		this.helpButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(HomomorphismEditor.this, "Enter tree homomorphism rules using format:\nfunction(var1,var2,...,varN) -> tree(subtree(...,var1,...),...,subtree(...,varN)) \n\nOne Rule in each line.", "Help", JOptionPane.INFORMATION_MESSAGE);
@@ -140,7 +140,7 @@ public class HomomorphismEditor extends Editor {
 	protected boolean saveToItem(){
 		EasyHom homomorphism = tryParseCurrentHomomorphism();
 		if (homomorphism == null) return false;
-		
+
 		item.setHomomorphism(homomorphism, this.editorTextField.getText());
 
 		setDirty(false);
@@ -161,12 +161,12 @@ public class HomomorphismEditor extends Editor {
 			return null;
 		}
 	}
-	
+
 	@Override
 	public HomomorphismItem getItem(){
 		return this.item;
 	}
-	
+
 	@Override
 	public String getName() {
 		return "Homomorphism Editor";

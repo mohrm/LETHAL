@@ -32,7 +32,7 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTA;
  *
  */
 public class FTAItem extends AbstractTreeAutomatonItem {
-	
+
 	/**
 	 * Reads a saved FTAItem from an XML element .
 	 * @param parentElement XML element containing the serialized automaton
@@ -43,7 +43,7 @@ public class FTAItem extends AbstractTreeAutomatonItem {
 	 */
 	public static FTAItem fromXML(Element parentElement, Project project) throws ParseException, de.uni_muenster.cs.sev.lethal.parser.ftagrammar.ParseException{
 		FTAItem item = new FTAItem(parentElement.getAttribute("name"), project);
-		
+
 		if (parentElement.getTextContent().trim().length() == 0){
 			StringBuffer rulesString = new StringBuffer();
 			for (int i = 0; i < parentElement.getChildNodes().getLength(); i++){
@@ -55,19 +55,19 @@ public class FTAItem extends AbstractTreeAutomatonItem {
 		} else {
 			item.automatonString = parentElement.getTextContent().trim();
 		}
-		
+
 		String sinputmode = parentElement.getAttribute("inputmode");
 		item.inputMode = (sinputmode.length() > 0 ? Integer.valueOf(sinputmode) : INPUT_MODE_RULES);
-		
+
 		if (item.inputMode == INPUT_MODE_GRAMMAR){
 			item.automaton = FTAGrammarParser.parseString(item.automatonString);
 		} else {
 			item.automaton = FTAParser.parseString(item.automatonString);
 		}
-		
+
 		return item;
 	}
-	
+
 	/**
 	 * User readable class name of the FTAItems.
 	 * @return the readable class name of the FTAItems.
@@ -78,10 +78,10 @@ public class FTAItem extends AbstractTreeAutomatonItem {
 
 	/** Represented tree automaton. */
 	private EasyFTA automaton;
-	
+
 	/** User entered string representation of the automaton. */
 	private String automatonString;
-	
+
 	/**
 	 * Create a new FTA Item with an empty (no rules) finite tree automaton.
 	 * @param name user visible, project unique name of the item
@@ -91,13 +91,13 @@ public class FTAItem extends AbstractTreeAutomatonItem {
 		super(name, project);
 		this.automaton = new EasyFTA(); //start with an empty automaton
 	}
-	
+
 	/**
 	 * Create a new FTA Item with a given finite tree automaton.
 	 * @param name user visible, project unique name of the item
 	 * @param project project this item belongs to
-	 * @param automaton finite tree automaton in this item 
-	 * @param automatonString user entered string description of the finite tree automaton 
+	 * @param automaton finite tree automaton in this item
+	 * @param automatonString user entered string description of the finite tree automaton
 	 * (input in RULES mode assumed!)
 	 */
 	public FTAItem(String name, Project project, EasyFTA automaton, String automatonString){
@@ -105,7 +105,7 @@ public class FTAItem extends AbstractTreeAutomatonItem {
 		this.automaton = automaton;
 		this.automatonString = automatonString;
 	}
-	
+
 	/**
 	 * @see de.uni_muenster.cs.sev.lethal.gui.Item#getEditor()
 	 */
@@ -113,7 +113,7 @@ public class FTAItem extends AbstractTreeAutomatonItem {
 	public Editor getEditor() {
 		return new FTAEditor(this);
 	}
-	
+
 	/**
 	 * Gets the represented automaton.
 	 * @return represented automaton
@@ -121,7 +121,7 @@ public class FTAItem extends AbstractTreeAutomatonItem {
 	public EasyFTA getAutomaton() {
 		return automaton;
 	}
-	
+
 	/**
 	 * Returns the string representation of the FTA in this item.
 	 * @return the string representation of the FTA in this item
@@ -129,7 +129,7 @@ public class FTAItem extends AbstractTreeAutomatonItem {
 	public String getAutomatonString(){
 		return automatonString;
 	}
-	
+
 	/**
 	 * Sets automaton to be represented.
 	 * @param automaton automaton to be represented
@@ -145,7 +145,7 @@ public class FTAItem extends AbstractTreeAutomatonItem {
 			super.fireItemContentSet();
 		}
 	}
-	
+
 	@Override
 	public void toXML(Element parentElement){
 		if (this.automaton == null) return;

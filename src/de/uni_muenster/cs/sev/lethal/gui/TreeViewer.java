@@ -66,7 +66,7 @@ public class TreeViewer extends JPanel{
 	private Font textFont = refFont;
 
 	private Font annotationsRefFont = new Font("Monospaced",Font.PLAIN, 10);
-	private Font annotationsFont = annotationsRefFont;	
+	private Font annotationsFont = annotationsRefFont;
 
 	private float zoomFactor = 1;
 
@@ -178,11 +178,11 @@ public class TreeViewer extends JPanel{
 				}
 				return null;
 			}
-			
+
 		};
-		
+
 		this.paintBox.setToolTipText("foo");
-		
+
 		this.scrollBox = new JScrollPane(this.paintBox);
 		this.add(this.scrollBox, BorderLayout.CENTER);
 
@@ -229,7 +229,7 @@ public class TreeViewer extends JPanel{
 			for (NodeInfo node : this.nodeInfos){
 				paintNode(g, node);
 				NodeInfo parent = node.parent;
-				if (parent != null){ 
+				if (parent != null){
 					g.setColor(this.lineColor);
 					g.drawLine(map(node.rect.x + node.rect.width / 2), map(node.rect.y),
 							map(parent.rect.x + parent.rect.width / 2) , map(parent.rect.y + parent.rect.height));
@@ -265,7 +265,7 @@ public class TreeViewer extends JPanel{
 	 * @param tree tree to paint
 	 * @param childIndex TODO
 	 * @param pos upper left corner of the area where the tree will be painted
-	 * @param subtreePadding additional horizontal space between the left border 
+	 * @param subtreePadding additional horizontal space between the left border
 	 * of the tree and the subtrees (used for centering small subtrees below big root nodes)
 	 * @return the area the tree occupies
 	 */
@@ -292,7 +292,7 @@ public class TreeViewer extends JPanel{
 			TreeArea firstChildArea = childAreas.get(0);
 			TreeArea lastChildArea = childAreas.get(childAreas.size()-1);
 
-			//Width of the subtrees (from left edge of the fist subtree to right edge of the last subtree); 
+			//Width of the subtrees (from left edge of the fist subtree to right edge of the last subtree);
 			int subtreeWidth = lastChildArea.treeRect.x + lastChildArea.treeRect.width - firstChildArea.treeRect.x;
 
 			//Space between the centers of the first and last subtree root nodes (first and last child nodes). Math.max() in case the root node is wider than the subtrees
@@ -404,7 +404,7 @@ public class TreeViewer extends JPanel{
 		int hName = g.getFontMetrics().getHeight();
 		g.setFont(this.annotationsFont);
 		int hAnnotation = (annotation != null) ? g.getFontMetrics().getHeight() : 0 ;
-		int hContent = (content != null) ? g.getFontMetrics().getHeight() : 0; 
+		int hContent = (content != null) ? g.getFontMetrics().getHeight() : 0;
 		int hText = hName + hAnnotation + hContent;
 
 
@@ -448,7 +448,7 @@ public class TreeViewer extends JPanel{
 					g.drawString(annotation.text, (map(node.rect.x + node.rect.width/2)-w/2), texty+(int)(hAnnotation*0.7));
 					break;
 				case STYLE_RECTANGLE:
-				case STYLE_ROUND_RECTANGLE:	
+				case STYLE_ROUND_RECTANGLE:
 					g.drawString(annotation.text, map(node.rect.x + node.rect.width)- w, texty+(int)(hAnnotation*0.7));
 					break;
 				}
@@ -498,7 +498,7 @@ public class TreeViewer extends JPanel{
 	 * @return TODO
 	 */
 	private int map(int pos){
-		return (int)(pos * zoomFactor); 
+		return (int)(pos * zoomFactor);
 	}
 
 	private Float parsePrecent(String s){
@@ -634,7 +634,7 @@ public class TreeViewer extends JPanel{
 	public Color getLineColor() {
 		return lineColor;
 	}
-	
+
 	/**
 	 * Sets the line color.
 	 * @param lineColor the new line color
@@ -734,9 +734,9 @@ public class TreeViewer extends JPanel{
 	 */
 	public void setTree(Tree<? extends Symbol> tree){
 		this.tree = tree;
-		this.nodeInfos = null; //new tree, discard old calculated node infos 
+		this.nodeInfos = null; //new tree, discard old calculated node infos
 		this.repaint();
-	}	
+	}
 
 	class TreeArea{
 		Rectangle rootRect;

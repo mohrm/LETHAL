@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treetransducer;
 
@@ -32,7 +32,7 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.common.FTARule;
 
 /**
  * Creates a GenTT<F,G,Q> and corresponding rules.
- * 
+ *
  * @author Irene
  * @param <G> type of destination alphabet symbols
  * @param <F> type of start alphabet symbols
@@ -42,7 +42,7 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.common.FTARule;
 public class TTCreator<F extends RankedSymbol,G extends RankedSymbol,Q extends State> extends FTACreator<F,TTState<Q,G>,TTRule<F,G,Q>,GenTT<F,G,Q>> {
 
 
-	
+
 	/**
 	 * @see de.uni_muenster.cs.sev.lethal.treeautomata.common.FTACreator#createFTA(java.util.Collection, java.util.Collection)
 	 */
@@ -56,7 +56,7 @@ public class TTCreator<F extends RankedSymbol,G extends RankedSymbol,Q extends S
 		}
 		return new GenTT<F,G,Q>(finals,newRules);
 	}
-	
+
 	/**
 	 * @see de.uni_muenster.cs.sev.lethal.treeautomata.common.FTACreator#createFTA(java.util.Collection, java.util.Collection, java.util.Collection, java.util.Collection)
 	 */
@@ -74,7 +74,7 @@ public class TTCreator<F extends RankedSymbol,G extends RankedSymbol,Q extends S
 		return new GenTT<F,G,Q>(finals,alphabet,destAlph,rules);
 	}
 
-	
+
 	/**
 	 * @see de.uni_muenster.cs.sev.lethal.treeautomata.common.FTACreator#createRule(de.uni_muenster.cs.sev.lethal.symbol.common.RankedSymbol, java.util.List, de.uni_muenster.cs.sev.lethal.states.State)
 	 */
@@ -85,7 +85,7 @@ public class TTCreator<F extends RankedSymbol,G extends RankedSymbol,Q extends S
 		return new TTRule<F,G,Q>(f,src,dest);
 	}
 
-	
-	
-	
+
+
+
 }

@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.symbol.standard;
 
@@ -26,11 +26,11 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.NamedSymbol;
 
 /**
  * Implements a variable with a name.
- * 
+ *
  * @param <T> type of the name of the variable
- * 
+ *
  * @see Variable
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public class NamedVariable<T> extends StdVariable implements NamedSymbol<T>, Variable {
@@ -44,7 +44,7 @@ public class NamedVariable<T> extends StdVariable implements NamedSymbol<T>, Var
 
 	/**
 	 * Constructs a new named variable by a given name and a given number.
-	 * 
+	 *
 	 * @param name name of the variable
 	 * @param compNr number of the variable for replacing in {@link de.uni_muenster.cs.sev.lethal.hom.Hom homomorphism}
 	 * @see Variable
@@ -69,7 +69,7 @@ public class NamedVariable<T> extends StdVariable implements NamedSymbol<T>, Var
 	 */
 	@Override
 	public String toString(){
-		return name.toString()+ "_" + this.getComponentNumber(); 
+		return name.toString()+ "_" + this.getComponentNumber();
 	}
 
 }

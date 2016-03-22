@@ -29,12 +29,12 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.common.FTARule;
 /**
  * A standard implementation of the FTARule with generic type parameters
  * for the states and symbols.
- * 
+ *
  * @param <Q> state type of the rule
  * @param <F> symbol type of the rule
- * 
+ *
  * @see FTARule
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public class GenFTARule<F extends RankedSymbol, Q extends State> implements FTARule<F,Q> {
@@ -57,16 +57,16 @@ public class GenFTARule<F extends RankedSymbol, Q extends State> implements FTAR
 	private final Q destState;
 
 	/**
-	 * Hash code of this rule: Since a rule must not be changed, 
+	 * Hash code of this rule: Since a rule must not be changed,
 	 * it can be calculated once.
 	 */
 	private int hashcode;
 
-	
+
 	/***
 	 * Constructs a rule from the given symbol, source states and destination state.
-	 * 
-	 * @param symbol symbol of the rule 
+	 *
+	 * @param symbol symbol of the rule
 	 * @param srcStates source states of the rule
 	 * @param destState destination state of the rule
 	 */
@@ -74,7 +74,7 @@ public class GenFTARule<F extends RankedSymbol, Q extends State> implements FTAR
 		//preserve invariants
 		if (symbol == null) throw new IllegalArgumentException("GenFTARule(): symbol must not be null.");
 		if (srcStates == null) throw new IllegalArgumentException("GenFTARule(): srcStates must not be null.");
-			
+
 		if (symbol.getArity() != srcStates.size()) throw new IllegalArgumentException("GenFTARule(): Length of srcStates must be the arity of the symbol.");
 		for (State s: srcStates){
 			if (s==null) throw new IllegalArgumentException("GenFTARule(): States must not be null.");
@@ -90,7 +90,7 @@ public class GenFTARule<F extends RankedSymbol, Q extends State> implements FTAR
 
 	/**
 	 * Returns the symbol of the rule.
-	 * 
+	 *
 	 * @see de.uni_muenster.cs.sev.lethal.treeautomata.common.FTARule#getSymbol()
 	 */
 	public F getSymbol() {
@@ -100,7 +100,7 @@ public class GenFTARule<F extends RankedSymbol, Q extends State> implements FTAR
 
 	/**
 	 * Returns the source states of the rule.
-	 * 
+	 *
 	 * @see de.uni_muenster.cs.sev.lethal.treeautomata.common.FTARule#getSrcStates()
 	 */
 	public List<Q> getSrcStates() {
@@ -110,7 +110,7 @@ public class GenFTARule<F extends RankedSymbol, Q extends State> implements FTAR
 
 	/**
 	 * Returns the destination state of the rule.
-	 * 
+	 *
 	 * @see de.uni_muenster.cs.sev.lethal.treeautomata.common.FTARule#getDestState()
 	 */
 	public Q getDestState() {
@@ -142,7 +142,7 @@ public class GenFTARule<F extends RankedSymbol, Q extends State> implements FTAR
 
 	/**
 	 * Calculate the hash code once.
-	 * 
+	 *
 	 * @return hash code
 	 */
 	private int calcHashCode() {

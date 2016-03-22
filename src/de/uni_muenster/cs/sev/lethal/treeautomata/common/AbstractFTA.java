@@ -36,13 +36,13 @@ import de.uni_muenster.cs.sev.lethal.utils.Pair;
 /**
  * Implements the basic functionalities of a finite tree automaton. <br>
  * It can be easily extended.
- * 
+ *
  * @param <F> type of ranked symbols in the alphabet the finite tree automaton works on
  * @param <Q> type of states of the finite tree automaton
  * @param <R> type of rules used in the finite tree automaton
- * 
+ *
  * @see FTA
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public abstract class AbstractFTA<F extends RankedSymbol, Q extends State, R extends FTARule<F,Q>> implements FTA<F,Q,R> {
@@ -153,7 +153,7 @@ public abstract class AbstractFTA<F extends RankedSymbol, Q extends State, R ext
 	public AbstractFTA(Collection<? extends FTARule<F,Q>> rules2, Collection<Q> finalStates2) {
 		if (rules2 == null) throw new IllegalArgumentException("AbstractFTA(): rules2 must not be null.");
 		if (finalStates2 == null) throw new IllegalArgumentException("AbstractFTA(): finalStates2ust not be null.");
-		
+
 		init(rules2, new HashSet<Q>(finalStates2));
 	}
 
@@ -168,7 +168,7 @@ public abstract class AbstractFTA<F extends RankedSymbol, Q extends State, R ext
 	public AbstractFTA(Collection<? extends FTARule<F,Q>> newRules, Collection<? extends FTAEpsRule<Q>> newEpsRules, Collection<Q> newFinals) {
 		if (newRules == null) throw new IllegalArgumentException("AbstractFTA(): newRules must not be empty.");
 		if (newEpsRules == null)  throw new IllegalArgumentException("AbstractFTA(): newEpsRules must not be null.");
-		
+
 		init(FTACreator.eliminateEpsilonRules(newRules, newEpsRules), newFinals);
 	}
 
@@ -184,7 +184,7 @@ public abstract class AbstractFTA<F extends RankedSymbol, Q extends State, R ext
 		if (newStates == null)      throw new IllegalArgumentException("AbstractFTA(): newStates must not be null.");
 		if (newFinalStates == null) throw new IllegalArgumentException("AbstractFTA(): newFinalStates must not be null.");
 		if (newRules == null)       throw new IllegalArgumentException("AbstractFTA(): newRules must not be null.");
-	
+
 		init(newRules, new HashSet<Q>(newFinalStates));
 		states = new HashSet<Q>(newStates);
 		alphabet = new HashSet<F>(newAlphabet);
@@ -209,7 +209,7 @@ public abstract class AbstractFTA<F extends RankedSymbol, Q extends State, R ext
 	 * @param grammar regular tree grammar out of which the new AbstractFTA is to be created
 	 * @param stateBuilder creator object, which is used to create states out of non-terminals
 	 * and trees in the normalization process
-	 * @param <P> type of non-terminals occurring in the grammar rules 
+	 * @param <P> type of non-terminals occurring in the grammar rules
 	 * @see FTACreator#makeFTAFromGrammar
 	 */
 	public <P extends State> AbstractFTA(RTG<F,P> grammar, Converter<Object,Q> stateBuilder) {
@@ -286,7 +286,7 @@ public abstract class AbstractFTA<F extends RankedSymbol, Q extends State, R ext
 	}
 
 	/**
-	 * Annotates a tree and all its subtrees with states accessible 
+	 * Annotates a tree and all its subtrees with states accessible
 	 * on this tree according to the rules in the finite tree automaton.<br>
 	 * Every subtree of s gets a set of states, which can be reached with this subtree
 	 * at the root of this subtree.

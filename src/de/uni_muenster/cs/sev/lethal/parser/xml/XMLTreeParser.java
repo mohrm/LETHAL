@@ -51,7 +51,7 @@ public class XMLTreeParser {
 	public static Tree<RankedSymbol> parseTreeFromXML(File xmlfile) throws ParserConfigurationException, SAXException, IOException{
 		return XMLTreeParser.parseFromXML(xmlfile, false, RankedSymbol.class);
 	}
-	
+
 	/**
 	 * Parse a ranked tree from an XML Document.
 	 * @param xmlfile XML File to read.
@@ -64,7 +64,7 @@ public class XMLTreeParser {
 	public static Tree<RankedSymbol> parseTreeFromXML(File xmlfile, boolean includeAttributes) throws ParserConfigurationException, SAXException, IOException{
 		return XMLTreeParser.parseFromXML(xmlfile, includeAttributes, RankedSymbol.class);
 	}
-	
+
 	/**
 	 * Parse an unranked tree (hedge) from an XML Document.
 	 * @param xmlfile XML File to read.
@@ -76,11 +76,11 @@ public class XMLTreeParser {
 	public static Tree<UnrankedSymbol> parseHedgeFromXML(File xmlfile) throws ParserConfigurationException, SAXException, IOException{
 		return XMLTreeParser.parseFromXML(xmlfile, false, UnrankedSymbol.class);
 	}
-	
+
 	/**
 	 * Parse an unranked tree (hedge) from an XML Document.
 	 * @param xmlfile XML File to read.
-	 * @param includeAttributes if true attributes of XML Elements will be included in the resulting hedge, otherwise they will be ignored. 
+	 * @param includeAttributes if true attributes of XML Elements will be included in the resulting hedge, otherwise they will be ignored.
 	 * @return the parsed tree.
 	 * @throws ParserConfigurationException XML Parser exception
 	 * @throws SAXException XML Parser exception
@@ -89,7 +89,7 @@ public class XMLTreeParser {
 	public static Tree<UnrankedSymbol> parseHedgeFromXML(File xmlfile, boolean includeAttributes) throws ParserConfigurationException, SAXException, IOException{
 		return XMLTreeParser.parseFromXML(xmlfile, includeAttributes, UnrankedSymbol.class);
 	}
-	
+
 	/**
 	 * Parse a tree from an XML Document.
 	 * @param xmlfile XML File to read.
@@ -108,21 +108,21 @@ public class XMLTreeParser {
 		parser.parse(xmlfile, handler);
 		return handler.getResultTree();
 	}
-	
+
 }
 
 class SAXParserHandler<S extends Symbol> extends DefaultHandler{
-	
+
 	private Stack<XMLNode> nodes = new Stack<XMLNode>();
 	private NamedSymbolTreeFactory<S> tc;
 	private boolean includeAttributes;
 	private Tree<S> resultTree;
-	
+
 	public SAXParserHandler(NamedSymbolTreeFactory<S> tc, boolean includeAttributes){
 		this.tc = tc;
 		this.includeAttributes = includeAttributes;
 	}
-	
+
 	public Tree<S> getResultTree(){
 		return this.resultTree;
 	}
@@ -142,9 +142,9 @@ class SAXParserHandler<S extends Symbol> extends DefaultHandler{
 		}
 		nodes.push(node);
 	}
-	
-	
-	
+
+
+
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		nodes.peek().addContent(ch, start, length);
@@ -153,7 +153,7 @@ class SAXParserHandler<S extends Symbol> extends DefaultHandler{
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		XMLNode topNode = nodes.pop();
-		
+
 		if (this.nodes.empty()){
 			this.resultTree = topNode.makeTree(); //stack is empty this was the last element, thus the tree is complete, we are done.
 		} else {
@@ -165,23 +165,23 @@ class SAXParserHandler<S extends Symbol> extends DefaultHandler{
 		public String name;
 		public StringBuffer content = new StringBuffer();
 		public List<Tree<S>> subtrees = new ArrayList<Tree<S>>();
-		
+
 		public XMLNode(String name){
 			this.name = name;
 		}
-		
+
 		public void addSubtree(Tree<S> subtree){
 			this.subtrees.add(subtree);
 		}
 		public void addContent(char[] str, int offset, int len){
 			this.content.append(str, offset, len);
 		}
-		
+
 		public Tree<S> makeTree(){
 			String scontent = this.content.toString().trim();
 			if (scontent.length() == 0) scontent = null;
 			return SAXParserHandler.this.tc.makeTreeFromName(this.name, this.subtrees);
 		}
 	}
-	
+
 }

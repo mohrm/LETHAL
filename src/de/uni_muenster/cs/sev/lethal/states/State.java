@@ -24,12 +24,12 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.common.FTARule;
 
 
 /**
- * Represents a state of an automaton.<br> 
+ * Represents a state of an automaton.<br>
  * States are used for rules ({@link FTARule}). Every run of a finite tree automaton
- * ({@link FTA}) on a {@link Tree} is a run which makes states into other states based on rules. 
+ * ({@link FTA}) on a {@link Tree} is a run which makes states into other states based on rules.
  * If such a run is possible over a whole tree and a final state is gained,
  * the finite tree automaton accepts the tree.
- * 
+ *
  * @author Anton, Dorothea, Irene, Maria, Martin, Philipp, Sezar
  */
 public interface State {

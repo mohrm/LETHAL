@@ -40,57 +40,57 @@ import de.uni_muenster.cs.sev.lethal.script.exceptions.ScriptParseException;
 public class ScriptConsole extends JPanel {
 
 	private MainWindow mainWindow;
-	
+
 	private JToggleButton expandButton = new JToggleButton("Script Console", Resources.loadIcon("script-console.png"));
 	private JTextArea inputField = new JTextArea();
 	private JTextArea outputField = new JTextArea("(output empty)");
 	private JSplitPane splitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, new JScrollPane(inputField) , new JScrollPane(outputField));
-	
+
 	private JToolBar toolbar = new JToolBar(SwingConstants.HORIZONTAL);
 	private JButton runButton = new JButton("Run", Resources.loadIcon("script-run-tiny.png"));
 	private JButton stopButton = new JButton("Stop", Resources.loadIcon("script-stop-tiny.png"));
-	
+
 	private Thread runThread;
-	
+
 	private boolean layoutDone = false;
-	
+
 	/**
 	 * Creates a new ScriptConsole.
 	 * @param mainWindow application main window.
 	 */
 	public ScriptConsole(MainWindow mainWindow){
 		this.mainWindow = mainWindow;
-		
+
 		this.setLayout(new GridBagLayout());
-		
+
 		this.setExpanded(false);
-		
+
 		this.inputField.setFont(new Font("Monospaced", Font.PLAIN, inputField.getFont().getSize()));
 		this.outputField.setFont(this.inputField.getFont());
-		
-		
+
+
 		splitter.setPreferredSize(new Dimension(this.inputField.getPreferredSize().width, 8 * this.inputField.getFontMetrics(this.inputField.getFont()).getHeight()));
-		
+
 		this.add(this.expandButton, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.NORTHWEST, GridBagConstraints.VERTICAL, new Insets(0,0,0,0), 0, 0));
 		this.add(this.toolbar,      new GridBagConstraints(1, 0, 1, 1, 0, 1, GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0,0,0,0), 0, 0));
 		this.add(new Container(),   new GridBagConstraints(2, 0, 1, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,0,0,0), 0, 0)); //dummy to strech the 1,0 cell when not expanded.
-		
+
 		this.add(splitter,         new GridBagConstraints(0, 1, 3, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,0,0,0), 0, 0));
-		
+
 		this.outputField.setEnabled(false);
 		this.outputField.setBackground(Color.BLACK);
 		this.outputField.setForeground(Color.WHITE);
-		
+
 		this.expandButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setExpanded(!getExpanded());
 			}
 		});
-		
+
 		this.toolbar.add(this.runButton);
 		this.toolbar.add(this.stopButton);
-		
+
 		this.runButton.addActionListener(new ActionListener(){
 			@Override public void actionPerformed(ActionEvent e) {run();}
 		});
@@ -134,7 +134,7 @@ public class ScriptConsole extends JPanel {
 		this.runButton.setEnabled(!running);
 		this.stopButton.setEnabled(running);
 	}
-	
+
 	private void setExpanded(boolean exp){
 		this.splitter.setVisible(exp);
 		this.toolbar.setVisible(exp);
@@ -144,5 +144,5 @@ public class ScriptConsole extends JPanel {
 	private boolean getExpanded(){
 		return this.splitter.isVisible();
 	}
-	
+
 }

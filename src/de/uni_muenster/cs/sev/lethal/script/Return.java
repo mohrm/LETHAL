@@ -26,7 +26,7 @@ package de.uni_muenster.cs.sev.lethal.script;
 public class Return extends Statement{
 
 	private Expression returnExpression;
-	
+
 	/**
 	 * Creates a new Return statement
 	 * @param returnExpression expression to evaluate when executed.
@@ -47,7 +47,7 @@ public class Return extends Statement{
 	 */
 	public class ReturnException extends RuntimeException{
 		private ScriptObject returnValue;
-		
+
 		/**
 		 * Create a new ReturnException instance with the given method return value
 		 * @param returnValue value the method should return
@@ -64,8 +64,8 @@ public class Return extends Statement{
 		public ScriptObject getReturnValue() {
 			return returnValue;
 		}
-		
-		
+
+
 	}
-	
+
 }

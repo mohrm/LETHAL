@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.tests;
 
@@ -46,7 +46,7 @@ import de.uni_muenster.cs.sev.lethal.tree.standard.StdTree;
 
 /**
  * Tests the use of LETHAL with a schema for XML-documents on an example.
- * 
+ *
  * @author Irene
  */
 public class SchemataTest {
@@ -57,7 +57,7 @@ public class SchemataTest {
 	 * (doc) <br>
 	 *   (head) (title)(/title) (/head) <br>
 	 *   (body) (list)(entry)(/entry)(entry)(/entry)(/list)  (/body) <br>
-	 * (/doc) 
+	 * (/doc)
 	 */
 	public HedgeGrammar<UnrankedSymbol> schema_document;
 
@@ -67,12 +67,12 @@ public class SchemataTest {
 	private Tree<UnrankedSymbol> document_1;
 
 	/**
-	 * Sets up the unranked symbols we use and the schema in 
+	 * Sets up the unranked symbols we use and the schema in
 	 * {@link SchemataTest#schema_document}. <br>
 	 * Additionally two example documents are set: <br>
 	 * doc(body,head) <br>
-	 * doc(head(title),body(list)) 
-	 * 
+	 * doc(head(title),body(list))
+	 *
 	 * @throws java.lang.Exception if something goes wrong
 	 */
 	@Before
@@ -96,7 +96,7 @@ public class SchemataTest {
 		Terminal<UnrankedSymbol> t_entry = new Terminal<UnrankedSymbol>(s_entry);
 		Terminal<UnrankedSymbol> t_title = new Terminal<UnrankedSymbol>(s_title);
 		Epsilon<UnrankedSymbol> eps = new Epsilon<UnrankedSymbol>();
-		
+
 		GrammarExpression<UnrankedSymbol> exp_help = new Function<UnrankedSymbol>(t_title, eps);
 		GrammarExpression<UnrankedSymbol> exp_doc  = new Concatenation<UnrankedSymbol>(new Function<UnrankedSymbol>(t_head,exp_help),n_b);
 		GrammarRule<UnrankedSymbol> rule_doc = new GrammarRule<UnrankedSymbol>(n_s,t_doc,exp_doc);

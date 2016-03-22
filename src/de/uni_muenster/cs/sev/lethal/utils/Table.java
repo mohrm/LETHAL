@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.utils;
 
@@ -32,11 +32,11 @@ import java.util.Set;
  * of type W as achieved by mapping u and v to certain array indices
  * and by identifying objects of type W with integer values. <br>
  * The set of possible values can be dynamically extended.
- * 
+ *
  * @param <U> type of the row indices
  * @param <V> type of the column indices
  * @param <W> type of the possible values
- * 
+ *
  * @author Martin
  */
 public class Table<U,V,W> implements TableInterface<U,V,W> {
@@ -77,7 +77,7 @@ public class Table<U,V,W> implements TableInterface<U,V,W> {
 	 * The table itself is a two-dimensional array of integers.
 	 * The mapping between pairs (u,v) in UxV and values
 	 * of type W is achieved by mapping u and v to certain array indices
-	 * and by identifying objects of type W with integer values. 
+	 * and by identifying objects of type W with integer values.
 	 */
 	private int[][] data;
 
@@ -88,7 +88,7 @@ public class Table<U,V,W> implements TableInterface<U,V,W> {
 
 	/**
 	 * Initializes the table with given row set and column set.
-	 * 
+	 *
 	 * @param rows rows of the new table
 	 * @param cols columns of the new table
 	 */

@@ -31,7 +31,7 @@ import de.uni_muenster.cs.sev.lethal.tree.common.Tree;
  *
  */
 public abstract class AbstractTreeItem extends Item {
-	
+
 	/**
 	 * Create a new tree item matching the given tree object type. <br>
 	 * Currently only TreeItem and HedgeItem are supported (from Trees with RankedSymbol resp. UnrankedSymbol type)
@@ -52,7 +52,7 @@ public abstract class AbstractTreeItem extends Item {
 		}
 	}
 
-	
+
 	protected AbstractTreeItem(String name, Project project) {
 		super(name, project);
 	}
@@ -63,7 +63,7 @@ public abstract class AbstractTreeItem extends Item {
 	 * @return the tree contained by this Item
 	 */
 	public abstract Tree<? extends Symbol> getTree();
-	
+
 	@Override
 	/**
 	 * @see Item#.getEditor

@@ -24,7 +24,7 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.Symbol;
 
 /**
  * Common interface for all tree and hedge structures.
- * 
+ *
  * @author Anton, Dorothea, Irene, Maria, Martin, Philipp, Sezar
  *
  * @param <S> tree node symbol type
@@ -33,21 +33,21 @@ public interface Tree<S extends Symbol> {
 
 	/**
 	 * Returns the list of the subtrees of this tree.
-	 * 
+	 *
 	 * @return the list of the subtrees of this tree
 	 */
 	public List<? extends Tree<S>> getSubTrees();
 
 	/**
 	 * Returns the root symbol of this tree.
-	 * 
+	 *
 	 * @return the root symbol of this tree
 	 */
 	public S getSymbol();
 
 	/**
-	 * Returns the common super class of the symbols in this tree. 
-	 * 
+	 * Returns the common super class of the symbols in this tree.
+	 *
 	 * @return the common super class of the symbols in this tree
 	 */
 	public Class<? extends Symbol> getSymbolClass();

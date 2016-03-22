@@ -31,7 +31,7 @@ public class StringReader {
 	String string;
 	int offset;
 	String lastMatch = null;
-	
+
 	/**
 	 * Creates a new StringReader
 	 * @param string String to process.
@@ -40,7 +40,7 @@ public class StringReader {
 		this.string = string;
 		this.offset = 0;
 	}
-	
+
 	/**
 	 * Returns the char at the current postion of the reader.
 	 * @return The char at the current postion of the reader
@@ -48,7 +48,7 @@ public class StringReader {
 	public char currentChar(){
 		return this.string.charAt(this.offset);
 	}
-	
+
 	/**
 	 * Returns the substring from the current read pos until the given separator regexp (exclusive)
 	 * @param regex expression to find. If regexp contains braces, the match result of them will be stored in this.lastMatch
@@ -57,7 +57,7 @@ public class StringReader {
 	public String readUntil(String regex){
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(this.string);
-		
+
 		String result;
 		if (m.find(this.offset)){
 			int matchingGroup = 0;
@@ -79,7 +79,7 @@ public class StringReader {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * last matching brace expression
    * @return last matching brace expression
@@ -87,7 +87,7 @@ public class StringReader {
 	public String lastMatch(){
 		return this.lastMatch;
 	}
-	
+
 	/**
 	 * skip while any of the chars of the given string is at the current read pos
 	 * @param c list of chars to skip
@@ -96,9 +96,9 @@ public class StringReader {
 		while (this.offset < this.string.length() && (c.indexOf(this.string.charAt(this.offset)) >= 0)){
 			this.offset++;
 		}
-		
+
 	}
-	
+
 	/**
 	 * Returns true if the string at the current read pos starts equal to the given string.
 	 * @param s string to compare to
@@ -107,7 +107,7 @@ public class StringReader {
 	public boolean startsWith(String s){
 		return this.string.startsWith(s, this.offset);
 	}
-	
+
 	/**
 	 * Returns true if the string at the current pos matches the given regexp
 	 * @param regex expression to find. If regexp contains braces, the match result of them will be stored in this.lastMatch
@@ -134,7 +134,7 @@ public class StringReader {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Skip the given number of chars in the input
 	 * @param count number of chars to skip
@@ -142,21 +142,21 @@ public class StringReader {
 	public void skip(int count){
 		this.offset += count;
 	}
-	
+
 	/**
 	 * return the index of the current line.
 	 * @return the index of the current line.
 	 */
 	public int getCurrentLine(){
 		int i = this.string.indexOf('\n');
-		int line = 1; 
+		int line = 1;
 		while (i > 0 && i < this.offset){
 			line++;
 			i = this.string.indexOf('\n', i+1);
 		}
 		return line;
 	}
-	
+
 	/**
 	 * Text left to read
 	 * @return Text left to read
@@ -164,7 +164,7 @@ public class StringReader {
 	public String remainingText(){
 		return this.string.substring(this.offset);
 	}
-	
+
 	/**
 	 * Returns true if we are at the end of the input string
 	 * @return true if we are at the end of the input string
@@ -172,5 +172,5 @@ public class StringReader {
 	public boolean eof(){
 		return this.offset >= this.string.length();
 	}
-	
+
 }

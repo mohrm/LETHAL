@@ -17,27 +17,27 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.testManual;
 
 /**
  * Example for extension explained in the manual.
- * 
+ *
  * @author Irene
  * @see SpecialState
  * @see ExampleOps
  */
 public class StateCounter {
-	
+
 	/**Actual count of states.*/
 	protected static int count = 0;
-	
+
 	/**Increments the state counter.*/
 	public static void increment(){
 		count ++;
 	}
-	
+
 	/**
 	 * Returns actual state count and increments the counter.
 	 * @return actual count of states (before incrementing)

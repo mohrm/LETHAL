@@ -29,11 +29,11 @@ import de.uni_muenster.cs.sev.lethal.script.exceptions.ScriptRuntimeError;
  *
  */
 class UserClass extends ScriptClass{
-	
+
 	public UserClass(String className, ScriptClass parentClass, Environment classEnvironment) {
 		super(className, parentClass, classEnvironment, true);
 	}
-	
+
 	@Override
 	public ScriptObject newInstance(List<ScriptObject> args, MethodObject block){
 		UserObject instance = new UserObject(this);
@@ -42,14 +42,14 @@ class UserClass extends ScriptClass{
 			constructor = instance.getMethod("initialize");
 			if (!constructor.checkArity(args.size())) throw new ScriptRuntimeError("Construtor for class " + getClassName() + " expects " + constructor.getArityString() + " args, got " + args.size());
 		} catch (UndefinedMemberException ex){
-			return instance; //no constructor, we are done. 
+			return instance; //no constructor, we are done.
 		}
-		
+
 		constructor.execute(instance.getEnvironment().newFrame(), args, null);
-		
+
 		return instance;
 	}
-	
+
 	@Override
 	public int hashCode(){
 		return this.getParentClass().hashCode() + (31 * this.getEnvironment().hashCode());
@@ -69,12 +69,12 @@ class UserObject extends ScriptObject{
 			return ScriptObject.make(args.get(0) == env.getThis());
 		}
 	};
-	
+
 	public UserObject(ScriptClass parentClass) {
 		super(parentClass);
 		this.setMember("==", userObjDefaultEquals);
 	}
-	
+
 	@Override
 	public String toString(){
 		try {
@@ -83,11 +83,11 @@ class UserObject extends ScriptObject{
 			return this.getClassName();
 		}
 	}
-	
+
 	@Override
 	public boolean equals(Object o){
 		if (!(o instanceof ScriptObject)) return false;
-		
+
 		ArrayList<ScriptObject> argList = new ArrayList<ScriptObject>(1);
 		argList.add((ScriptObject)o);
 		try {
@@ -95,9 +95,9 @@ class UserObject extends ScriptObject{
 		} catch (UndefinedMemberException ex){
 			return o == this;
 		}
-		
+
 	}
-	
+
 	@Override
 	public int hashCode(){
 		return this.getParentClass().hashCode() + (31 * this.getEnvironment().hashCode());

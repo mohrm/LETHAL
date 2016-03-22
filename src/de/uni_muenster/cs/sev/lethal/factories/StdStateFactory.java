@@ -28,14 +28,14 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.generic.GenFTAOps;
  * Gives some standard methods to create new states
  * which can be used by tree automata. <br>
  * In {@link GenFTAOps} different methods for creating states are used.
- * 
+ *
  * @author Martin, Irene, Philipp
  */
 public class StdStateFactory extends StateFactory {
-	
+
 	/**Counter for anonymous states.*/
 	private static int anonCount = 0;
-	
+
 	/**
 	 * Stores the references to known named states. <br>
 	 * Named states have a name of arbitrary type which is used as hash key.<br>
@@ -44,7 +44,7 @@ public class StdStateFactory extends StateFactory {
 	 */
 	private static HashMap<Object,WeakReference<NamedState<?>>> namedStateCache = new HashMap<Object,WeakReference<NamedState<?>>>();
 
-	
+
 	/**
 	 * @see de.uni_muenster.cs.sev.lethal.factories.StateFactory#makeState()
 	 */
@@ -71,7 +71,7 @@ public class StdStateFactory extends StateFactory {
 
 	/**
 	 * Creates a new named state with the given name.
-	 * 
+	 *
 	 * @param <T> type of the name of a state
 	 * @param name name of the new state
 	 * @return a new named state

@@ -17,15 +17,15 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.utils;
 
 /**
  * Implements the converter in the most trivial useful way - as identity function.
- * 
+ *
  * @param <T> type of objects to be converted
- * 
+ *
  * @author Martin
  */
 public class IdentityConverter<T> implements Converter<T,T> {
@@ -41,9 +41,9 @@ public class IdentityConverter<T> implements Converter<T,T> {
 
 	/**
 	 * Creates a new instance of IdentityConverter.
-	 * 
-	 * TODO (Martin?): Make this a singleton. 
-	 * 
+	 *
+	 * TODO (Martin?): Make this a singleton.
+	 *
 	 * @param <T> Type of the object to be converted
 	 * @return Instance of IdentityConverter.
 	 */

@@ -35,14 +35,14 @@ import de.uni_muenster.cs.sev.lethal.tree.common.Tree;
  *
  */
 public class TreePreviewWindow extends JWindow{
-	
+
 	private static final int MAX_WIDTH  = 200;
 	private static final int MAX_HEIGHT = 200;
-	
+
 	private TreeViewer tv;
 	private Tree<? extends Symbol> tree;
 	private int repaintCount;
-	
+
 	/**
 	 * Create a new TreePreviewWindow.
 	 */
@@ -56,7 +56,7 @@ public class TreePreviewWindow extends JWindow{
 		sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		this.add(sp);
 	}
-	
+
 	/**
 	 * Set the tree to display. <br>
 	 * Setting to null will hide the window.
@@ -65,7 +65,7 @@ public class TreePreviewWindow extends JWindow{
 	public void setTree(Tree<? extends Symbol> tree){
 		if (this.tree == tree) return;
 		this.tree = tree;
-		
+
 		if (tree != null){
 			tv.setSize(MAX_WIDTH, MAX_HEIGHT);
 			tv.setPreferredSize(new Dimension(MAX_WIDTH, MAX_HEIGHT));
@@ -77,7 +77,7 @@ public class TreePreviewWindow extends JWindow{
 			this.setVisible(false);
 		}
 	}
-	
+
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);

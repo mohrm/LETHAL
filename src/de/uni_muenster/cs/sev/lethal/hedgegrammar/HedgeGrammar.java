@@ -28,8 +28,8 @@ import de.uni_muenster.cs.sev.lethal.states.State;
 import de.uni_muenster.cs.sev.lethal.symbol.common.UnrankedSymbol;
 
 /**
- * 
- * 
+ *
+ *
  * @author Anton, Maria
  * @param <G_Symbol> symbol type of the hedge grammar
  */
@@ -40,7 +40,7 @@ public class HedgeGrammar<G_Symbol extends UnrankedSymbol> {
 	private final Set<Nonterminal<G_Symbol>> end;
 
 	/**
-	 * 
+	 *
 	 */
 	public HedgeGrammar() {
 		super();
@@ -96,7 +96,7 @@ public class HedgeGrammar<G_Symbol extends UnrankedSymbol> {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	private void generateAutomaton() {
 		Set<HedgeRule<G_Symbol, State>> ha_rules = new HashSet<HedgeRule<G_Symbol, State>>();
@@ -120,13 +120,13 @@ public class HedgeGrammar<G_Symbol extends UnrankedSymbol> {
 
 		ha = constructAutmaton(ha_states, ha_finalStates, ha_rules);
 	}
-	
+
 	protected HedgeAutomaton<G_Symbol, State> constructAutmaton(Set<State> haStates,Set<State> haFinalStates,Set<HedgeRule<G_Symbol, State>> haRules){
 		return new HedgeAutomaton<G_Symbol, State>(haStates, haFinalStates, haRules);
 	}
 
 	/**
-	 * @return The Hedge Automaton specified by this HedgeGrammar 
+	 * @return The Hedge Automaton specified by this HedgeGrammar
 	 */
 	public HedgeAutomaton<G_Symbol, State> getHA() {
 		if (ha == null) generateAutomaton();

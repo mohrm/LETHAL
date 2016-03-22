@@ -32,8 +32,8 @@ import java.util.HashSet;
 
 
 /**
- * Creates an alternative expression out of two expressions. 
- * 
+ * Creates an alternative expression out of two expressions.
+ *
  * @author Anton, Maria
  * @param <G_Symbol> symbol type
  * @param <G_State> state type

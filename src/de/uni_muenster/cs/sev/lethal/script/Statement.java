@@ -24,12 +24,12 @@ package de.uni_muenster.cs.sev.lethal.script;
  *
  */
 public abstract class Statement {
-	
+
 	/**
 	 * Evaluate the statement in the given environment
 	 * @param env environment to evaluate in
 	 * @return result of the evaluation
 	 */
 	public abstract ScriptObject execute(Environment env);
-	
+
 }

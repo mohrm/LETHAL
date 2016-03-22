@@ -170,7 +170,7 @@ public class ConcatExpression<G_Symbol extends UnrankedSymbol, G_State extends S
 
 	/**
 	 * Returns first part of the concatenation.
-	 * 
+	 *
 	 * @return first part of the concatenation
 	 */
 	protected RegularExpression<G_Symbol, G_State> getFirst() {
@@ -179,7 +179,7 @@ public class ConcatExpression<G_Symbol extends UnrankedSymbol, G_State extends S
 
 	/**
 	 * Returns second part of the concatenation.
-	 * 
+	 *
 	 * @return second part of the concatenation
 	 */
 	protected RegularExpression<G_Symbol, G_State> getSecond() {

@@ -24,14 +24,14 @@ package de.uni_muenster.cs.sev.lethal.symbol.common;
 /**
  * Represents symbols with a non-negative, fixed arity. <br>
  * Symbols with arity 0 are called constants.
- * 
+ *
  * @author Anton, Dorothea, Irene, Maria, Martin, Philipp, Sezar
  */
 public interface RankedSymbol extends Symbol {
 
 	/**
 	 * Returns the (non-negative) arity of this ranked symbol.
-	 * 
+	 *
 	 * @return the arity of this symbol
 	 */
 	public int getArity();

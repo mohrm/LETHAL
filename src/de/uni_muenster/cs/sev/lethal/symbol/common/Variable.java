@@ -30,7 +30,7 @@ package de.uni_muenster.cs.sev.lethal.symbol.common;
  * The number i is used to find the i-th tree or tree automaton in a list and
  * replace the variable with number i by the tree or the language given by the
  * automaton.
- * 
+ *
  * @author Dorothea, Irene. Martin
  */
 public interface Variable extends Symbol {
@@ -38,7 +38,7 @@ public interface Variable extends Symbol {
 	/**
 	 * The number describing the position in a list of objects (trees or tree
 	 * automata) which shall replace the variables.<br>
-	 * 
+	 *
 	 * @return the componentNumber of the represented variable
 	 */
 	public int getComponentNumber();

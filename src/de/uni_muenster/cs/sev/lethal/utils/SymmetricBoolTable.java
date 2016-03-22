@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.utils;
 
@@ -33,12 +33,12 @@ import java.util.Set;
  * Knowing that there are only three possible values (true, false and null for
  * no value) makes the encoding of the values as integers obsolete and therefore
  * the operations a little more efficient than in {@link Table}.
- * 
+ *
  * @param <U> type of the row and column indices
- * 
+ *
  * @see TableInterface
  * @see Table
- * 
+ *
  * @author Martin
  */
 public class SymmetricBoolTable<U> implements TableInterface<U,U,Boolean> {
@@ -61,7 +61,7 @@ public class SymmetricBoolTable<U> implements TableInterface<U,U,Boolean> {
 	/**
 	 * The table itself as two-dimensional array of Boolean objects
 	 * The mapping between pairs (u,v) in UxV and values
-	 * of type W is archieved by mapping u and v to certain array indices. 
+	 * of type W is archieved by mapping u and v to certain array indices.
 	 */
 	private Boolean[][] data;
 
@@ -75,7 +75,7 @@ public class SymmetricBoolTable<U> implements TableInterface<U,U,Boolean> {
 
 	/**
 	 * Initializes the table with given row and column set.
-	 * 
+	 *
 	 * @param rowsCols row and column set of the new table
 	 */
 	public SymmetricBoolTable(Set<U> rowsCols) {

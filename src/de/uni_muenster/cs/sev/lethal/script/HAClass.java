@@ -51,10 +51,10 @@ import de.uni_muenster.cs.sev.lethal.utils.Converter;
  * @author Philipp
  */
 public class HAClass extends ScriptClass{
-	
+
 	/** Singleton HAClass class instance */
 	public static final HAClass haClass = new HAClass();
-	
+
 	private HAClass() {
 		super("HedgeAutomaton", null, RootClass.newStaticClassEnvironment(), true);
 	}
@@ -75,7 +75,7 @@ public class HAClass extends ScriptClass{
 			throw new ScriptRuntimeError(e.getMessage());
 		}
 	}
-}	
+}
 
 /**
  * HedgeAutomaton Wrapper object. Encapsulates a HedgeAutomaton object and exposes HAOps Operations methods as script methods
@@ -85,11 +85,11 @@ public class HAClass extends ScriptClass{
 class HAObject extends ScriptObject{
 
 	private EasyHedgeAutomaton automaton;
-	
+
 	public HAObject(EasyHedgeAutomaton automaton) {
 		super(HAClass.haClass);
 		this.automaton = automaton;
-		
+
 		this.setMember("decide", new Method(1){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -98,7 +98,7 @@ class HAObject extends ScriptObject{
 				return ScriptObject.make(HAOps.decide(HAObject.this.automaton, t.getTree()));
 			}
 		});
-		
+
 		/*this.setMember("trace", new Method(){
 			@Override
 			public ScriptObject invoke(ScriptObject object, List<ScriptObject> args, Method block) {
@@ -106,7 +106,7 @@ class HAObject extends ScriptObject{
 				TreeObject t = (TreeObject)args.get(0);
 
 				Map<Hedge<RankedSymbol>,Set<State>> tracemap = ((HAObject)object).getAutomaton().annotateTreeWithStates(t.getTree());
-				
+
 				return new FTATraceObject((ScriptClass)(object.getEnvironment().get("FTATrace")), t, (HAObject)object, tracemap);
 			}
 		});*/
@@ -181,7 +181,7 @@ class HAObject extends ScriptObject{
 				return ScriptObject.make(HAOps.subsetLanguage(HAObject.this.automaton, t.automaton) && !HAOps.subsetLanguage(t.automaton, HAObject.this.automaton));
 			}
 		});
-		
+
 		this.setMember("to_fta", new Method(0){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -204,7 +204,7 @@ class HAObject extends ScriptObject{
 				return new FTAObject(fta);
 			}
 		});
-		
+
 		this.setMember("states", new Method(0){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -215,7 +215,7 @@ class HAObject extends ScriptObject{
 				return new ArrayObject(states);
 			}
 		});
-		
+
 		this.setMember("states", new Method(0){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -226,20 +226,20 @@ class HAObject extends ScriptObject{
 				return new ArrayObject(finalstates);
 			}
 		});
-		
+
 	}
-	
+
 	@Override
 	public boolean equals(Object o){
 		if (!(o instanceof HAObject)) return false;
 		return ((HAObject)o).getAutomaton().equals(this.automaton);
 	}
-	
+
 	@Override
 	public String toString(){
 		return this.automaton.toString();
 	}
-	
+
 	/**
 	 * Returns the hedge automaton stored in this HAObject
 	 * @return the hedge automaton stored in this HAObject
@@ -247,7 +247,7 @@ class HAObject extends ScriptObject{
 	public EasyHedgeAutomaton getAutomaton(){
 		return this.automaton;
 	}
-	
+
 	@Override
 	public int hashCode(){
 		return this.automaton.hashCode();

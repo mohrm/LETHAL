@@ -244,7 +244,7 @@ public class BasicExpression<G_Symbol extends UnrankedSymbol, G_State extends St
 	}
 
 	/**
-	 * Needed for optimized concatenation 
+	 * Needed for optimized concatenation
 	 * ({@link ConcatExpression#makeOptimizedConcat}).
 	 *
 	 * @return list of states in this basic expression

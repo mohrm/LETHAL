@@ -23,7 +23,7 @@ package de.uni_muenster.cs.sev.lethal.symbol.common;
 
 /**
  * Common interface of all symbols which guarantee to have no fixed arity.
- * 
+ *
  * @author Anton, Dorothea, Irene, Maria, Martin, Philipp, Sezar
  */
 public interface UnrankedSymbol extends Symbol {

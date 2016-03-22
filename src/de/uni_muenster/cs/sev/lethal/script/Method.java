@@ -27,25 +27,25 @@ import de.uni_muenster.cs.sev.lethal.script.exceptions.ScriptRuntimeError;
  * Raw script method. Encapsulates a procedure that can be invoked with arguments in a given Env.
  * It does NOT contain a definition environment.
  * A raw method will run when execute is called.
- * thus a some "obj.myMethod" statement will run myMethod without arguments in an env above obj. 
+ * thus a some "obj.myMethod" statement will run myMethod without arguments in an env above obj.
  * @author Philipp
  *
  */
 abstract class Method extends ScriptObject{
-	
+
 	public static final int ARITY_ARBITARY = -1;
 	public static final int ARITY_ZERO_OR_ONE = -2;
 	public static final int ARITY_ONE_OR_TWO = -3;
-	
+
 	public static final Environment methodInstEnvt = null; // new Environment(null);
-	
+
 	private final int arity;
-	
+
 	public Method(int arity){
 		super(methodInstEnvt);
 		this.arity = arity;
 	}
-	
+
 	/**
 	 * Runs the Method without arguments in the given env.
 	 * @param env object in which context this method is executed in
@@ -54,9 +54,9 @@ abstract class Method extends ScriptObject{
 	@Override
 	public ScriptObject execute(Environment env){
 		return execute(env, Collections.<ScriptObject>emptyList(), null);
-		
+
 	}
-	
+
 	/**
 	 * Runs the Method with the given arguments in the given env.
 	 * @param env object in which context this method is executed in
@@ -72,17 +72,17 @@ abstract class Method extends ScriptObject{
 		if (this.arity == ARITY_ONE_OR_TWO) return numargs == 1 || numargs == 2;
 		return true;
 	}
-	
+
 	public int getArity(){
 		return this.arity;
 	}
-	
+
 	public String getArityString(){
 		if (this.arity >= 0) return String.valueOf(arity);
 		if (this.arity == ARITY_ONE_OR_TWO) return "1 or 2";
 		return "arbitary";
 	}
-	
+
 	@Override
 	public String toString(){
 		return "Method";
@@ -97,7 +97,7 @@ abstract class Method extends ScriptObject{
 class MethodClass extends ScriptClass{
 
 	public static final MethodClass methodClass = new MethodClass();
-	
+
 	public MethodClass() {
 		super("Method", null, RootClass.newStaticClassEnvironment(), false);
 	}
@@ -106,7 +106,7 @@ class MethodClass extends ScriptClass{
 	public ScriptObject newInstance(List<ScriptObject> args, MethodObject block) {
 		return null;
 	}
-	
+
 }
 
 /**
@@ -120,15 +120,15 @@ class MethodClass extends ScriptClass{
  *
  */
 class MethodObject extends ScriptObject{
-	
+
 	private Method method;
 	private Environment definitionEnvironment;
-	
+
 	public MethodObject(Environment definitionEnvironment, Method method){
 		super(MethodClass.methodClass);
 		this.definitionEnvironment = definitionEnvironment;
 		this.method = method;
-		
+
 		this.setMember("call", new Method(method.getArity()){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -136,7 +136,7 @@ class MethodObject extends ScriptObject{
 			}
 		});
 	}
-	
+
 	public boolean checkArity(int numargs){
 		return this.method.checkArity(numargs);
 	}
@@ -146,16 +146,16 @@ class MethodObject extends ScriptObject{
 	public int getArity(){
 		return this.method.getArity();
 	}
-	
+
 	@Override
 	public ScriptObject execute(Environment env){
 		return this;
 	}
-	
+
 	public ScriptObject call(List<ScriptObject> args, MethodObject block){
 		return this.method.execute(this.definitionEnvironment.newFrame(), args, block);
 	}
-	
+
 }
 
 
@@ -170,20 +170,20 @@ class UserMethod extends Method {
 	protected List<String> argNames;
 	private List<Statement> statements;
 	private boolean catchReturn;
-	
+
 	public UserMethod(List<String> argNames, List<Statement> statements, boolean catchReturn) {
 		super(argNames.size());
 		this.argNames = argNames;
 		this.statements = statements;
 		this.catchReturn = catchReturn;
 	}
-	
+
 	public List<String> getArgNames(){
 		return argNames;
 	}
 
 	@Override
-	public ScriptObject execute(Environment env, List<ScriptObject> args, final MethodObject block) { 
+	public ScriptObject execute(Environment env, List<ScriptObject> args, final MethodObject block) {
 		ScriptObject ret = ScriptObject.nullValue;
 		for (int i = 0; i < this.argNames.size(); i++){
 			env.bindLocal(argNames.get(i), args.get(i));
@@ -196,9 +196,9 @@ class UserMethod extends Method {
 				}
 			});
 		}
-		
+
 		env.bindLocal("block_given?", ScriptObject.make(block != null));
-		
+
 		try{
 			for (Statement stmt : this.statements){
 				ret = stmt.execute(env);
@@ -211,10 +211,10 @@ class UserMethod extends Method {
 				throw ex;
 			}
 		} catch (Break.BreakException ex){
-			throw new ScriptRuntimeError("Beeak outside loop"); 
+			throw new ScriptRuntimeError("Beeak outside loop");
 		}
 	}
-	
+
 }
 
 /**
@@ -231,19 +231,19 @@ class MethodDefinition extends Expression{
 	public MethodDefinition(Method method) {
 		this.method = method;
 	}
-	
+
 	@Override
 	public ScriptObject execute(Environment env) {
 		return new MethodObject(env, method);
 	}
-	
+
 }
 
 /**
  * Named Method definition
  * Created by the parser when a "def" statement is found.
  * When executed it will create a MethodObject warping a Method with the environment this definition is executed in (definition environment)
- * Additionally it will bind the (raw) method to the environment it is executed in (the defining class). 
+ * Additionally it will bind the (raw) method to the environment it is executed in (the defining class).
  * @author Philipp
  *
  */
@@ -251,12 +251,12 @@ class ObjectMethodBinding extends Statement{
 
 	private Method method;
 	private String name;
-	
+
 	public ObjectMethodBinding(Method method, String name) {
 		this.method = method;
 		this.name = name;
 	}
-	
+
 	@Override
 	public ScriptObject execute(Environment env) {
 		env.bindLocal(this.name,this.method);

@@ -22,7 +22,7 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.UnrankedSymbol;
 
 /**
  * represents a terminal symbol needed to describe expressions for a schema
- * 
+ *
  * @author Anton, Maria
  * @param <G_Symbol> symbol type of the hedge grammar
  */
@@ -35,7 +35,7 @@ public class Terminal<G_Symbol extends UnrankedSymbol> /* extends SchemaExpressi
 
 	/**
 	 * constructor
-	 * 
+	 *
 	 * @param symbol symbol describing the terminal
 	 */
 	public Terminal(G_Symbol symbol) {

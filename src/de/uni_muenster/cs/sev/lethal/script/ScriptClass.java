@@ -29,7 +29,7 @@ import java.util.List;
  *
  */
 public abstract class ScriptClass extends ScriptObject {
-	
+
 	private final static Method newMethod = new Method(Method.ARITY_ARBITARY){ //TODO: FIXME: get proper constructor arity
 		@Override
 		public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -46,17 +46,17 @@ public abstract class ScriptClass extends ScriptObject {
 		@Override
 		public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
 			return ScriptObject.make(env.getThis().equals(args.get(0)));
-		}		
+		}
 	};
 	private final static Method methodsMethod = new Method(0){
 		@Override
 		public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
 			List<ScriptObject> names = new ArrayList<ScriptObject>();
-			
+
 			ScriptObject obj = env.getThis(); //get the object which methods we enumerate
 			ScriptClass cls = env.getThis().getParentClass(); //and its class (if this is not already a class)
-			env = obj.getEnvironment(); //we start at the env of the object (the env given as a parameter is not the same but a method exec env usually a frame above the object env). 
-			
+			env = obj.getEnvironment(); //we start at the env of the object (the env given as a parameter is not the same but a method exec env usually a frame above the object env).
+
 			while (env.getOwner() == obj || (cls != null && env.getOwner() == cls)){ //loop over object and class envs
 				for (String name : env.getLocalMembers()){
 					ScriptObject so = ScriptObject.make(name);
@@ -71,10 +71,10 @@ public abstract class ScriptClass extends ScriptObject {
 		@Override
 		public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
 			List<ScriptObject> names = new ArrayList<ScriptObject>();
-			
+
 			ScriptObject obj = env.getThis(); //get the object which methods we enumerate
 			ScriptClass cls = env.getThis().getParentClass(); //and its class (if this is not already a class)
-			env = obj.getEnvironment(); //we start at the env of the object (the env given as a parameter is not the same but a method exec env usually a frame above the object env). 
+			env = obj.getEnvironment(); //we start at the env of the object (the env given as a parameter is not the same but a method exec env usually a frame above the object env).
 
 			while (env.getOwner() == obj || (cls != null && env.getOwner() == cls)){ //loop over object and class envs
 				for (String name : env.getLocalMembers()){
@@ -86,7 +86,7 @@ public abstract class ScriptClass extends ScriptObject {
 			return new ArrayObject(names);
 		}
 	};
-	
+
 	private final static Method methodMethod = new Method(1){
 		@Override
 		public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -94,8 +94,8 @@ public abstract class ScriptClass extends ScriptObject {
 			return new MethodObject(env, (Method)env.getThis().getMember(((StringObject)args.get(0)).getValue()));
 		}
 	};
-	
-	
+
+
 	private String className;
 
 	/**
@@ -103,7 +103,7 @@ public abstract class ScriptClass extends ScriptObject {
 	 * @param className name of the class
 	 * @param parentClass parent class (not used yet, always null so far)
 	 * @param classEnvironment environment of this class (NOT the definition env, but a frame on top of it!)
-	 * @param instanceable determines if the class is instanceable or not. If true the "new" constructor method will be added to the object. In this case the newInstance() method must be implemented to return a new instance object of the class. 
+	 * @param instanceable determines if the class is instanceable or not. If true the "new" constructor method will be added to the object. In this case the newInstance() method must be implemented to return a new instance object of the class.
 	 */
 	public ScriptClass(String className, ScriptClass parentClass, Environment classEnvironment, boolean instanceable){
 		super(classEnvironment);
@@ -119,7 +119,7 @@ public abstract class ScriptClass extends ScriptObject {
 			this.setMember("method", methodMethod);
 		}
 	}
-	
+
 	/**
 	 * make a new environment for instances of this class
 	 * @return a new environment for instances of this class
@@ -127,7 +127,7 @@ public abstract class ScriptClass extends ScriptObject {
 	public Environment newInstanceEnvironment(){
 		return this.getEnvironment().newFrame();
 	}
-	
+
 	/**
 	 * Creates and returns a new instance of the implementing class
 	 * @param args evaluated constructor parameters.
@@ -135,22 +135,22 @@ public abstract class ScriptClass extends ScriptObject {
 	 * @return a new instance of the class
 	 */
 	public abstract ScriptObject newInstance(List<ScriptObject> args, MethodObject block);
-	
+
 	@Override
 	public String getClassName(){
 		return this.className;
 	}
-	
+
 }
 
 /**
  * Base class for all script objects (and script classes!!)
- * Classes are also objects! 
+ * Classes are also objects!
  * @author Philipp
  *
  */
 abstract class ScriptObject extends Expression{
-	
+
 	/** Global script null value */
 	public static ScriptObject nullValue = NullObject.nullObject;
 	/** Global script BooleanObject for false */
@@ -182,16 +182,16 @@ abstract class ScriptObject extends Expression{
 	public static ScriptObject make(boolean value){
 		return value ? trueValue : falseValue;
 	}
-	
+
 	/**
 	 * Convenience method for creating an StringObject from a String value
 	 * @param value value to wrap
 	 * @return the created StringObject
 	 */
 	public static ScriptObject make(String value){
-		return new StringObject(value); 
+		return new StringObject(value);
 	}
-	
+
 	/**
 	 * Masks java null values.
 	 * If a non-null value is given, it will be retuend without modification
@@ -202,8 +202,8 @@ abstract class ScriptObject extends Expression{
 	public static ScriptObject maskNull(ScriptObject value){
 		return (value == null) ? nullValue : value;
 	}
-	
-	
+
+
 	private final static Method isAMethod = new Method(1){
 		@Override
 		public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -224,7 +224,7 @@ abstract class ScriptObject extends Expression{
 			return ScriptObject.falseValue;
 		}
 	};
-	
+
 	private Environment environment;
 	private ScriptClass parentClass;
 
@@ -235,7 +235,7 @@ abstract class ScriptObject extends Expression{
 	public ScriptObject(ScriptClass parentClass){
 		this(parentClass, parentClass.newInstanceEnvironment());
 	}
-	
+
 	/**
 	 * Script object base constructor with custom environment
 	 * Used for creating primitive type instances, that don't need an individual environment for each instance
@@ -245,7 +245,7 @@ abstract class ScriptObject extends Expression{
 	public ScriptObject(ScriptClass parentClass, Environment instanceEnvironment){
 		this.environment = instanceEnvironment;
 		this.parentClass = parentClass;
-		
+
 		if (this.environment != null){
 			this.environment.setOwner(this);
 	 		this.setMember("is_a?", isAMethod);
@@ -271,7 +271,7 @@ abstract class ScriptObject extends Expression{
 	protected Environment getEnvironment(){
 		return this.environment;
 	}
-	
+
 	/**
 	 * Creates a new local environment frame for method running in object context.
    * @return new local environment frame for method running in object context.
@@ -279,10 +279,10 @@ abstract class ScriptObject extends Expression{
 	public Environment newLocalEnvironment(){
 		return this.environment.newFrame();
 	}
-	
+
 	/**
 	 * Looks up a member (aka variable) of this object in its environment
-	 * XXX: it also looks in the parent env's. This is wrong but currently needed for user classes to work. FIXME!  
+	 * XXX: it also looks in the parent env's. This is wrong but currently needed for user classes to work. FIXME!
 	 * @param name name of the member
 	 * @return member with the given name.
 	 * @throws UndefinedMemberException if there is no member with the given name.
@@ -294,7 +294,7 @@ abstract class ScriptObject extends Expression{
 			throw new UndefinedMemberException(this, name);
 		}
 	}
-	
+
 	/**
 	 * Same as getMember, but will also check if the given name is bound to a method.
 	 * @param name the name of the method to look up
@@ -307,7 +307,7 @@ abstract class ScriptObject extends Expression{
 			throw new UndefinedMemberException(this, name);
 		}
 	}
-	
+
 	/**
 	 * Binds a name to the given value in object context
 	 * @param name name to bind to
@@ -328,17 +328,17 @@ abstract class ScriptObject extends Expression{
 		this.environment.bindLocal(name, newValue);
 		return newValue;
 	}
-	
+
 	/**
 	 * Evaluate this object. Default behavior is for objects to evaluate to itself
 	 * @param env Environment to evaluate in (ignored by default)
-	 * @return evaluation result (this by default) 
+	 * @return evaluation result (this by default)
 	 */
 	@Override
 	public ScriptObject execute(Environment env){
 		return this;
 	}
-	
+
 	/**
 	 * Class of this object
 	 * @return class of this object
@@ -346,7 +346,7 @@ abstract class ScriptObject extends Expression{
 	public ScriptClass getParentClass(){
 		return this.parentClass;
 	}
-	
+
 	/**
 	 * Returns the name of the class of this object.
 	 * @return the name of the class of this object.
@@ -354,15 +354,15 @@ abstract class ScriptObject extends Expression{
 	public String getClassName(){
 		return this.parentClass.getClassName();
 	}
-	
+
 	/**
-	 * Returns if this object is considered true by script flow control statements and boolean operators. 
+	 * Returns if this object is considered true by script flow control statements and boolean operators.
 	 * @return true  if this object is considered true by script flow control statements and boolean operators false if not.
 	 */
 	public boolean isTrue() {
 		return true;
 	}
-	
+
 	@Override
 	public String toString(){
 		 return this.getClassName();
@@ -379,5 +379,5 @@ class UndefinedMemberException extends ScriptRuntimeError {
 	public UndefinedMemberException(ScriptObject object, String name) {
 		super(object.toString() + " has no member named '" + name + "'");
 	}
-	
+
 }

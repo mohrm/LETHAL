@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.tests;
 
@@ -56,8 +56,8 @@ import de.uni_muenster.cs.sev.lethal.utils.RandomFTAGenerator;
 
 
 
-/** 
- * A finite tree automata assertion states that some binary relation between two automata 
+/**
+ * A finite tree automata assertion states that some binary relation between two automata
  * holds or does not hold.
  **/
 class FTAAssertion {
@@ -85,7 +85,7 @@ class FTAAssertion {
 
 	/**
 	 * Constructs the assertion.
-	 * 
+	 *
 	 * @param fta1 first automaton
 	 * @param fta2 second automaton
 	 * @param desc description of the assertion - used if the assertion fails
@@ -100,7 +100,7 @@ class FTAAssertion {
 
 	/**
 	 * Returns the first automaton participating in the assertion.
-	 * 
+	 *
 	 * @return the first automaton participating in the assertion
 	 */
 	public EasyFTA getFirstAutomaton() {
@@ -109,7 +109,7 @@ class FTAAssertion {
 
 	/**
 	 * Returns the second automaton participating in the assertion.
-	 * 
+	 *
 	 * @return the second automaton participating in the assertion
 	 */
 	public EasyFTA getSecondAutomaton() {
@@ -118,7 +118,7 @@ class FTAAssertion {
 
 	/**
 	 * Returns whether the relation between the two automata holds or does not hold.
-	 * 
+	 *
 	 * @return true if the relation between the two automata holds, false if it does not hold
 	 */
 	public Boolean getStatement() {
@@ -137,16 +137,16 @@ class FTAAssertion {
 /**
  * Checks whether all the operations we can apply on finite tree automata
  * work as expected.<br>
- * In general we use some random generated test cases and many self-defined tests 
+ * In general we use some random generated test cases and many self-defined tests
  * to check the operations. Here we give a list of the defined automata in form of their language.<br>
- * 
+ *
  * List of used languages:<br>
  * alphabet = {a, b, c, f(,), g(,,), h()}<br>
  * <ul>
  * <li> L0 = {}</li>
- * <li> L1 = trees with root a,b,c or f, where f can get every symbol a parameter, 
+ * <li> L1 = trees with root a,b,c or f, where f can get every symbol a parameter,
  * g can only get a and f. Each of those trees shall be accepted. </li>
- * <li> L2 = like L1, but if g is a parameter of f and another parameter of f is c, then g can only have a as parameter, 
+ * <li> L2 = like L1, but if g is a parameter of f and another parameter of f is c, then g can only have a as parameter,
  * 	    and c is the only constant that is accepted as tree </li>
  * <li> L3 = {g(a,b,c)} </li>
  * <li> L4 = {f(a,a),f(a,b),f(b,a),f(b,b)} </li>
@@ -161,7 +161,7 @@ class FTAAssertion {
  * <li> Doro = {b} </li>
  * </ul>
  * The following assertions hold:
- * <ul> 
+ * <ul>
  * <li>	L2 subset L1.</li>
  * <Li>	L1 cap L3 = L0 </li>
  * <li>	L1 union L2 = L1 </li>
@@ -191,7 +191,7 @@ public class StdFTAOpTest {
 	private static Map<String, Tree<RankedSymbol>> testTrees = new HashMap<String,Tree<RankedSymbol>>();
 
 	/** Stores the assertions which should hold:
-	 *  <ul> 
+	 *  <ul>
 	 * <li>	L2 subset L1.</li>
 	 * <Li>	L1 cap L3 = L0 </li>
 	 * <li>	L1 union L2 = L1 </li>
@@ -213,7 +213,7 @@ public class StdFTAOpTest {
 	/**
 	 * Creates a finite tree automaton from a very compressed string representation of the rules and final states
 	 * and stores it in the global table for test automata.
-	 * 
+	 *
 	 * @param name name of the new automaton
 	 * @param rules collection of string arrays; each of those string arrays represents a rule; first string
 	 * is taken as symbol, last string is taken as destination state and the other are taken as source state
@@ -238,16 +238,16 @@ public class StdFTAOpTest {
 
 	/**
 	 * Sets up some assertions which belong to the test finite tree automata.<br>
-	 * 
+	 *
 	 * Idea: we have two different kinds of assertions to test. First, we have relations which are independent
 	 * of the concrete automaton, i.e. set-theoretic laws about the recognized languages. The second kind
 	 * depends on the concrete automata and should be tested at one place, so that we don't have to scroll
 	 * around all the time, if we change something: We group these assertions by their kind - there are
-	 * assertions which state that a subset relation between the languages of two automata holds or does not hold, 
+	 * assertions which state that a subset relation between the languages of two automata holds or does not hold,
 	 * there are assertions which states that the languages of two automata are equal, etc.
 	 * We encode this information into lists of certain objects, which lead to the right assertions in a natural
 	 * way, see below. <br>
-	 * 
+	 *
 	 * Assertions tested: <br>
 	 * <ul>
 	 * <li> L2 c L1 </li>.
@@ -334,7 +334,7 @@ public class StdFTAOpTest {
 	/**
 	 * Sets up the alphabet we use in this test class:<br>
 	 * a,b,c,f(,),g(,,),h(),u().
-	 * 
+	 *
 	 * @throws Exception is (hopefully) never thrown
 	 */
 	static void setUpAlphabet() throws Exception {
@@ -388,7 +388,7 @@ public class StdFTAOpTest {
 	 * <li> g_subst : g(c,a,d) </li>
 	 * <li> g_2 : g(f(a,a),a,f(a,b)) </li>
 	 * </ul>
-	 * 
+	 *
 	 * @throws Exception is never thrown
 	 */
 	static void setUpTrees() throws Exception {
@@ -434,7 +434,7 @@ public class StdFTAOpTest {
 	/**
 	 * Sets up an automaton with n+1 states. You can prove that its determinized version
 	 * has at least 2^(n+1) states.
-	 * 
+	 *
 	 * @param n n+1 is the number of states of the non deterministic automaton
 	 */
 	static void setUpReallyNonDetAutomaton(int n) {
@@ -470,13 +470,13 @@ public class StdFTAOpTest {
 
 	/**
 	 * Sets up fta_L1_1, a finite tree automaton recognizing language L1. <br>
-	 * L1 = trees with root a,b,c or f, where f can get every symbol a parameter, g can only get a and f. 
+	 * L1 = trees with root a,b,c or f, where f can get every symbol a parameter, g can only get a and f.
 	 * Each of those trees shall be accepted.
-	 * 
+	 *
 	 * @throws java.lang.Exception is (hopefully) never thrown
 	 */
 	static void setUpFta_L1_1() throws Exception {
-		// rules	
+		// rules
 		SimpleFTARuleSet<RankedSymbol,State,EasyFTARule> rules = new SimpleFTARuleSet<RankedSymbol,State,EasyFTARule>();
 		rules.add(new EasyFTARule(alphabet.get("a"), states.get("qa")));
 		rules.add(new EasyFTARule(alphabet.get("b"), states.get("qbc")));
@@ -487,13 +487,13 @@ public class StdFTAOpTest {
 		for (String p : myStates) {
 			for (String q : myStates)
 				rules.add(new EasyFTARule(alphabet.get("f"), states.get("qf"),states.get(p), states.get(q)));
-		} 
+		}
 		// g may get all triples consisting qa and/or qf
 		String[] statesg = {"qa","qf"};
 		for (String p : statesg) {
 			for (String q : statesg) {
 				for (String r : statesg) {
-					// all rules have final state qg 
+					// all rules have final state qg
 					rules.add(new EasyFTARule(alphabet.get("g"), states.get("qg"), states.get(p), states.get(q), states.get(r)));
 				}
 			}
@@ -508,11 +508,11 @@ public class StdFTAOpTest {
 	 * Sets up another finite tree automaton for language L1, called fta_L1_2. <br>
 	 * L1 = trees with root a,b,c or f, where f can get every symbol a parameter, g can only get a and f.
 	 * Each of those trees shall be accepted.
-	 * 
+	 *
 	 * @throws java.lang.Exception
 	 */
 	static void setUpFta_L1_2() throws Exception {
-		// rules	
+		// rules
 		SimpleFTARuleSet<RankedSymbol,State,EasyFTARule> rules = new SimpleFTARuleSet<RankedSymbol,State,EasyFTARule>();
 		rules.add(new EasyFTARule(alphabet.get("a"), states.get("qa")));
 		rules.add(new EasyFTARule(alphabet.get("b"), states.get("qb")));
@@ -529,7 +529,7 @@ public class StdFTAOpTest {
 		for (String p : statesg) {
 			for (String q : statesg) {
 				for (String r : statesg) {
-					// all rules have final state qg 
+					// all rules have final state qg
 					rules.add(new EasyFTARule(alphabet.get("g"), states.get("qg"), states.get(p), states.get(q), states.get(r)));
 				}
 			}
@@ -542,15 +542,15 @@ public class StdFTAOpTest {
 
 	/**
 	 * Sets up an finite tree automaton recognizing L2, called fta_L2.<br>
-	 * 
-	 * L1 = trees with root a,b,c or f, where f can get every symbol a parameter, 
+	 *
+	 * L1 = trees with root a,b,c or f, where f can get every symbol a parameter,
 	 * g can only get a and f. Each of those trees shall be accepted. <br>
 	 * L2 = like L1, but if g is a parameter of f and another parameter of f is c, then g can only have a as parameter,
-	 * 
+	 *
 	 * @throws java.lang.Exception is (hopefully) never thrown
 	 */
 	static void setUpFta_L2() throws Exception {
-		// rules	
+		// rules
 		SimpleFTARuleSet<RankedSymbol,State,EasyFTARule> rules = new SimpleFTARuleSet<RankedSymbol,State,EasyFTARule>();
 		rules.add(new EasyFTARule(alphabet.get("a"), states.get("qa")));
 		rules.add(new EasyFTARule(alphabet.get("b"), states.get("qb")));
@@ -572,7 +572,7 @@ public class StdFTAOpTest {
 		for (String p : statesg) {
 			for (String q : statesg) {
 				for (String r : statesg) {
-					// g(qa,qa,qa) -> qga; all other rules have final state qgf 
+					// g(qa,qa,qa) -> qga; all other rules have final state qgf
 					if (p.equals("qa") && q.equals("qa") && r.equals("qa"))
 						rules.add(new EasyFTARule(alphabet.get("g"), states.get("qga"), states.get(p), states.get(q), states.get(r)));
 					else
@@ -587,7 +587,7 @@ public class StdFTAOpTest {
 
 	/**
 	 * Sets up a finite tree automaton for the language L3 = {g(a,b,c)}, called fta_L3.
-	 * 
+	 *
 	 * @throws java.lang.Exception is (hopefully) never thrown
 	 */
 	static void setUpFta_L3() throws Exception {
@@ -597,9 +597,9 @@ public class StdFTAOpTest {
 	}
 
 	/**
-	 * Sets up a finite tree automaton for language L4, called fta_L4. <br> 
+	 * Sets up a finite tree automaton for language L4, called fta_L4. <br>
 	 * L4 = {f(a,a),f(a,b),f(b,a),f(b,b)}
-	 * 
+	 *
 	 * @throws java.lang.Exception is (hopefully) never thrown
 	 */
 	static void setUpFta_L4() throws Exception {
@@ -619,11 +619,11 @@ public class StdFTAOpTest {
 	/**
 	 * Set up an finite tree automaton for language L5, called fta_L5. <br>
 	 * L5 = {f(a,a),f(a,c),f(c,a),f(c,c)}
-	 * 
+	 *
 	 * @throws java.lang.Exception is (hopefully) never thrown
 	 */
 	static void setUpFta_L5() throws Exception {
-		// rules	
+		// rules
 		SimpleFTARuleSet<RankedSymbol,State,EasyFTARule> rules = new SimpleFTARuleSet<RankedSymbol,State,EasyFTARule>();
 		rules.add(new EasyFTARule(alphabet.get("a"), states.get("qa")));
 		rules.add(new EasyFTARule(alphabet.get("c"), states.get("qa")));
@@ -639,11 +639,11 @@ public class StdFTAOpTest {
 	/**
 	 * Set up fta_L6, a finite tree automaton recognizing language L6, called fta_L6. <br>
 	 * L6 = {f(a,a)}
-	 * 
+	 *
 	 * @throws java.lang.Exception
 	 */
 	static void setUpFta_L6() throws Exception {
-		// rules	
+		// rules
 		SimpleFTARuleSet<RankedSymbol,State,EasyFTARule> rules = new SimpleFTARuleSet<RankedSymbol,State,EasyFTARule>();
 		rules.add(new EasyFTARule(alphabet.get("a"), states.get("qa")));
 		// f may get each pair of states except (qc,qgf) and (qgf,qc)
@@ -664,11 +664,11 @@ public class StdFTAOpTest {
 
 	/**
 	 * Sets up fta_L7, recognizing the language L7 = {f(a,b),f(b,a),f(b,b)}, called fta_L7.
-	 * 
+	 *
 	 * @throws java.lang.Exception
 	 */
 	static void setUpFta_L7() throws Exception {
-		// rules	
+		// rules
 		SimpleFTARuleSet<RankedSymbol,State,EasyFTARule> rules = new SimpleFTARuleSet<RankedSymbol,State,EasyFTARule>();
 		rules.add(new EasyFTARule(alphabet.get("a"), states.get("qa")));
 		rules.add(new EasyFTARule(alphabet.get("b"), states.get("qb")));
@@ -684,11 +684,11 @@ public class StdFTAOpTest {
 
 	/**
 	 * Set up fta_Martin, which recognizes the language {f(b,b)}.
-	 * 
+	 *
 	 * @throws java.lang.Exception is (hopefully) never thrown
 	 */
 	static void setUpFtaMartin() throws Exception {
-		// rules	
+		// rules
 		SimpleFTARuleSet<RankedSymbol,State,EasyFTARule> rules = new SimpleFTARuleSet<RankedSymbol,State,EasyFTARule>();
 		rules.add(new EasyFTARule(alphabet.get("b"), states.get("qb")));
 		rules.add(new EasyFTARule(alphabet.get("f"), states.get("qf"), states.get("qb"), states.get("qb")));
@@ -702,7 +702,7 @@ public class StdFTAOpTest {
 	/**
 	 * Set up fta_Doro, which recognizes the language {b} and fta_Irene,
 	 * which recognizes the language {a}.
-	 * 
+	 *
 	 * @throws java.lang.Exception is (hopefully) never thrown
 	 */
 	static void setUpFtaDoroIrene() throws Exception {
@@ -729,11 +729,11 @@ public class StdFTAOpTest {
 	/**
 	 * Sets up fta_even, which recognizes the language Leven = {h^n(a): n even}
 	 * and fta_odd, which recognizes the language Lodd = {h^n(a): n odd}.
-	 * 
+	 *
 	 * @throws java.lang.Exception is (hopefully) never thrown
 	 */
 	static void setUpFtaEvenOdd() throws Exception {
-		// rules	
+		// rules
 		SimpleFTARuleSet<RankedSymbol,State,EasyFTARule> rules = new SimpleFTARuleSet<RankedSymbol,State,EasyFTARule>();
 		rules.add(new EasyFTARule(alphabet.get("a"), states.get("q_ger")));
 		rules.add(new EasyFTARule(alphabet.get("h"), states.get("q_ung"), states.get("q_ger")));
@@ -750,11 +750,11 @@ public class StdFTAOpTest {
 	 * Sets up fta_var, which recognizes the language which is gained by substituting
 	 * L6 and L4 in the varTree. <br>
 	 * L = {g(f(a,a),a,f(a,a)),g(f(a,a),a,f(a,b)), g(f(a,a),a,f(b,a)), g(f(a,a),a,f(b,b))}
-	 * 
+	 *
 	 * @throws java.lang.Exception
 	 */
 	static void setUpFta_Var() throws Exception {
-		// rules	
+		// rules
 		SimpleFTARuleSet<RankedSymbol,State,EasyFTARule> rules = new SimpleFTARuleSet<RankedSymbol,State,EasyFTARule>();
 		rules.add(new EasyFTARule(alphabet.get("a"), states.get("q2")));
 		rules.add(new EasyFTARule(alphabet.get("b"), states.get("q2")));
@@ -772,7 +772,7 @@ public class StdFTAOpTest {
 	/**
 	 * Sets up ftaEpsFA {@link FTACreator#createFTA} to check the method
 	 * for eliminating epsilon rules.<br>
-	 * 
+	 *
 	 * Rules: <br>
 	 * <ul>
 	 * <li>  p1 -> q </li>
@@ -780,9 +780,9 @@ public class StdFTAOpTest {
 	 * <li> p2 -> q </li>
 	 * <li> q -> p20 </li>
 	 * <li> d(p20)->p2 </li>
-	 * </ul> 
+	 * </ul>
 	 * and q is the only final state.<br>.
-	 * 
+	 *
 	 * @throws Exception is (hopefully) never thrown.
 	 */
 	static void setUpEpsFTA() throws Exception {
@@ -792,8 +792,8 @@ public class StdFTAOpTest {
 
 		epsRules.add(new EasyFTAEpsRule(states.get("q1"), states.get("qf")));
 		rules.add(new EasyFTARule(alphabet.get("a"), states.get("q1")));
-		epsRules.add(new EasyFTAEpsRule(states.get("q2"), states.get("qf")));		
-		epsRules.add(new EasyFTAEpsRule(states.get("qf"), states.get("qa")));		
+		epsRules.add(new EasyFTAEpsRule(states.get("q2"), states.get("qf")));
+		epsRules.add(new EasyFTAEpsRule(states.get("qf"), states.get("qa")));
 
 		rules.add(new EasyFTARule(alphabet.get("d"), states.get("pq"), states.get("qa")));
 
@@ -803,7 +803,7 @@ public class StdFTAOpTest {
 
 	/**
 	 * Sets up some bigger random finite tree automata and some trees over the same alphabet.
-	 * 
+	 *
 	 * @throws java.lang.Exception
 	 */
 	static void setUpRandom() throws Exception{
@@ -887,7 +887,7 @@ public class StdFTAOpTest {
 		Assert.assertTrue("The complement of an full automaton should be an empty one.",
 				FTAProperties.sameLanguage(EasyFTAOps.complement(EasyFTAOps.computeAlphabetFTA(testAutom.get("pseudo-empty").getAlphabet())),
 						testAutom.get("empty")));
-		// test some special cases 
+		// test some special cases
 		Assert.assertTrue("f(a,a) should be contained in the complement of L7",
 				FTAProperties.decide(EasyFTAOps.complement(testAutom.get("fta_L7")),
 						testTrees.get("faa")));
@@ -936,7 +936,7 @@ public class StdFTAOpTest {
 			Assert.assertTrue(A1Name+": Intersection with an emtpy language must be empty",
 					FTAProperties.emptyLanguage(EasyFTAOps.intersectionTD(testAutom.get("pseudo-empty"),A1)));
 		}
-		// some special cases 
+		// some special cases
 		// L1 cap L3 = L0
 		// L4 cap L5 = L6
 		// are testet in the testAssertionFunction
@@ -946,7 +946,7 @@ public class StdFTAOpTest {
 		Assert.assertFalse(EasyFTAOps.intersectionTD(testAutom.get("fta_L4"), testAutom.get("fta_L5")).decide(
 				testTrees.get("fbb")));
 
-		Assert.assertTrue(FTAProperties.sameLanguage(testAutom.get("fta_L2"), 
+		Assert.assertTrue(FTAProperties.sameLanguage(testAutom.get("fta_L2"),
 				EasyFTAOps.intersectionTD(testAutom.get("fta_L2"), testAutom.get("fta_L1_1"))));
 
 	}
@@ -961,7 +961,7 @@ public class StdFTAOpTest {
 	@Test
 	public void testUnion() {
 		for (EasyFTA A1: testAutom.values()){
-			for (EasyFTA A2: testAutom.values()) {	   
+			for (EasyFTA A2: testAutom.values()) {
 				EasyFTA union12 = EasyFTAOps.union(A1, A2);
 				//int result = FTAProperties.checkUnion(union12,A1,A2);
 				//Assert.assertEquals(A1.getName()+"/"+A2.getName(), 0, result);
@@ -993,7 +993,7 @@ public class StdFTAOpTest {
 	/**
 	 * Tests {@link EasyFTAOps#difference}.<br>
 	 * Some special cases are tested in {@link StdFTAOpTest#testAssertions}.<br>
-	 * Tests whether the difference with an emtpy automaton does not change the language. 
+	 * Tests whether the difference with an emtpy automaton does not change the language.
 	 * Tests with trees whether if a tree is accepted by the difference automaton it is not
 	 * accepted by the second automaton, but accepted by the first.
 	 */
@@ -1029,8 +1029,8 @@ public class StdFTAOpTest {
 
 	/**
 	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTAOps#determinize}.<br>
-	 * 
-	 * The result finite tree automaton should have the same language as the given one 
+	 *
+	 * The result finite tree automaton should have the same language as the given one
 	 * and be deterministic.
 	 */
 	@Test
@@ -1049,10 +1049,10 @@ public class StdFTAOpTest {
 	}
 
 	/**
-	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTAOps#complete} and 
+	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTAOps#complete} and
 	 * {@link de.uni_muenster.cs.sev.lethal.treeautomata.common.FTAProperties#checkComplete}. <br>
-	 * 
-	 * The result finite tree automaton should have the same language as the given one 
+	 *
+	 * The result finite tree automaton should have the same language as the given one
 	 * and be complete.
 	 */
 	@Test
@@ -1066,15 +1066,15 @@ public class StdFTAOpTest {
 			Assert.assertTrue("compA must have same language.",FTAProperties.sameLanguage(A, compA));
 			Assert.assertTrue("compA must be complete.", FTAProperties.checkComplete(compA));
 		}
-		//Assert.assertEquals(testAutom.get("fta_L6").getRules(), 
+		//Assert.assertEquals(testAutom.get("fta_L6").getRules(),
 		//	EasyFTAOps.complete(testAutom.get("fta_L6")).getRules());
 	}
 
 
 	/**
 	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTAOps#minimize}. <br>
-	 * 
-	 * The result finite tree automaton should have the same language as the given one and 
+	 *
+	 * The result finite tree automaton should have the same language as the given one and
 	 * have minimal size of states after determinizing and completing.<br>
 	 * An error might be due to complete, reduce or determinize.
 	 */
@@ -1084,16 +1084,16 @@ public class StdFTAOpTest {
 			EasyFTA detA = EasyFTAOps.determinize(A);
 			EasyFTA minA = EasyFTAOps.minimize(detA);
 			Assert.assertTrue(FTAProperties.sameLanguage(A,minA));
-			//one state extra for completing 
+			//one state extra for completing
 			Assert.assertTrue(minA.getStates().size() <= detA.getStates().size()+1);
 		}
 	}
 
 	/**
-	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTAOps#reduceBottomUp} and 
+	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTAOps#reduceBottomUp} and
 	 * {@link de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTAOps#reduceTopDown} . <br>
-	 * 
-	 * By reducing the language must not change, we test this which different ways of reducing. 
+	 *
+	 * By reducing the language must not change, we test this which different ways of reducing.
 	 * The second property of reducing is that the count of the rules must decrise.
 	 */
 	@Test
@@ -1148,7 +1148,7 @@ public class StdFTAOpTest {
 	 * Some special cases are found in StdFTAOpTest#setUpAssertions() <br>
 	 * An error might be due to complement, intersection oder emptyLanguage
 	 * the failure trace indicates, that intersection is an problem,
-	 * so repair intersection first! 
+	 * so repair intersection first!
 	 */
 	@Test
 	public void testSubsetLanguage() {
@@ -1198,7 +1198,7 @@ public class StdFTAOpTest {
 
 	/**
 	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.common.FTAProperties#finiteLanguage}. <br>
-	 * 
+	 *
 	 * Tests for every automaton if the given language is finite. This is stored for the self-created automata.
 	 */
 	@Test
@@ -1231,12 +1231,12 @@ public class StdFTAOpTest {
 
 	/**
 	 * Tests {@link FTAProperties#decide} with some trees and some automata. <br>
-	 * 
+	 *
 	 */
 	@Test
 	public void testDecide() {
 
-		//test some normal input cases 
+		//test some normal input cases
 		Assert.assertTrue(testAutom.get("fta_L2").decide(testTrees.get("treeC")));
 		Assert.assertFalse(testAutom.get("fta_L2").decide(testTrees.get("treeA")));
 		Assert.assertTrue(testAutom.get("fta_L2").decide(testTrees.get("tree_L2_1")));
@@ -1257,7 +1257,7 @@ public class StdFTAOpTest {
 		Assert.assertTrue(testAutom.get("fta_L1_2").decide(testTrees.get("tree_L2_2")));
 		Assert.assertTrue(testAutom.get("fta_L1_2").decide(testTrees.get("tree_L2_3")));
 
-		Map<Tree<RankedSymbol>,Set<State>> accStates = 
+		Map<Tree<RankedSymbol>,Set<State>> accStates =
 			testAutom.get("fta_L1_1").annotateTreeWithStates(testTrees.get("tree_L2_2"));
 		Stack<Tree<RankedSymbol>> toDo = new Stack<Tree<RankedSymbol>>();
 		toDo.add(testTrees.get("tree_L2_2"));
@@ -1275,7 +1275,7 @@ public class StdFTAOpTest {
 					testAutom.get("empty").decide(t));
 			Assert.assertFalse("Empty automata should not accept anything.",
 					testAutom.get("pseudo-empty").decide(t));
-			
+
 			if (fta.getAlphabet().containsAll(TreeOps.getAllContainedSymbols(t)))
 				Assert.assertTrue("AlphabetFTA should accept everything, but did not accept "+t,fta.decide(t));
 		}
@@ -1305,7 +1305,7 @@ public class StdFTAOpTest {
 			if (tA != null)
 				Assert.assertTrue(FTAProperties.decide(A, tA));
 		}
-	} 
+	}
 
 	/**
 	 * Tests the {@link EasyFTAOps#substitute substitution method}. <br>
@@ -1325,7 +1325,7 @@ public class StdFTAOpTest {
 		for (String s: testTrees.keySet()){
 			Assert.assertTrue("For an empty map substitution is the same as construct an automaton which recognises exactly the given tree.",
 					FTAProperties.sameLanguage(EasyFTAOps.computeSingletonFTA(testTrees.get(s)),
-							EasyFTAOps.substitute(testTrees.get(s), languages)));		
+							EasyFTAOps.substitute(testTrees.get(s), languages)));
 		}
 		// what happens if in the map are symbols which have an arity > 0?
 		try{
@@ -1342,24 +1342,24 @@ public class StdFTAOpTest {
 			languages.put(alphabet.get("b"), testAutom.get(s));
 			Assert.assertTrue("Replacing in a tree which consists of only one constant shall do nothing.",
 					FTAProperties.sameLanguage(testAutom.get(s),
-							EasyFTAOps.substitute(testTrees.get("treeB"), languages)));		
+							EasyFTAOps.substitute(testTrees.get("treeB"), languages)));
 		}
 
-		/* 
+		/*
 		 * Replacing a constant by the empty language shall give the empty language, if the constant occurs in the tree,m
 		 * and give an automaton that accepts exactly the given tree otherwise
 		 */
 		languages.clear();
 		RankedSymbol c = alphabet.get("c");
-		languages.put(c, testAutom.get("empty"));	
+		languages.put(c, testAutom.get("empty"));
 		HashMap<RankedSymbol,EasyFTA> languages1 = new HashMap<RankedSymbol,EasyFTA>();
 		HashMap<RankedSymbol,EasyFTA> languages2 = new HashMap<RankedSymbol,EasyFTA>();
-		languages1.put(c, testAutom.get("pseudo-empty"));	
-		languages2.put(c, testAutom.get("fta_L0"));	
+		languages1.put(c, testAutom.get("pseudo-empty"));
+		languages2.put(c, testAutom.get("fta_L0"));
 		for (String s: testTrees.keySet()){
 			Tree<RankedSymbol> t = testTrees.get(s);
 			if (TreeOps.containsSymbol(t,c)){
-				Assert.assertTrue("Replacing an occuring variable by the empty language shall give the empty language.", 
+				Assert.assertTrue("Replacing an occuring variable by the empty language shall give the empty language.",
 						FTAProperties.emptyLanguage(EasyFTAOps.substitute(t, languages)));
 				Assert.assertTrue("Replacing an occuring variable by the empty language shall give the empty language.",
 						FTAProperties.emptyLanguage(EasyFTAOps.substitute(t, languages1)));
@@ -1368,28 +1368,28 @@ public class StdFTAOpTest {
 			} else {
 				Assert.assertTrue("Replacing an object in a tree which does not occur shall give an automaton that accepts exactly the given tree.",
 						FTAProperties.sameLanguage(EasyFTAOps.computeSingletonFTA(t),
-								EasyFTAOps.substitute(t, languages)));		
+								EasyFTAOps.substitute(t, languages)));
 				Assert.assertTrue("Replacing an object in a tree which does not occur shall give an automaton that accepts exactly the given tree.",
 						FTAProperties.sameLanguage(EasyFTAOps.computeSingletonFTA(t),
-								EasyFTAOps.substitute(t, languages1)));	
+								EasyFTAOps.substitute(t, languages1)));
 				Assert.assertTrue("Replacing an object in a tree which does not occur shall give an automaton that accepts exactly the given tree.",
 						FTAProperties.sameLanguage(EasyFTAOps.computeSingletonFTA(t),
-								EasyFTAOps.substitute(t, languages2)));	
+								EasyFTAOps.substitute(t, languages2)));
 
 			}
-		} 
+		}
 
 		//test a normal input
 		languages.clear();
-		languages.put(alphabet.get("c"), testAutom.get("fta_even"));		
+		languages.put(alphabet.get("c"), testAutom.get("fta_even"));
 		EasyFTA subst = EasyFTAOps.substitute(testTrees.get("hc"), languages );
 		Assert.assertTrue("Substituting c in h(c) by fta_even shall give fta_odd.",
-				FTAProperties.sameLanguage(testAutom.get("fta_odd"), 
+				FTAProperties.sameLanguage(testAutom.get("fta_odd"),
 						subst));
 		languages.clear();
-		languages.put(alphabet.get("c"), testAutom.get("fta_odd"));		
+		languages.put(alphabet.get("c"), testAutom.get("fta_odd"));
 		Assert.assertFalse("Substituting c in h(c) by fta_odd shall not give fta_even.",
-				FTAProperties.sameLanguage(testAutom.get("fta_even"), 
+				FTAProperties.sameLanguage(testAutom.get("fta_even"),
 						EasyFTAOps.substitute(testTrees.get("hc"), languages )));
 
 		Assert.assertTrue("The difference of fta_even and the automaton given by substituting c in h(c) by fta_odd shall accept exactly the tree that consists only of a.",

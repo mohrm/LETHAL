@@ -41,7 +41,7 @@ public class Project {
 	/*
 	 * Class Members / Methods
 	 */
-	
+
 	/**
 	 * All item classes the GUI knows about.
 	 */
@@ -73,7 +73,7 @@ public class Project {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Loads a project from the given file.
 	 * @param file file to load from
@@ -90,9 +90,9 @@ public class Project {
 	public static Project loadFromFile(File file) throws SAXException, IOException, ParserConfigurationException, IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		Document xmldoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
 		Element root = (Element)xmldoc.getFirstChild();
-		
+
 		Project project = new Project(root.getAttribute("name"));
-		
+
 		for (int i = 0; i < root.getChildNodes().getLength(); i++){
 			Element itemClassElement = (Element)root.getChildNodes().item(i);
 			String itemClassSimpleName = itemClassElement.getNodeName();
@@ -106,42 +106,42 @@ public class Project {
 		}
 		return project;
 	}
-	
+
 	/*
-	 *Instance Members / Methods 
+	 *Instance Members / Methods
 	 */
-	
+
 	/**
 	 * Lists of Items in this project, keyed by class.
 	 */
-	private HashMap<Class<? extends Item>, List<Item>> items = new HashMap<Class<? extends Item>, List<Item>>();	
-	
+	private HashMap<Class<? extends Item>, List<Item>> items = new HashMap<Class<? extends Item>, List<Item>>();
+
 	/**
 	 * All registered project event listeners.
 	 */
 	private List<ProjectEventListener> eventListeners = new ArrayList<ProjectEventListener>();
-	
+
 	/**
 	 * Name of this project.
 	 */
 	private String name;
-	
+
 	private boolean dirty = false;
-	
+
 	/**
 	 * Creates a new project.
 	 * @param name project name
 	 */
 	public Project(String name){
 		this.name = name;
-		
+
 		//Init item lists.
 		for (Class<? extends Item> itemClass : itemClasses){
 			this.items.put(itemClass, new ArrayList<Item>());
 		}
 	}
-	
-	
+
+
 	/**
 	 * List of all items of a given class in the project.
 	 * @param itemClass class of the items
@@ -150,7 +150,7 @@ public class Project {
 	public List<Item> getItems(Class<? extends Item> itemClass) {
 		return items.get(itemClass);
 	}
-	
+
 	/**
 	 * Adds an item to the project.
 	 * @param item item to add
@@ -159,7 +159,7 @@ public class Project {
 		List<Item> classItems = items.get(item.getClass());
 		classItems.add(item);
 		sortItemList(classItems);
-		
+
 		for (ProjectEventListener listener : eventListeners) {listener.onItemAdded(item);}
 		setDirty(true);
 	}
@@ -174,7 +174,7 @@ public class Project {
 		items.get(item.getClass()).remove(item);
 		setDirty(true);
 	}
-	
+
 	/**
 	 * Searches for an item with the given name and returns it if found.
 	 * @param name the name to search for.
@@ -188,7 +188,7 @@ public class Project {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Sets a new project name.
 	 * @param name new project name
@@ -205,7 +205,7 @@ public class Project {
 	public String getName() {
 		return this.name;
 	}
-	
+
 	/**
 	 * Sets the dirty status of the project. Dirty means the project has unsaved changes.
 	 * @param dirty true if the project has unsaved changes
@@ -216,7 +216,7 @@ public class Project {
 			for (ProjectEventListener listener : eventListeners) {listener.onProjectChanged();}
 		}
 	}
-	
+
 	/**
 	 * Returns the project dirty status. <br> Dirty means the project has unsaved changes.
 	 * @return true if the project has unsaved changes, false if not
@@ -224,26 +224,26 @@ public class Project {
 	public boolean isDirty(){
 		return this.dirty;
 	}
-	
+
 	/**
-	 * Adds a listener to project events (such as items added to the project or project name changed). 
+	 * Adds a listener to project events (such as items added to the project or project name changed).
 	 * @param l listener to add
 	 */
 	public void addProjectListener(ProjectEventListener l){
 		this.eventListeners.add(l);
 	}
-	
+
 	/**
-	 * Removes a project events listener. 
+	 * Removes a project events listener.
 	 * @param l the listener to remove
 	 */
 	public void removeProjectListener(ProjectEventListener l){
 		this.eventListeners.remove(l);
 	}
-	
-	
+
+
 	/**
-	 * Saves the project to the given file. 
+	 * Saves the project to the given file.
 	 * @param file file to save to.
 	 * @throws ParserConfigurationException XML lib exception
 	 * @throws TransformerConfigurationException XML lib exception
@@ -271,15 +271,15 @@ public class Project {
 		TransformerFactory.newInstance().newTransformer().transform(xmlsource, result);
 		setDirty(false);
 	}
-	
+
 	@Override
 	public String toString(){
 		return this.name;
 	}
-	
+
 	/**
 	 * Check if the given name is valid or not.<br>
-	 * A name is valid if it matches the regexp [a-z_A-Z][a-z_A-Z0-9]*. 
+	 * A name is valid if it matches the regexp [a-z_A-Z][a-z_A-Z0-9]*.
 	 * @param name name to validate
 	 * @throws InvalidItemNameException thrown if the name is not valid
 	 */
@@ -291,28 +291,28 @@ public class Project {
 			throw new InvalidItemNameException("There is already an item named '" + name + "'. Item names must be unique.");
 		}
 	}
-	
+
 	/**
 	 * Converts a given name to a valid project item name. <br>
 	 * All invalid chars contained are replaced with _.
-	 * If the resulting name is already used in the project a counter number will be 
+	 * If the resulting name is already used in the project a counter number will be
 	 * appended to make it unique.
 	 * @param refName input name
 	 * @return valid, unique item name
 	 */
 	public String convertToValidNewItemName(String refName){
-		StringBuffer sb = new StringBuffer(refName); 
+		StringBuffer sb = new StringBuffer(refName);
 		Pattern p = Pattern.compile("^[^a-z_A-Z]$" );
 		if (p.matcher(refName).matches()){
 			sb.setCharAt(0, '_');
 		}
-		
+
 		p = Pattern.compile("[^a-z_A-Z0-9]");
 		Matcher m = p.matcher(sb);
 		while (m.find()){
 			sb.setCharAt(m.start(),'_');
 		}
-		
+
 		p = Pattern.compile(".*_(\\d+)$");
 		while (getItemByName(sb.toString()) != null){
 			m = p.matcher(sb.toString());
@@ -325,7 +325,7 @@ public class Project {
 		}
 		return sb.toString();
 	}
-	
+
 	private static void sortItemList(List<Item> items){
 		Collections.sort(items, new Comparator<Item>(){
 			@Override
@@ -345,7 +345,7 @@ public class Project {
 		sortItemList(this.items.get(item.getClass()));
 		for (ProjectEventListener listener : eventListeners) {listener.onItemRenamed(item);}
 	}
-	
+
 	/**
 	 * Fires an edit event for an item. <br>
 	 * An edit event is raised when the user edits an item in an editor window.
@@ -355,17 +355,17 @@ public class Project {
 		setDirty(true);
 		for (ProjectEventListener listener : eventListeners) {listener.onItemEdited(item);}
 	}
-	
+
 	/**
 	 * Fires an item editor change event.<br>
-	 * Such an event is raised when an item is opened for editing and when the editor is closed.  
+	 * Such an event is raised when an item is opened for editing and when the editor is closed.
 	 * @param item item which editor changed
 	 * @param editor new editor or null if the editor was closed
 	 */
 	public void fireItemEditorChanged(Item item, Editor editor){
 		for (ProjectEventListener listener : eventListeners) {listener.onItemEditorChanged(item,editor);}
 	}
-	
+
 	/**
 	 * Fires a content set event for an item. <br>
 	 * A content set event is raised when the contents of an item is updated, usually by the user clicking the "apply" button in an editor.
@@ -374,7 +374,7 @@ public class Project {
 	protected void fireItemContentSet(Item item){
 		for (ProjectEventListener listener : eventListeners) {listener.onItemContentSet(item);}
 	}
-	
+
 	static abstract class ProjectEventListener {
 		public void onProjectChanged(){}
 		public void onItemAdded(Item item) {}
@@ -384,7 +384,7 @@ public class Project {
 		public void onItemContentSet(Item item){}
 		public void onItemEditorChanged(Item item, Editor editor) {}
 	}
-	
+
 	class InvalidItemNameException extends Exception{
 		public InvalidItemNameException(String message){
 			super(message);

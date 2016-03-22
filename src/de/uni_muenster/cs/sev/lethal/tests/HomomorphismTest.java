@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.tests;
 
@@ -52,7 +52,7 @@ import de.uni_muenster.cs.sev.lethal.utils.RandomFTAGenerator;
 /**
  * Test cases for homomorphisms. <br>
  * The tests are done with some self-created examples and randomize generated homomorphism, trees and tree automata.
- * 
+ *
  * @author Irene
  */
 public class HomomorphismTest {
@@ -99,25 +99,25 @@ public class HomomorphismTest {
 	private EasyFTA ta1;
 
 	private void setUpAlphabet(){
-		//setUpAlphabet		
+		//setUpAlphabet
 		RankedSymbol t = new StdNamedRankedSymbol<String>("1", 0);
 		RankedSymbol f = new StdNamedRankedSymbol<String>("0", 0);
 		RankedSymbol not = new StdNamedRankedSymbol<String>("not", 1);
 		RankedSymbol and = new StdNamedRankedSymbol<String>("and", 2);
 		RankedSymbol or = new StdNamedRankedSymbol<String>("or", 2);
 
-		alphabet1.put("t",t); 
-		alphabet1.put("f",f); 
+		alphabet1.put("t",t);
+		alphabet1.put("f",f);
 		alphabet1.put("not",not);
-		alphabet1.put("or",or); 
+		alphabet1.put("or",or);
 		alphabet1.put("and",and);
 
-		//setUpAlphabet2		
+		//setUpAlphabet2
 		RankedSymbol a = new StdNamedRankedSymbol<String>("a", 0);
 		RankedSymbol b = new StdNamedRankedSymbol<String>("b", 1);
 		RankedSymbol c = new StdNamedRankedSymbol<String>("c", 2);
 
-		alphabet2.put("a",a); alphabet2.put("b",b); alphabet2.put("c",c); 
+		alphabet2.put("a",a); alphabet2.put("b",b); alphabet2.put("c",c);
 	}
 
 	private void setUpTree(){
@@ -130,9 +130,9 @@ public class HomomorphismTest {
 		trees.put("not_0",new StdTree<RankedSymbol>(alphabet1.get("not"), Util.makeList(tree_0)));
 
 		trees.put("test_a", new StdTree<RankedSymbol>(alphabet1.get("and"), Util.makeList(tree_0, tree_1)));
-		trees.put("result_a", new StdTree<RankedSymbol>(alphabet1.get("not"), 
+		trees.put("result_a", new StdTree<RankedSymbol>(alphabet1.get("not"),
 				Util.makeList(new StdTree<RankedSymbol>(alphabet1.get("or"),
-						Util.makeList(new StdTree<RankedSymbol>(alphabet1.get("not"), 
+						Util.makeList(new StdTree<RankedSymbol>(alphabet1.get("not"),
 								Util.makeList(tree_0)),new StdTree<RankedSymbol>(
 										alphabet1.get("not"), Util.makeList(tree_1)))))));
 		trees.put("foo_a",new StdTree<RankedSymbol>(alphabet1.get("or"), Util.makeList(tree_0, tree_0)));
@@ -140,25 +140,25 @@ public class HomomorphismTest {
 		trees.put("test_b",new StdTree<RankedSymbol>(alphabet1.get("or"), Util.makeList(
 				new StdTree<RankedSymbol>(alphabet1.get("and"),Util.makeList(tree_1,trees.get("not_0"))),
 				new StdTree<RankedSymbol>(alphabet1.get("not"), Util.makeList(tree_1)))));
-		Tree<RankedSymbol> help_b = new StdTree<RankedSymbol>(alphabet1.get("not"), 
-				Util.makeList(new StdTree<RankedSymbol>(alphabet1.get("or"), 
-						Util.makeList(new StdTree<RankedSymbol>(alphabet1.get("not"), 
+		Tree<RankedSymbol> help_b = new StdTree<RankedSymbol>(alphabet1.get("not"),
+				Util.makeList(new StdTree<RankedSymbol>(alphabet1.get("or"),
+						Util.makeList(new StdTree<RankedSymbol>(alphabet1.get("not"),
 								Util.makeList(tree_1)),new StdTree<RankedSymbol>(
 										alphabet1.get("not"),Util.makeList(trees.get("not_0")))))));
 
-		trees.put("result_b", new StdTree<RankedSymbol>(alphabet1.get("or"), 
+		trees.put("result_b", new StdTree<RankedSymbol>(alphabet1.get("or"),
 				Util.makeList(help_b, new StdTree<RankedSymbol>(alphabet1.get("not"),
 						Util.makeList(tree_1)))));
 
 		trees.put("test_d", new StdTree<RankedSymbol>(alphabet2.get("a")));
 
-		trees.put("test_c", new StdTree<RankedSymbol>(alphabet2.get("b"), 
-				Util.makeList(new StdTree<RankedSymbol>(alphabet2.get("c"), 
+		trees.put("test_c", new StdTree<RankedSymbol>(alphabet2.get("b"),
+				Util.makeList(new StdTree<RankedSymbol>(alphabet2.get("c"),
 						Util.makeList(trees.get("test_d"), trees.get("test_d"))))));
-		Tree<RankedSymbol> tree_c1 = new StdTree<RankedSymbol>(alphabet1.get("not"), 
-				Util.makeList(new StdTree<RankedSymbol>(alphabet1.get("or"), 
-						Util.makeList(tree_1,tree_1))));	
-		trees.put("result_c", new StdTree<RankedSymbol>(alphabet1.get("and"), 
+		Tree<RankedSymbol> tree_c1 = new StdTree<RankedSymbol>(alphabet1.get("not"),
+				Util.makeList(new StdTree<RankedSymbol>(alphabet1.get("or"),
+						Util.makeList(tree_1,tree_1))));
+		trees.put("result_c", new StdTree<RankedSymbol>(alphabet1.get("and"),
 				Util.makeList(tree_c1,tree_c1)));
 
 	}
@@ -166,7 +166,7 @@ public class HomomorphismTest {
 	private void setUpHom(){
 		//setUpHom
 		HashMap<RankedSymbol,Tree<RankedSymbol>> h = new HashMap<RankedSymbol,Tree<RankedSymbol>>();
-		h.put(alphabet1.get("t"),new StdTree<RankedSymbol>(alphabet1.get("t"), 
+		h.put(alphabet1.get("t"),new StdTree<RankedSymbol>(alphabet1.get("t"),
 				new LinkedList<Tree<RankedSymbol>>()));
 		h.put(alphabet1.get("f"),new StdTree<RankedSymbol>(alphabet1.get("f"),
 				new LinkedList<Tree<RankedSymbol>>()));
@@ -183,7 +183,7 @@ public class HomomorphismTest {
 		h.put(alphabet1.get("or"),new StdTree<RankedSymbol>(alphabet1.get("or"),
 				Util.makeList(x0,x1)));
 
-		Tree<RankedSymbol> andTree = 
+		Tree<RankedSymbol> andTree =
 			new StdTree<RankedSymbol>(
 					alphabet1.get("not"), Util.makeList(new StdTree<RankedSymbol>(
 							alphabet1.get("or"), Util.makeList(new StdTree<RankedSymbol>(
@@ -197,7 +197,7 @@ public class HomomorphismTest {
 
 		homs.put("hom", new EasyHom(toInts,h));
 
-		//setUpFoo	
+		//setUpFoo
 		HashMap<RankedSymbol,Tree<RankedSymbol>> hf = new HashMap<RankedSymbol,Tree<RankedSymbol>>();
 		hf.put(alphabet1.get("t"),new StdTree<RankedSymbol>(alphabet1.get("t"), new LinkedList<Tree<RankedSymbol>>()));
 		hf.put(alphabet1.get("f"),new StdTree<RankedSymbol>(alphabet1.get("f"), new LinkedList<Tree<RankedSymbol>>()));
@@ -268,7 +268,7 @@ public class HomomorphismTest {
 		autom.put("fta_true_formulas",new EasyFTA(rules,finalStates));
 
 		//setUpFtaNotFormulas
-		rules.clear(); 
+		rules.clear();
 		rules.add(new EasyFTARule(alphabet1.get("t"),q1));
 		rules.add(new EasyFTARule(alphabet1.get("f"),q1));
 		rules.add(new EasyFTARule(alphabet1.get("not"),q1,q1));
@@ -328,7 +328,7 @@ public class HomomorphismTest {
 	/**
 	 * Sets up all the needed things: the alphabet, the trees, the homomorphism, the finite tree automata
 	 * and the randomize generated objects.
-	 * 
+	 *
 	 * @throws java.lang.Exception if something goes wrong
 	 */
 	@Before
@@ -407,7 +407,7 @@ public class HomomorphismTest {
 			fta_result = homs.get("foo").applyOnAutomaton(autom.get("fta_true_formulas"));
 		} catch (Exception e){
 			exc = true;
-		}	
+		}
 		Assert.assertTrue("non linear homomorphism cannot be applied on automata", exc);
 		//System.out.println(fta_not_formulas);
 		EasyFTA fta_result1 = homs.get("hom").applyOnAutomaton(autom.get("fta_not_formulas"));
@@ -417,11 +417,11 @@ public class HomomorphismTest {
 		Assert.assertTrue(autom.get("fta_not_formulas").decide(trees.get("not_0")));
 		Assert.assertTrue(fta_result1.decide(trees.get("not_0")));
 		//		System.out.println(TreeAutomataOperations.reduce(fta_result));
-		Assert.assertTrue(fta_result.decide(trees.get("1")));	
+		Assert.assertTrue(fta_result.decide(trees.get("1")));
 
 		Assert.assertTrue(autom.get("fta_notOr_formulas").decide(homs.get("hom").apply(
 				trees.get("test_a"))));
-		//test again whether fta_result ist subset of fta_notOr_formulas 
+		//test again whether fta_result ist subset of fta_notOr_formulas
 		Assert.assertTrue(FTAProperties.subsetLanguage(fta_result, autom.get("fta_notOr_formulas")));
 
 		//test empty automaton
@@ -438,8 +438,8 @@ public class HomomorphismTest {
 	 * Tries to apply the inverse homomomorphism on a tree automaton, tests
 	 * {@link EasyHom#applyInverseOnAutomaton(EasyFTA)}.<br>
 	 * Furthermore it is tested if applying the homomorphism and then the inverse homomorphism
-	 * on a finite tree automaton supplies a regular tree language which encloses the original tree 
-	 * language. 
+	 * on a finite tree automaton supplies a regular tree language which encloses the original tree
+	 * language.
 	 */
 	@Test
 	public void testApplyInverseOnAutomaton(){
@@ -455,7 +455,7 @@ public class HomomorphismTest {
 		System.out.println(autom.get("fta_true_formulas") +"\n");
 		System.out.println("fta_true_formulas_3:" + fta_true_formulas_3);
 
-		Assert.assertTrue("true formulas stay true",FTAProperties.sameLanguage(fta_true_formulas_3, 
+		Assert.assertTrue("true formulas stay true",FTAProperties.sameLanguage(fta_true_formulas_3,
 				autom.get("fta_true_formulas")));
 
 		//same language is in this context right, because variables on left and right side are the same
@@ -478,13 +478,13 @@ public class HomomorphismTest {
 				if (homs.get(hs).isLinear() && homs.get(hs).getSrcAlphabet().containsAll(autom.get(as).getAlphabet())){
 					System.out.println("applyOnAutom...");
 					EasyFTA fta1 = homs.get(hs).applyOnAutomaton(autom.get(as));
-									
+
 					RegularTreeLanguage<RankedSymbol> rtl = new RegularTreeLanguage<RankedSymbol>(fta1);
 					GenFTA<RankedSymbol,? extends State> fta1gen = rtl.getFTA();
 					System.out.println("applyInverse...");
-					GenFTA<RankedSymbol, NamedState<? extends Object>> fta2 = 
+					GenFTA<RankedSymbol, NamedState<? extends Object>> fta2 =
 						homs.get(hs).applyInverseOnAutomaton(GenFTAOps.reduceFull(fta1gen));
-	
+
 					System.out.println("subsetLanguage...");
 					String err = "Homomorphismus : ================ \n" + homs.get(hs);
 					err += "\n FTA: =================== \n"+autom.get(as);
@@ -495,7 +495,7 @@ public class HomomorphismTest {
 						System.out.println(err);
 					}
 					Assert.assertTrue(err,errb);
-				
+
 				}
 			}
 		}
@@ -515,9 +515,9 @@ public class HomomorphismTest {
 		Assert.assertFalse(homs.get("hom").isSymbolToSymbol());
 	}
 
-	/** 
+	/**
 	 * Some more special random tests to test consistency.<br>
-	 * First the homomorphism is applied on an automaton and then inverse if it is linear and 
+	 * First the homomorphism is applied on an automaton and then inverse if it is linear and
 	 * otherwise the other way round.
 	 * It is tested whether the trees accepted before are accepted by the new automaton,
 	 * which must be true.
@@ -530,7 +530,7 @@ public class HomomorphismTest {
 			for (int j= 0; j<count; j++){
 				System.out.println("Consider hom "+i+" with automaton " + j);
 				System.out.println("applyOnTrees...");
-				for (int k= 0; k<countTree;k++){				
+				for (int k= 0; k<countTree;k++){
 					if (randomFTA[j].decide(randomTree[k])){
 						if (randomHom[i].isLinear()) {
 							Assert.assertTrue(FTAProperties.decide(
@@ -547,7 +547,7 @@ public class HomomorphismTest {
 					RegularTreeLanguage<RankedSymbol> rtl = new RegularTreeLanguage<RankedSymbol>(fta1);
 					GenFTA<RankedSymbol,? extends State> fta1gen = rtl.getFTA();
 					System.out.println("applyInverse...");
-					GenFTA<RankedSymbol, NamedState<? extends Object>> fta2 = 
+					GenFTA<RankedSymbol, NamedState<? extends Object>> fta2 =
 						randomHom[i].applyInverseOnAutomaton(GenFTAOps.reduceFull(fta1gen));
 					System.out.println("subsetLanguage...");
 					String err = "Homomorphismus : ================ \n" + randomHom[i];
@@ -559,7 +559,7 @@ public class HomomorphismTest {
 						System.out.println(err);
 					}
 					Assert.assertTrue(err,errb);
-				
+
 				}
 				System.out.println("applyInverse...");
 				EasyFTA fta1 = randomHom[i].applyInverseOnAutomaton(randomFTADest[j]);

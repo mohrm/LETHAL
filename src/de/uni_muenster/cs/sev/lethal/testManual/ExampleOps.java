@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.testManual;
 
@@ -38,8 +38,8 @@ import de.uni_muenster.cs.sev.lethal.utils.Pair;
 /**
  * Example for an extension of the finite tree automata, explained
  * in the manual.
- * 
- * @author Irene 
+ *
+ * @author Irene
  */
 public class ExampleOps {
 
@@ -147,37 +147,37 @@ public class ExampleOps {
 
 	/**
 	 * Determinizes a finite tree automaton.
-	 * 
+	 *
 	 * @param <F> type of ranked symbol in the finite tree automaton and in the trees
 	 * @param fta finite tree automaton we deal with
 	 * @return determinized finite tree automaton
 	 * @see FTAOps#determinize(FTA, FTACreator, Converter)
 	 */
-	public <F extends RankedSymbol> GenFTA<F,SpecialState> determinize(GenFTA<F,SpecialState> fta){  
+	public <F extends RankedSymbol> GenFTA<F,SpecialState> determinize(GenFTA<F,SpecialState> fta){
 		return FTAOps.determinize(fta,new GenFTACreator<F,SpecialState>(),new SetStateConverter());
 	}
 
 	/**
 	 * Completes a finite tree automaton.
-	 * 
+	 *
 	 * @param <F> type of ranked symbol in the finite tree automaton and in the trees
 	 * @param fta finite tree automaton we deal with
 	 * @return completed finite tree automaton
 	 * @see FTAOps#complete
 	 */
-	public <F extends RankedSymbol> GenFTA<F,SpecialState> complete(GenFTA<F,SpecialState> fta){  
+	public <F extends RankedSymbol> GenFTA<F,SpecialState> complete(GenFTA<F,SpecialState> fta){
 		return FTAOps.complete(fta,new SpecialState(),new GenFTACreator<F,SpecialState>());
 	}
 
 	/**
 	 * Reduces a finite tree automaton.
-	 * 
+	 *
 	 * @param <F> type of ranked symbol in the finite tree automaton and in the trees
 	 * @param fta finite tree automaton we deal with
 	 * @return reduced finite tree automaton
 	 * @see FTAOps#reduceFull(FTA, FTACreator)
 	 */
-	public <F extends RankedSymbol> GenFTA<F,SpecialState> reduceFull(GenFTA<F,SpecialState> fta){  
+	public <F extends RankedSymbol> GenFTA<F,SpecialState> reduceFull(GenFTA<F,SpecialState> fta){
 		return FTAOps.reduceFull(fta,new GenFTACreator<F,SpecialState>());
 	}
 
@@ -187,65 +187,65 @@ public class ExampleOps {
 	 * @return minimized finite tree automaton
 	 * @see FTAOps#minimize
 	 */
-	public <F extends RankedSymbol> GenFTA<F,SpecialState> minimize(GenFTA<F,SpecialState> fta){  
+	public <F extends RankedSymbol> GenFTA<F,SpecialState> minimize(GenFTA<F,SpecialState> fta){
 		GenFTACreator<F,SpecialState> fc = new GenFTACreator<F,SpecialState>();
 		return FTAOps.minimize(fta,new SpecialState(),fc,new SetStateConverter(),fc);
 	}
 
 	/**
 	 * Calculates the intersection of two finite tree automata.
-	 * 
+	 *
 	 * @param <F> type of ranked symbol in the finite tree automaton and in the trees
 	 * @param fta1 first finite tree automaton we deal with
 	 * @param fta2 second finite tree automaton we deal with
 	 * @return finite tree automaton recognizing the intersection
 	 * @see FTAOps#intersectionTD(FTA, FTA, Converter, FTACreator)
 	 */
-	public <F extends RankedSymbol> GenFTA<F,SpecialState> intersection(GenFTA<F,SpecialState> fta1, GenFTA<F,SpecialState> fta2){  
+	public <F extends RankedSymbol> GenFTA<F,SpecialState> intersection(GenFTA<F,SpecialState> fta1, GenFTA<F,SpecialState> fta2){
 		return FTAOps.intersectionTD(fta1,fta2,new PairStateConverter(), new GenFTACreator<F,SpecialState>());
 	}
 
 	/**
 	 * Calculates the union of two finite tree automata.
-	 * 
+	 *
 	 * @param <F> type of ranked symbol in the finite tree automaton and in the trees
 	 * @param fta1 first finite tree automaton we deal with
 	 * @param fta2 second finite tree automaton we deal with
 	 * @return finite tree automaton recognizing the union
 	 * @see FTAOps#union
 	 */
-	public <F extends RankedSymbol> GenFTA<F,SpecialState> union(GenFTA<F,SpecialState> fta1, GenFTA<F,SpecialState> fta2){  
+	public <F extends RankedSymbol> GenFTA<F,SpecialState> union(GenFTA<F,SpecialState> fta1, GenFTA<F,SpecialState> fta2){
 		SymbolConverter<F> sc = new SymbolConverter<F>();
 		return FTAOps.union(fta1,fta2,new FirstStateConverter(), new SecondStateConverter(),sc,sc,new GenFTACreator<F,SpecialState>());
 	}
 
 	/**
 	 * Calculates the complement of a finite tree automaton.
-	 * 
+	 *
 	 * @param <F> type of ranked symbol in the finite tree automaton and in the trees
 	 * @param fta  finite tree automaton we deal with
 	 * @return finite tree automaton recognizing the complement
 	 */
-	public <F extends RankedSymbol> GenFTA<F,SpecialState> complement(GenFTA<F,SpecialState> fta){  
+	public <F extends RankedSymbol> GenFTA<F,SpecialState> complement(GenFTA<F,SpecialState> fta){
 		return FTAOps.complement(fta,new SetStateConverter(), new GenFTACreator<F,SpecialState>());
 	}
 
 	/**
 	 * Calculates the difference of two finite tree automata.
-	 * 
+	 *
 	 * @param <F> type of ranked symbol in the finite tree automaton and in the trees
 	 * @param fta1 first finite tree automaton we deal with
 	 * @param fta2 second finite tree automaton we deal with
 	 * @return finite tree automaton recognizing the difference
 	 */
-	public <F extends RankedSymbol> GenFTA<F,SpecialState> difference(GenFTA<F,SpecialState> fta1, GenFTA<F,SpecialState> fta2){  
+	public <F extends RankedSymbol> GenFTA<F,SpecialState> difference(GenFTA<F,SpecialState> fta1, GenFTA<F,SpecialState> fta2){
 		GenFTACreator<F,SpecialState> fc = new GenFTACreator<F,SpecialState>();
 		return FTAOps.difference(fta1,fta2,new SetStateConverter(), fc, new PairStateConverter(),fc);
 	}
 
 	/**
 	 * Computes a finite tree automaton recognizing exactly the given tree
-	 * 
+	 *
 	 * @param <F> type of ranked symbol in the finite tree automaton and in the trees
 	 * @param t tree we deal with
 	 * @return finite tree automaton recognizing exactly t
@@ -257,7 +257,7 @@ public class ExampleOps {
 
 	/**
 	 * Computes a finite tree automaton recognizing all trees over the given alphabet.
-	 * 
+	 *
 	 * @param <F> type of ranked symbol in the finite tree automaton and in the trees
 	 * @param alphabet alphabet for the finite tree automaton
 	 * @return finite tree automaton recognizing all trees over the given alphabet
@@ -269,7 +269,7 @@ public class ExampleOps {
 
 	/**
 	 * Substitutes some constants in a tree by regular tree languages.
-	 * 
+	 *
 	 * @param <F> type of ranked symbol in the finite tree automaton and in the trees
 	 * @param tree where something shall be replace
 	 * @param languages what shall be substituted

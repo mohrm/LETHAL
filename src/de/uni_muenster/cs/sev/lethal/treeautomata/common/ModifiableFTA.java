@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treeautomata.common;
 
@@ -33,8 +33,8 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.RankedSymbol;
  * @param <F> symbol type of the alphabet of this finite tree automaton
  * @param <Q> state type of this finite tree automaton
  * @param <R> rule type of this finite tree automaton
- * 
- * @author Dorothea, Irene, Martin 
+ *
+ * @author Dorothea, Irene, Martin
  */
 public interface ModifiableFTA<F extends RankedSymbol, Q extends State, R extends FTARule<F,Q>> extends FTA<F,Q,R> {
 
@@ -44,8 +44,8 @@ public interface ModifiableFTA<F extends RankedSymbol, Q extends State, R extend
 	 * @param state state to be made final
 	 */
 	public void addToFinals(Q state);
-	
-	
+
+
 	/**
 	 * Removes a state from this finite tree automaton, if it is contained and
 	 * one of the following conditions is satisfied:
@@ -53,30 +53,30 @@ public interface ModifiableFTA<F extends RankedSymbol, Q extends State, R extend
 	 * <li> There is no rule containing the specified state and the given flag is not set.</li>
 	 * <li> there is a rule containing the specified state and the given flag is set.</li>
 	 * </ul>
-	 * In the second case, all rules containing the specified state are also deleted. 
+	 * In the second case, all rules containing the specified state are also deleted.
 	 * @param state state to be removed
-	 * @param cascade flag to indicate whether the rules which contain the specified state are 
-	 * also to be deleted. 
+	 * @param cascade flag to indicate whether the rules which contain the specified state are
+	 * also to be deleted.
 	 */
 	public void removeState(Q state, boolean cascade);
-	
-	
+
+
 	/**
-	 * Removes a symbol from this finite tree automaton, if it is contained and 
+	 * Removes a symbol from this finite tree automaton, if it is contained and
 	 * one of the following conditions is
 	 * satisfied:
 	 * <ul>
 	 * <li> There is no rule containing the specified symbol and</li>
 	 * <li> there is a rule containing the specified symbol and the given flag is set.</li>
 	 * </ul>
-	 * In the second case, all rules containing the specified state are also deleted. 
+	 * In the second case, all rules containing the specified state are also deleted.
 	 * @param symbol state to be removed
-	 * @param cascade flag to indicate whether the rules which contain the specified symbol are 
-	 * also to be deleted. 
+	 * @param cascade flag to indicate whether the rules which contain the specified symbol are
+	 * also to be deleted.
 	 */
 	public void removeSymbol(F symbol, boolean cascade);
-	
-	
+
+
 	/**
 	 * Removes a state from the final states.
 	 * @param state state to be removed from the final state
@@ -87,7 +87,7 @@ public interface ModifiableFTA<F extends RankedSymbol, Q extends State, R extend
 	 * Removes a rule from this automaton. <br>
 	 * If the states occurring in the rule are not used any longer,
 	 * they are also removed.
-	 * 
+	 *
 	 * @param rule rule to be removed
 	 * @return whether the rule was contained in {@link de.uni_muenster.cs.sev.lethal.treeautomata.generic.GenFTA#rules}
 	 */
@@ -108,7 +108,7 @@ public interface ModifiableFTA<F extends RankedSymbol, Q extends State, R extend
 	public void addSymbol(F f);
 
 	/**
-	 * Adds a rule to this finite tree automaton and preserves the 
+	 * Adds a rule to this finite tree automaton and preserves the
 	 * corresponding invariants.<br>
 	 * So each state occurring in the rules is also contained in the {@link #getStates() states}.
 	 *
@@ -117,8 +117,8 @@ public interface ModifiableFTA<F extends RankedSymbol, Q extends State, R extend
 	 * @param destState destination state of rule to be added
 	 */
 	public void addRule(F f, List<Q> srcStates, Q destState);
-	
-	
+
+
 	/**
 	 * Adds an epsilon rule to this finite tree automaton. The effect of this method
 	 * is that afterwards the finite tree automaton is equivalent to a finite tree

@@ -28,7 +28,7 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.UnrankedSymbol;
 
 /**
  * Singleton of the empty expression
- * 
+ *
  * @author Anton, Maria
  * @param <G_Symbol> symbol type of the hedge grammar
  */

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.tests;
 
@@ -27,7 +27,7 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTARule;
 
 /**
  * Tests the usage of {@link RegularTreeLanguage}.
- * 
+ *
  * @author Martin, Doro, Irene
  *
  */
@@ -41,12 +41,12 @@ public class RTLTest {
 
 	/** Used automata. */
 	private static Map<String, EasyFTA> testAutom = new HashMap<String,EasyFTA>();
-	
-	
+
+
 	/**
 	 * Sets up the alphabet we use in this test class:<br>
 	 * a,b,c,f(,),g(,,),h(),u()
-	 * 
+	 *
 	 * @throws Exception is (hopefully) never thrown
 	 */
 	static void setUpAlphabet() throws Exception {
@@ -59,13 +59,13 @@ public class RTLTest {
 	/**
 	 * Sets up fta_even, which recognizes the language Leven = {h^n(a): n even}
 	 * and fta_odd, which recognizes the language Lodd = {h^n(a): n odd}.
-	 * 
+	 *
 	 * @throws java.lang.Exception is (hopefully) never thrown
 	 */
 	static void setUpFtaEvenOdd() throws Exception {
 		states.put("q_ger", new NamedState<String>("q_ger"));
 		states.put("q_ung", new NamedState<String>("q_ung"));
-		// rules	
+		// rules
 		SimpleFTARuleSet<RankedSymbol,State,EasyFTARule> rules = new SimpleFTARuleSet<RankedSymbol,State,EasyFTARule>();
 		rules.add(new EasyFTARule(alphabet.get("a"), states.get("q_ger")));
 		rules.add(new EasyFTARule(alphabet.get("h"), states.get("q_ung"), states.get("q_ger")));
@@ -74,12 +74,12 @@ public class RTLTest {
 		testAutom.put("fta_even",new EasyFTA(rules, states.get("q_ger")));
 		testAutom.put("fta_odd", new EasyFTA(rules, states.get("q_ung")));
 	}
-	
-	
+
+
 	/**
 	 * Sets up an automaton with n+1 states, you can proof that the determinized version
 	 * has at least 2^(n+1) states.
-	 * 
+	 *
 	 * @param n n+1 is the number of states of the non deterministic automaton
 	 */
 	static void setUpReallyNonDetAutomaton(int n) {
@@ -103,8 +103,8 @@ public class RTLTest {
 	}
 
 
-	
-	
+
+
 	/**
 	 * Sets up all needed things.
 	 * @throws java.lang.Exception
@@ -116,18 +116,18 @@ public class RTLTest {
 		setUpReallyNonDetAutomaton(5);
 	}
 
-	
+
 
 	/**
 	 * Tests something with regular tree languages. <br>
-	 * 
+	 *
 	 * Lists the first n trees of a language by constructing the next
 	 * tree, and subtracting the corresponding singleton automaton.
 	 */
 	@Test
 	public void testTreeLanguages() {
 		int n = 5; // how many trees shall be listed
-		EasyFTA A0 = testAutom.get("fta_reallynondet"); // every fta with at least n trees fits here 
+		EasyFTA A0 = testAutom.get("fta_reallynondet"); // every fta with at least n trees fits here
 		RegularTreeLanguage<RankedSymbol> R = new RegularTreeLanguage<RankedSymbol>(A0);
 		Set<Tree<RankedSymbol>> trees = new HashSet<Tree<RankedSymbol>>(); // for checking if a tree was already constructed
 		for (int i=0; i<n; i++) {
@@ -155,5 +155,5 @@ public class RTLTest {
 		L.removeTrees(L2);
 		Assert.assertTrue(L.isEmpty());
 	}
-	
+
 }

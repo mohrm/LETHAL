@@ -38,22 +38,22 @@ import de.uni_muenster.cs.sev.lethal.utils.Converter;
 
 /**
  * Implements a parametrized finite tree automaton.
- * 
+ *
  * @param <F> symbol type of this finite tree automaton
  * @param <Q> state type of this finite tree automaton
- * 
+ *
  * @see FTA
- * 
+ *
  * @author Dorothea, Martin, Irene
  */
 public class GenFTA<F extends RankedSymbol, Q extends State> extends AbstractModFTA<F,Q,GenFTARule<F,Q>> {
-	
+
 	/**
 	 * Creates a new GenFTA out of an arbitrary regular tree grammar.
 	 * @param grammar regular tree grammar out of which the new GenFTA is to be created
 	 * @param stateBuilder creator object, which is used to create states out of non-terminals
 	 * and trees in the normalization process
-	 * @param <P> type of non-terminals occurring in the grammar rules 
+	 * @param <P> type of non-terminals occurring in the grammar rules
 	 * @see FTACreator#makeFTAFromGrammar
 	 */
 	public <P extends State> GenFTA(RTG<F, P> grammar,
@@ -70,10 +70,10 @@ public class GenFTA<F extends RankedSymbol, Q extends State> extends AbstractMod
 
 	/**
 	 * Creates a new finite tree automaton from given rules and final states.
-	 * 
+	 *
 	 * @param newRules rules of the new finite tree automaton
 	 * @param newFinalStates final states of the new finite tree automaton
-	 * 
+	 *
 	 * @see AbstractModFTA#AbstractModFTA(Collection, Collection)
 	 */
 	public GenFTA(Collection<? extends FTARule<F,Q>> newRules,
@@ -83,12 +83,12 @@ public class GenFTA<F extends RankedSymbol, Q extends State> extends AbstractMod
 
 	/**
 	 * Creates a new finite tree automaton from given alphabet, states, final states and rules.
-	 * 
+	 *
 	 * @param newAlphabet alphabet of the new finite tree automaton
 	 * @param newStates states of the new finite tree automaton
 	 * @param newFinalStates final states of the new finite tree automaton
 	 * @param newRules rules of the new finite tree automaton
-	 * 
+	 *
 	 * @see AbstractModFTA#AbstractModFTA(Collection, Collection, Collection, Collection)
 	 */
 	public GenFTA(Collection<F> newAlphabet, Collection<Q> newStates,
@@ -96,11 +96,11 @@ public class GenFTA<F extends RankedSymbol, Q extends State> extends AbstractMod
 			Collection<? extends FTARule<F,Q>> newRules) {
 		super(newAlphabet, newStates, newFinalStates, newRules);
 	}
-	
+
 	/**
 	 * Creates a new finite tree automaton from rules, final states and additional epsilon rules.
-	 * The epsilon rules are eliminated and thus converted into normal rules. 
-	 * 
+	 * The epsilon rules are eliminated and thus converted into normal rules.
+	 *
 	 * @param newRules rules of the new finite tree automaton
 	 * @param newEpsRules epsilon rules of the new finite tree automaton
 	 * @param newFinals final states of the new finite tree automaton
@@ -113,9 +113,9 @@ public class GenFTA<F extends RankedSymbol, Q extends State> extends AbstractMod
 
 	/**
 	 * Creates a new finite tree automaton out of a given one.
-	 * 
+	 *
 	 * @param fta finite tree automaton which the new instance shall be created out of
-	 * 
+	 *
 	 * @see AbstractModFTA#AbstractModFTA(FTA)
 	 */
 	public GenFTA(FTA<F,Q, ? extends FTARule<F,Q>> fta) {

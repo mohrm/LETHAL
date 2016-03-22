@@ -28,7 +28,7 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.common.FTARule;
 import java.util.Set;
 
 /**
- * A simple version of the HedgeAutomaton, where the types of the symbols and 
+ * A simple version of the HedgeAutomaton, where the types of the symbols and
  * states are of no importance.
  *
  * @author Anton Reis, Maria Schatz

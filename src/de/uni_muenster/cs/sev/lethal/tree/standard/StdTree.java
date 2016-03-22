@@ -27,9 +27,9 @@ import de.uni_muenster.cs.sev.lethal.tree.common.Tree;
 
 
 /**
- * Standard implementation of a tree or hedge structure, which stores the root symbol and the subtrees 
+ * Standard implementation of a tree or hedge structure, which stores the root symbol and the subtrees
  * as protected attributes.
- *   
+ *
  * @param <S> tree node symbol type
  * @author Anton, Dorothea, Irene, Maria, Martin, Philipp, Sezar
  */
@@ -50,7 +50,7 @@ public class StdTree<S extends Symbol> extends StdAbstractTree<S> implements Tre
 	/**
 	 * Constructs a new StdTree which uses the given symbol as root symbol and the given trees
 	 * as subtrees.
-	 * 
+	 *
 	 * @param symbol the symbol which is to be used as root symbol of the tree to be constructed
 	 * @param subtrees a list of trees which are to be used as subtrees of the tree to be constructed
 	 */
@@ -68,7 +68,7 @@ public class StdTree<S extends Symbol> extends StdAbstractTree<S> implements Tre
 	/**
 	 * Constructs a new StdTree which has the given symbol as root symbol and no
 	 * subtrees, using {@link Collections#emptyList}.
-	 * 
+	 *
 	 * @param symbol the symbol which is to be used as root symbol of the tree to be constructed
 	 */
 	public StdTree(S symbol) {

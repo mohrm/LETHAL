@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.tests;
 
@@ -32,8 +32,8 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTA;
  *
  */
 public class CorruptingFTA {
-	
-	
+
+
 	/**
 	 * Special state, which can be manipulated.
 	 * @author Martin
@@ -41,7 +41,7 @@ public class CorruptingFTA {
 	 */
 	static class CorrState implements State {
 		int data=0;
-		
+
 		void manipulate() {
 			data++;
 		}
@@ -74,12 +74,12 @@ public class CorruptingFTA {
 			return true;
 		}
 	}
-	
+
 	RankedSymbol a = new StdNamedRankedSymbol<String>("a",0);
 	CorrState q = new CorrState();
 	EasyFTA foo = new EasyFTA();
 	Tree<RankedSymbol> t = TreeFactory.getTreeFactory().makeTreeFromSymbol(a);
-	
+
 	/**
 	 * Sets up the easy example.
 	 */
@@ -91,7 +91,7 @@ public class CorruptingFTA {
 		foo.addRule(a, Collections.<State>emptyList(), q);
 		foo.addToFinals(q);
 	}
-	
+
 	/**
 	 * The test. It works as follows:<br>
 	 * - foo.decide(t) should yield true<br>

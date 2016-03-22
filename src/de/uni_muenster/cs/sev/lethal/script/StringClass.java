@@ -31,7 +31,7 @@ public class StringClass extends ScriptClass {
 
 	/** Singleton StringClass class instance */
 	public static final StringClass stringClass = new StringClass();
-	
+
 	private StringClass() {
 		super("String", null, RootClass.newStaticClassEnvironment(), false);
 	}
@@ -48,7 +48,7 @@ public class StringClass extends ScriptClass {
  *
  */
 class StringObject extends ScriptObject{
-	
+
 	private static final Environment stringInstEnv = StringClass.stringClass.newInstanceEnvironment(); //one shared instance env for all integer objects. Don't need one for each of them.
 	{
 		stringInstEnv.bindLocal("+", new Method(1){
@@ -79,7 +79,7 @@ class StringObject extends ScriptObject{
 				}
 			}
 		});
-		
+
 		stringInstEnv.bindLocal("length", new Method(0){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -107,31 +107,31 @@ class StringObject extends ScriptObject{
 				return ScriptObject.make( Integer.valueOf(((StringObject)env.getThis()).getValue()) );
 			}
 		});
-		
+
 		stringInstEnv.setOwner(StringClass.stringClass);
 	}
-	
+
 	private String value;
-	
+
 	public StringObject(String value) {
 		super(StringClass.stringClass, stringInstEnv.newFrame());
 		this.value = value;
 	}
-	
+
 	public String getValue(){
 		return this.value;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj){
 		return (obj instanceof StringObject && ((StringObject)obj).getValue().equals(this.value));
 	}
-	
+
 	@Override
 	public String toString(){
 		return String.valueOf(this.value);
 	}
-	
+
 	@Override
 	public int hashCode(){
 		return this.value.hashCode();

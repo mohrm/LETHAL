@@ -18,7 +18,7 @@
  */
 
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.testManual;
 
@@ -36,10 +36,10 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.common.*;
 import de.uni_muenster.cs.sev.lethal.treeautomata.easy.*;
 
 /**
- * Builds the examples and solutions of the exercises in the chapter tutorial in the manual 
+ * Builds the examples and solutions of the exercises in the chapter tutorial in the manual
  * with some time between the parts of the example.<br>
  * Prints out the results.
- * 
+ *
  * @author Irene
  */
 public class Tutorial {
@@ -49,7 +49,7 @@ public class Tutorial {
 
 	/**
 	 * Builds the examples and solution of examples in the chapter tutorial in the manual.
-	 * 
+	 *
 	 * @param args in the first argument the time in milliseconds which shall be between the parts
 	 * of the examples
 	 */
@@ -60,9 +60,9 @@ public class Tutorial {
 			Tree<RankedSymbol> tree_1 = TreeParser.parseString("1");
 			Tree<RankedSymbol> tree_2 = TreeParser.parseString("and(1,0)");
 			Tree<RankedSymbol> tree_3 = TreeParser.parseString("or(not(0),and(1,0))");
-			
+
 			Thread.sleep(sleeptime);
-			
+
 			// Creating fta true formulas
 			System.out.println("Creating a finite tree automaton recognizing true formulas");
 			String ruleString = "";
@@ -80,9 +80,9 @@ public class Tutorial {
 			ruleString += "or(f,f) -> f \n";
 			EasyFTA fta_trueFormulas = FTAParser.parseString(ruleString);
 			System.out.println(fta_trueFormulas);
-			
+
 			Thread.sleep(sleeptime);
-			
+
 			// Creating fta positive formulas
 			System.out.println("Creating a finite tree automaton recognizing positive formulas");
 			ruleString = "";
@@ -93,9 +93,9 @@ public class Tutorial {
 			ruleString += "or(q!,q!) -> q! \n";
 			EasyFTA fta_positiveFormulas = FTAParser.parseString(ruleString);
 			System.out.println(fta_positiveFormulas);
-			
+
 			Thread.sleep(sleeptime);
-			
+
 			// Creating fta disjunctive normalform
 			System.out.println("Creating a finite tree automaton recognizing formulas in disjunctive normalform");
 			ruleString = "";
@@ -114,45 +114,45 @@ public class Tutorial {
 			ruleString += "or(s!,s!) -> s!";
 			EasyFTA fta_disjunctiveNF = FTAParser.parseString(ruleString);
 			System.out.println(fta_disjunctiveNF);
-			
+
 			Thread.sleep(sleeptime);
-			
-			System.out.println("tree 1: " + tree_1 + " is accepted by fta_trueFormulas: " + 
+
+			System.out.println("tree 1: " + tree_1 + " is accepted by fta_trueFormulas: " +
 					fta_trueFormulas.decide(tree_1)); // yields true
-			System.out.println("tree_2: " + tree_2 + " is accepted by fta_trueFormulas: " + 
+			System.out.println("tree_2: " + tree_2 + " is accepted by fta_trueFormulas: " +
 					fta_trueFormulas.decide(tree_2)); // yields false
-			System.out.println("tree_3: " + tree_3 + " is accepted by fta_trueFormulas: " + 
+			System.out.println("tree_3: " + tree_3 + " is accepted by fta_trueFormulas: " +
 					fta_trueFormulas.decide(tree_3)); // yields true
 			Thread.sleep(sleeptime);
-			System.out.println("tree_1: " + tree_1 + " is accepted by fta_positiveFormulas: " + 
-					fta_positiveFormulas.decide(tree_1)); 
-			System.out.println("tree_2: " + tree_2 + " is accepted by fta_positiveFormulas: " + 
-					fta_positiveFormulas.decide(tree_2)); 
-			System.out.println("tree_3: " + tree_3 + " is accepted by fta_positiveFormulas: " + 
-					fta_positiveFormulas.decide(tree_3)); 
+			System.out.println("tree_1: " + tree_1 + " is accepted by fta_positiveFormulas: " +
+					fta_positiveFormulas.decide(tree_1));
+			System.out.println("tree_2: " + tree_2 + " is accepted by fta_positiveFormulas: " +
+					fta_positiveFormulas.decide(tree_2));
+			System.out.println("tree_3: " + tree_3 + " is accepted by fta_positiveFormulas: " +
+					fta_positiveFormulas.decide(tree_3));
 			Thread.sleep(sleeptime);
-			System.out.println("tree_1: " + tree_1 + " is accepted by fta_disjunctiveNF: " + 
-					fta_disjunctiveNF.decide(tree_1)); 
-			System.out.println("tree_2: " + tree_2 + " is accepted by fta_disjunctiveNF: " + 
-					fta_disjunctiveNF.decide(tree_2)); 
-			System.out.println("tree_3: " + tree_3 + " is accepted by fta_disjunctiveNF: " + 
-					fta_disjunctiveNF.decide(tree_3)); 
-			
+			System.out.println("tree_1: " + tree_1 + " is accepted by fta_disjunctiveNF: " +
+					fta_disjunctiveNF.decide(tree_1));
+			System.out.println("tree_2: " + tree_2 + " is accepted by fta_disjunctiveNF: " +
+					fta_disjunctiveNF.decide(tree_2));
+			System.out.println("tree_3: " + tree_3 + " is accepted by fta_disjunctiveNF: " +
+					fta_disjunctiveNF.decide(tree_3));
+
 			Thread.sleep(sleeptime);
-			
-			
+
+
 			System.out.println("fta_trueFormulas is deterministic: " +
-					FTAProperties.checkDeterministic(fta_trueFormulas)); 
+					FTAProperties.checkDeterministic(fta_trueFormulas));
 			System.out.println("fta_positiveFormulas is complete: " +
-					FTAProperties.checkComplete(fta_positiveFormulas)); 
+					FTAProperties.checkComplete(fta_positiveFormulas));
 			EasyFTA fta_positiveFormulasComplete = EasyFTAOps.complete(fta_positiveFormulas);
 			System.out.println("Completed fta_positiveFormulas: \n" + fta_positiveFormulasComplete);
 			EasyFTA fta_positiveFormulasReduced = EasyFTAOps.reduceFull(fta_positiveFormulas);
 			System.out.println("Reduced fta_positiveFormulas: \n" + fta_positiveFormulasReduced);
 
-			
+
 			Thread.sleep(sleeptime);
-			
+
 			if (FTAProperties.checkDeterministic(fta_disjunctiveNF)){
 				System.out.println("fta_disjunctiveNF is deterministic.");
 			} else {
@@ -160,16 +160,16 @@ public class Tutorial {
 				EasyFTA fta_deterministic = EasyFTAOps.determinize(fta_disjunctiveNF);
 				System.out.println(EasyFTAOps.determinize(fta_deterministic));
 			}
-			
+
 			if (FTAProperties.checkComplete(fta_disjunctiveNF)){
 				System.out.println("fta_disjunctiveNF is complete.");
 			} else {
 				System.out.println("fta_disjunctiveNF is not complete, the complete version:");
 				System.out.println(EasyFTAOps.complete(fta_disjunctiveNF));
 			}
-			
+
 			Thread.sleep(sleeptime);
-			
+
 			EasyFTA fta_falseFormulas = EasyFTAOps.complement(fta_trueFormulas);
 			EasyFTA fta_trueConjuctiveNF = EasyFTAOps.intersectionTD(fta_trueFormulas,fta_disjunctiveNF);
 			EasyFTA fta_truePositiveFormulas = EasyFTAOps.intersectionTD(fta_positiveFormulas,fta_trueFormulas);
@@ -178,9 +178,9 @@ public class Tutorial {
 			System.out.println("fta_trueConjuctiveNF:" + fta_trueConjuctiveNF);
 			System.out.println("fta_truePositiveFormulas:" + fta_truePositiveFormulas);
 			System.out.println("fta_allFormulas:" + fta_allFormulas);
-			
+
 			Thread.sleep(sleeptime);
-			
+
 			System.out.println("The language of fta_trueConjunctiveNF is a subset of the language of fta_trueFormulas: "
 					+ FTAProperties.subsetLanguage(fta_trueConjuctiveNF,fta_trueFormulas)); // supplys true
 			System.out.println("The language of fta_positiveFormulas is a subset of the language of fta_trueFormulas: "
@@ -193,11 +193,11 @@ public class Tutorial {
 					FTAProperties.finiteLanguage(fta_positiveFormulas)); // supplys false
 			System.out.println("The complement of the language of fta_allFormulas is empty: " +
 					FTAProperties.emptyLanguage(EasyFTAOps.complement(fta_allFormulas))); // supplys true
-			
+
 			Thread.sleep(sleeptime);
 			System.out.println("Creating hom_elimAnd \n =====================================");
 			Thread.sleep(sleeptime);
-			
+
 			String homMap = "";
 			homMap += "0 -> 0 \n";
 			homMap += "1 -> 1 \n";
@@ -206,13 +206,13 @@ public class Tutorial {
 			homMap += "and(x,y) -> not(or(not(x),not(y)))";
 			EasyHom hom_elimAnd = HomomorphismParser.parseString(homMap);
 			System.out.println(hom_elimAnd);
-			
+
 			Thread.sleep(sleeptime);
-			
+
 			System.out.println("Apply to tree_1: hom_elimAnd("+tree_1+") = " + hom_elimAnd.apply(tree_1));
 			System.out.println("Apply to tree_2: hom_elimAnd("+tree_2+") = " + hom_elimAnd.apply(tree_2));
 			System.out.println("Apply to tree_3: hom_elimAnd("+tree_2+") = " + hom_elimAnd.apply(tree_3));
-			
+
 			if (hom_elimAnd.isLinear()){
 				System.out.println("hom_elim is linear, so it can be applied on automata");
 				Thread.sleep(sleeptime);
@@ -221,15 +221,15 @@ public class Tutorial {
 				System.out.println("hom_elim(fta_trueFormulas) \n" + fta_true_elimAnd);
 				System.out.println("hom_elim(fta_positiveFormulas) \n" + fta_foo);
 			}
-			
+
 			Thread.sleep(sleeptime);
 			System.out.println("Creating hedge trees and automata.\n ========================================");
 			Thread.sleep(sleeptime);
-			
+
 			Tree<UnrankedSymbol> tree_4 = TreeParser.parseStringAsHedge("ANDALL(not(0),0,ORALL(1))");
 			Tree<UnrankedSymbol> tree_5 = TreeParser.parseStringAsHedge("ORALL(ANDALL(1,not(0)),ANDALL(0),ANDALL(not(1),not(0),1))");
 			System.out.println("Example trees for the hedge automaton: ANDALL(not(0),0,ORALL(1)) and ORALL(ANDALL(1,not(0)),ANDALL(0),ANDALL(not(1),not(0),1))");
-		
+
 			Thread.sleep(sleeptime);
 			String haString = "";
 			haString += "1 -> p \n";
@@ -242,21 +242,21 @@ public class Tutorial {
 			haString += "ORALL((r)*) -> s!";
 			EasyHedgeAutomaton ha = HedgeAutomatonParser.parseString(haString);
 			System.out.println("Hedge automaton ha :\n" + ha);
-			
+
 			Thread.sleep(sleeptime);
-			
+
 			System.out.println("tree_4 is accepted by ha: " + EasyHAOps.decide(ha,tree_4)); // supplys false
 			System.out.println("tree_5 is accepted by ha: " + EasyHAOps.decide(ha,tree_5)); // supplys true
 			System.out.println("ha has a finite language: " + EasyHAOps.finiteLanguage(ha)); // supplys false
-			
+
 			Thread.sleep(sleeptime);
-			
+
 			EasyHedgeAutomaton ha_complement = EasyHAOps.complement(ha);
 			System.out.println("Complement of ha: \n" + ha_complement);
-			
+
 			System.out.println("LETHAL is ready. What's with you?");
-			
-		} catch (Exception e) {}	
+
+		} catch (Exception e) {}
 	}
 
 }

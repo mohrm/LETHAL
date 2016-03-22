@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treeautomata.common;
 
@@ -25,7 +25,7 @@ package de.uni_muenster.cs.sev.lethal.treeautomata.common;
  * Exception used for removeState() and removeSymbol(). It is thrown if a state
  * or symbol which is still used in one of the rules is to be deleted, but
  * the rules containing the state or symbol are not to be deleted.
- * 
+ *
  * @author Dorothea, Irene, Martin
  *
  */

@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.utils;
 
@@ -26,9 +26,9 @@ import de.uni_muenster.cs.sev.lethal.factories.StateFactory;
 
 /**
  * TODO (Sezar) kommentieren, in Grammatikparser integrieren?
- * 
+ *
  * @param <T> type of the objects to be converted into states
- *  
+ *
  * @author Sezar, Martin
  */
 public class StateBuilder<T> implements Converter<T,State>{

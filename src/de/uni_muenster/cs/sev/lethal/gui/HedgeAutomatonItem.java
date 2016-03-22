@@ -94,7 +94,7 @@ public class HedgeAutomatonItem extends AbstractTreeAutomatonItem {
 	 * @param name user visible, project unique name of the item
 	 * @param project project this item belongs to
 	 * @param automaton finite tree automaton in this item
-	 * @param automatonString User entered representation of the automaton 
+	 * @param automatonString User entered representation of the automaton
 	 */
 	public HedgeAutomatonItem(String name, Project project, EasyHedgeAutomaton automaton, String automatonString){
 		super(name, project);

@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treeautomata.common;
 
@@ -29,19 +29,19 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.RankedSymbol;
 
 /**
  * A class to save rules in different ways. <br>
- * It is used to save rules in the trivial way or an efficient way for the algorithms. 
- * 
+ * It is used to save rules in the trivial way or an efficient way for the algorithms.
+ *
  * @param <Q> state type used in the rules
  * @param <F> symbol type used in the rules
  * @param <R> rule type
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public abstract class FTARuleSet<F extends RankedSymbol, Q extends State, R extends FTARule<F,Q>> extends AbstractSet<R> {
 
 	/**
 	 * Returns all rules f(q1,...,qn) -> q with specified symbol f.
-	 * 
+	 *
 	 * @param f symbol which is to occur in the rules to return
 	 * @return all rules f(q1,...,qn) -> with specified symbol f
 	 */

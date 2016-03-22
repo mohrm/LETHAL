@@ -46,7 +46,7 @@ import de.uni_muenster.cs.sev.lethal.tree.common.Tree;
  */
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
-	
+
 	/** MainWindow toolbar, contains all user action buttons. */
 	private JToolBar toolbar = new JToolBar();
 
@@ -58,7 +58,7 @@ public class MainWindow extends JFrame {
 	private JButton importButton        = new JButton("Import",      Resources.loadIcon("import.png")         );
 	private JButton addItemButton       = new JButton("Add item",    Resources.loadIcon("item-add.png")       );
 	private JButton removeItemButton    = new JButton("Remove selected", Resources.loadIcon("item-remove.png"));
-	
+
 	private ScriptConsole scriptConsole = new ScriptConsole(this);
 
 	private JSplitPane splitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
@@ -71,32 +71,32 @@ public class MainWindow extends JFrame {
 
 	/** Label showing the name of the current item editor. */
 	private JLabel editorNameLabel = new JLabel();
-	
+
 	/** Button to close the currently visible editor. */
 	private JButton editorCloseButton = new JButton(Resources.loadIcon("editor-close.png"));
-	
+
 	/** Map of currently open editors for items. */
 	private HashMap<Item,Editor> openEditors = new HashMap<Item,Editor>();
-	
+
 	/** Editor object for the item selected by the user. */
 	private Editor visibleEditor;
 
 	/** Currently loaded project. */
 	private Project currentProject;
-	
+
 	/** Filename of the currently loaded project, null if unsaved. */
 	private File projectFile;
-	
+
 	/**
 	 * Creates the main window.
 	 */
 	public MainWindow(){
 		this.setLayout(new BorderLayout());
-		
+
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); //need to intercept window close for "do you want to save?" question. So don't close the window automatically
-		
+
 		this.setIconImages(Arrays.<Image>asList(Resources.loadImage("mainwindow-small.png"), Resources.loadImage("mainwindow-medium.png"), Resources.loadImage("mainwindow-large.png")));
-		
+
 		//Window layout setup
 		this.add(this.toolbar, BorderLayout.NORTH);
 		this.toolbar.add(this.newProjectButton);
@@ -112,15 +112,15 @@ public class MainWindow extends JFrame {
 		this.removeItemButton.setEnabled(false);
 
 		//Place the recent dropDown button inside the open button
-		//Restrict the the max size to what we need, otherwise the button will stretch as much as possible. 
+		//Restrict the the max size to what we need, otherwise the button will stretch as much as possible.
 		this.openProjectButton.setMaximumSize(new Dimension(this.openProjectButton.getPreferredSize().width + openRecentMenuButton.getPreferredSize().width, this.openProjectButton.getPreferredSize().height));
 		this.openProjectButton.setLayout(new BorderLayout()); //need a layout to place somthing in a control
 		this.openProjectButton.setHorizontalAlignment(SwingConstants.LEFT); //Align Button text to the left, not center or it will slide "under" the dropdown button
-		this.openProjectButton.setMargin(new Insets(-2,0,-2,-2)); //no margin, dropdown button gets to tiny otherwise. 
+		this.openProjectButton.setMargin(new Insets(-2,0,-2,-2)); //no margin, dropdown button gets to tiny otherwise.
 		this.openProjectButton.add(this.openRecentMenuButton, BorderLayout.EAST); //dropdown buttons goes to the right.
 		//this.openRecentMenuButton.setBorderPainted(false); //would probably look better, but doesn't work :(
 		this.openRecentMenuButton.setBorder(null);
-		
+
 		this.add(this.splitter, BorderLayout.CENTER);
 
 		this.editorContainer.setLayout(new BorderLayout(3,0));
@@ -135,7 +135,7 @@ public class MainWindow extends JFrame {
 		this.editorCloseButton.setPreferredSize(new Dimension(16,16));
 		this.editorCloseButton.setToolTipText("Close the current editor, discarding all not applied changes.");
 		this.editorCloseButton.setBorderPainted(false);
-		
+
 		ItemNodeRenderer renderer = new ItemNodeRenderer();
 		this.treeview.setCellRenderer(renderer);
 		this.treeview.setEditable(true);
@@ -158,8 +158,8 @@ public class MainWindow extends JFrame {
 						}
 					}
 				}
-				
-				if (e.getButton() == MouseEvent.BUTTON3){ //right click 
+
+				if (e.getButton() == MouseEvent.BUTTON3){ //right click
 					final TreePath path = treeview.getPathForLocation(e.getX(), e.getY());
 					if (path == null) return;
 					final Class<? extends Item> itemClass;
@@ -177,7 +177,7 @@ public class MainWindow extends JFrame {
 						return;
 					}
 					MainWindow.this.treeview.setSelectionPath(path); //HACK: isCellEditable(EventObject event) gets null passed for event if startEditingAtPath is used and thus has no clue which cell we are talking about. We use the cell selection to pass that info.
-					
+
 					String className = Item.getItemClassName(itemClass);
 					JPopupMenu menu = new JPopupMenu();
 					if (item != null){
@@ -185,7 +185,7 @@ public class MainWindow extends JFrame {
 						menu.add(renameItem);
 						renameItem.addActionListener(new ActionListener(){
 							@Override
-							public void actionPerformed(ActionEvent e) { 
+							public void actionPerformed(ActionEvent e) {
 								MainWindow.this.treeview.startEditingAtPath(path);
 							}
 						});
@@ -199,7 +199,7 @@ public class MainWindow extends JFrame {
 						menu.add(removeItem);
 						menu.addSeparator();
 					}
-					
+
 					JMenuItem addItem = new JMenuItem("Add " + className, Resources.loadIcon("item-add-tiny.png"));
 					menu.add(addItem);
 					addItem.addActionListener(new ActionListener(){
@@ -223,8 +223,8 @@ public class MainWindow extends JFrame {
 				}
 			}
 		});
-		
-		
+
+
 		this.newProjectButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {newProject(null);}
 		});
@@ -255,9 +255,9 @@ public class MainWindow extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						loadProject(new File(((JMenuItem)e.getSource()).getText()));
-						
+
 					}
-					
+
 				};
 				boolean anyItems = false;
 				for (String file : Settings.getRecentFiles()){
@@ -283,19 +283,19 @@ public class MainWindow extends JFrame {
 					dummyItem.setEnabled(false);
 					recentMenu.add(dummyItem);
 				}
-				
+
 				recentMenu.show(MainWindow.this.openRecentMenuButton, 0, MainWindow.this.openRecentMenuButton.getHeight());
 			}
 		});
-		
+
 		this.editorCloseButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				closeCurrentEditor();
 			}
 		});
-		
-		
+
+
 		//Generate a popup menu for the "Import" button
 		final JPopupMenu importMenu = new JPopupMenu();
 		JMenuItem menuItem = new JMenuItem("Tree from XML");
@@ -352,7 +352,7 @@ public class MainWindow extends JFrame {
 			}
 		});
 
-		this.addWindowListener(new WindowAdapter(){	
+		this.addWindowListener(new WindowAdapter(){
 			@Override
 			public void windowClosing(WindowEvent e) {
 				Settings.setMainWindowMaximized(MainWindow.this.getExtendedState() == MAXIMIZED_BOTH);
@@ -361,16 +361,16 @@ public class MainWindow extends JFrame {
 				if (askSave()) System.exit(0);
 			}
 		});
-		
-		
+
+
 		this.editorContainer.add(this.scriptConsole, BorderLayout.SOUTH);
-		
+
 		Rectangle rect = Settings.getMainWindowRect();
 		this.setLocation(rect.getLocation());
 		this.setSize(rect.getSize());
 		if (Settings.getMainWindowMaximized()) this.setExtendedState(MAXIMIZED_BOTH);
 		this.splitter.setDividerLocation(Settings.getMainWindowSplitterLocation());
-		
+
 		newProject("New Project");
 		this.editorNameLabel.setText("Nothing selected (Add new items or double click existing ones to edit)");
 	}
@@ -387,7 +387,7 @@ public class MainWindow extends JFrame {
 			name = JOptionPane.showInputDialog(this, "Enter new project name:", "New Project");
 			if (name == null || name.length() == 0) return false;
 		}
-		
+
 		closeAllEditors();
 		this.currentProject = new Project(name);
 		this.treeview.setModel(new ItemTreeModel(this.currentProject));
@@ -479,20 +479,20 @@ public class MainWindow extends JFrame {
 			Throwable t = ex;
 			t.printStackTrace();
 			while (t instanceof InvocationTargetException && t.getCause() != null) t = t.getCause();
-			
+
 			JOptionPane.showMessageDialog(this, "Failed to load project from file '" + file.getName() + "': " + t.toString(), "Project load error", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
-		
+
 		closeAllEditors();
-		
+
 		this.projectFile = file;
 		this.currentProject = project;
 		this.treeview.setSelectionPath(null);
 		this.treeview.setModel(new ItemTreeModel(project));
 		//Expend all item class nodes
 		for (Class<? extends Item> itemClass : Project.getItemClasses()){
-			this.treeview.expandPath(new TreePath(new Object[]{project, itemClass}));		
+			this.treeview.expandPath(new TreePath(new Object[]{project, itemClass}));
 		}
 
 		this.currentProject.addProjectListener(new Project.ProjectEventListener(){
@@ -506,12 +506,12 @@ public class MainWindow extends JFrame {
 		updateTitle();
 
 		Settings.addRecentFile(file.getPath());
-		
+
 		return true;
 	}
 
 	/**
-	 * Creates a new item of the given class, prompts the user for the item name. 
+	 * Creates a new item of the given class, prompts the user for the item name.
 	 * @param itemClass class of the item
 	 */
 	private void createNewItem(Class<? extends Item> itemClass){
@@ -549,7 +549,7 @@ public class MainWindow extends JFrame {
 	 * Imports a tree from an XML file. <br> The XML file is selected by the user in a file open dialog.
 	 * A new Item will be added to the project if the import is successful.
 	 * @param <S> class of the symbol to be used by the XML tree parser
-	 * @param symbolClass class of the symbol to be used by the XML tree parser. Supported values are RankedSymbol.class (will result in a TreeItem) and UnrankedSymbol (will result in a HedgeItem). 
+	 * @param symbolClass class of the symbol to be used by the XML tree parser. Supported values are RankedSymbol.class (will result in a TreeItem) and UnrankedSymbol (will result in a HedgeItem).
 	 * @return true if the import succeeds, false if not
 	 */
 	private <S extends Symbol> boolean importTreeFromXML(Class<S> symbolClass){
@@ -594,14 +594,14 @@ public class MainWindow extends JFrame {
 	 * @param item item to edit
 	 * @return true if the item editor as successfully switched, false if the current editor refused to close
 	 */
-	// * @param force do not call canClose() on the item, just close it forcefully loosing unsaved changes. Use with caution.	
+	// * @param force do not call canClose() on the item, just close it forcefully loosing unsaved changes. Use with caution.
 	private boolean editItem(Item item){ //, boolean force){
 		if (this.visibleEditor != null) {
 			this.editorContainer.remove(this.visibleEditor);
 		}
-		
+
 		assert(item != null);
-		
+
 		System.out.println("Edit: " + item.getName());
 		Editor editor = this.openEditors.get(item);
 		if (editor == null){
@@ -609,18 +609,18 @@ public class MainWindow extends JFrame {
 			this.openEditors.put(item, editor);
 		}
 		this.visibleEditor = editor;
-		
+
 		this.editorNameLabel.setText(this.visibleEditor.getName() + " - " + item.getName());
 		this.editorContainer.add(this.visibleEditor, BorderLayout.CENTER);
 		this.editorCloseButton.setVisible(true);
 		this.treeview.setSelectionPath(new TreePath(new Object[]{this.currentProject, item.getClass(), item}));
 		//TODO: Figure out why the window is not properly redrawn without this hack.
 		this.editorContainer.repaint();
-		
+
 		updateTitle();
 		return true;
 	}
-	
+
 	private void closeCurrentEditor() {
 		if (this.visibleEditor != null){
 			this.openEditors.remove(this.visibleEditor.getItem());
@@ -634,7 +634,7 @@ public class MainWindow extends JFrame {
 		this.editorContainer.repaint();
 		updateTitle();
 	}
-	
+
 	private void closeAllEditors() {
 		if (this.visibleEditor != null) this.editorContainer.remove(this.visibleEditor);
 		for (Editor editor : this.openEditors.values()){
@@ -675,7 +675,7 @@ public class MainWindow extends JFrame {
 				dirtyEditors.add(e);
 			}
 		}
-		
+
 		msg.append("Do you want to save now?");
 		int ret = JOptionPane.showConfirmDialog(this, msg.toString(), "Save?", JOptionPane.YES_NO_CANCEL_OPTION);
 		if (ret == JOptionPane.CANCEL_OPTION){
@@ -704,7 +704,7 @@ public class MainWindow extends JFrame {
 		}
 		this.setTitle(s.toString());
 	}
-	
+
 	/**
 	 * Returns the currently loaded project.
 	 * @return the currently loaded project
@@ -712,7 +712,7 @@ public class MainWindow extends JFrame {
 	public Project getCurrentProject(){
 		return this.currentProject;
 	}
-	
+
 	/**
 	 * Main program - currently just for testing.
 	 * @param args arguments passed to vm - not used here
@@ -825,7 +825,7 @@ public class MainWindow extends JFrame {
 			}
 		}
 		/**
-		 * To be called after an item has been changed (e.g. dirty state flipped). 
+		 * To be called after an item has been changed (e.g. dirty state flipped).
 		 * Updates the tree, redrawing it.
 		 * @param item the item changed.
 		 */
@@ -835,7 +835,7 @@ public class MainWindow extends JFrame {
 				l.treeNodesChanged(e);
 			}
 		}
-		
+
 		private void fireClassGroupChanged(Class<? extends Item> itemClass){
 			Object[] path = new Object[]{MainWindow.this.currentProject, itemClass};
 			Object[] items = project.getItems(itemClass).toArray();
@@ -909,7 +909,7 @@ public class MainWindow extends JFrame {
 				itemClassIcons.put(itemClass, Resources.loadIcon("node-" + itemClass.getSimpleName().toLowerCase() + ".png"));
 			}
 		}
-		
+
 		@Override
 		@SuppressWarnings("unchecked")
 		public Component getTreeCellRendererComponent(JTree tree, Object node,boolean sel,boolean expanded,boolean leaf,int row,boolean hasFocus) {
@@ -957,7 +957,7 @@ public class MainWindow extends JFrame {
 			//       of the renderer to get the icon, but doesn't supply a node, so we can't implement them to return node specific icons.
 			//       This hack overwrites the icon directly in the DefaultTreeCellEditor instance.
 			//       after getTreeCellEditorComponent fetched the wrong icon.
-			this.editingIcon = ((ItemNodeRenderer)renderer).getNodeIcon(node);  
+			this.editingIcon = ((ItemNodeRenderer)renderer).getNodeIcon(node);
 			return comp;
 		}
 
@@ -965,10 +965,10 @@ public class MainWindow extends JFrame {
 		public boolean isCellEditable(EventObject event) {
 			TreePath path = null;
 			if (event == null) path = tree.getSelectionPath(); //manual edit trigger causes null to be passed here.
-			
+
 			//FIXME: Mouse editing immediately starts instead of waiting a few hundred milliseconds, making it impossible to do double clicks. Disable mouse editing for now.
 			//if (event instanceof MouseEvent)  path = tree.getPathForLocation(((MouseEvent)event).getX(), ((MouseEvent)event).getY());
-			
+
 			if (path != null){
 				Object node = path.getLastPathComponent();
 				if (node instanceof Class<?>){

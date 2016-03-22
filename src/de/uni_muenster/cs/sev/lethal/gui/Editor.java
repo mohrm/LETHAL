@@ -57,10 +57,10 @@ public abstract class Editor extends JPanel {
 	protected JButton applyButton = new JButton("Apply", Resources.loadIcon("apply.png"));
 
 	protected TreePreviewWindow treePreviewWindow;
-	
+
 	/** True if the editor has unsaved changes. */
 	protected boolean dirty = false;
-	
+
 	protected Editor(Item item){
 		this.setLayout(new BorderLayout());
 		this.add(toolbar, BorderLayout.NORTH);
@@ -84,7 +84,7 @@ public abstract class Editor extends JPanel {
 				saveToItem();
 			}
 		});
-		
+
 		item.getProject().fireItemEditorChanged(item, this);
 	}
 
@@ -93,7 +93,7 @@ public abstract class Editor extends JPanel {
 	 * @return the item edited by this editor
 	 */
 	protected abstract Item getItem();
-	
+
 	/**
 	 * User visible name for this Editor.
 	 */
@@ -101,7 +101,7 @@ public abstract class Editor extends JPanel {
 	public abstract String getName();
 
 	/**
-	 * Set unsaved changes state of the editor. 
+	 * Set unsaved changes state of the editor.
 	 * @param dirty true if there are unsaved changes, false if there are not.
 	 */
 	protected void setDirty(boolean dirty){
@@ -111,7 +111,7 @@ public abstract class Editor extends JPanel {
 			this.getItem().getProject().fireItemEdited(this.getItem());
 		}
 	}
-	
+
 	/**
 	 * Returns true if the editor has unsaved changes.
 	 * @return true if the editor has unsaved changes
@@ -125,32 +125,32 @@ public abstract class Editor extends JPanel {
 	 * @return true if the save was successful, false if not.
 	 */
 	protected abstract boolean saveToItem();
-	
+
 	/**
 	 * Called by the main window if the editor is closed.
-	 * can be implemented by subclasses, by default it does nothing. 
+	 * can be implemented by subclasses, by default it does nothing.
 	 */
 	public void close() {
 		setDirty(false);
 		getItem().getProject().fireItemEditorChanged(getItem(), null);
 	}
 
-	
+
 	protected <S extends Item> JMenu generateApplyMenu(Project project, Class<S> itemClass, final ApplyEvent<S> clickHandler){
 		final JMenu applyMenu = new JMenu("Apply on "+ Item.getItemClassName(itemClass));
-		
+
 		for (final Item item : project.getItems(itemClass)){
 			final JMenuItem menuItem = new JMenuItem(item.getName());
-			
+
 			if (AbstractTreeItem.class.isAssignableFrom(itemClass)){ //preview is only supported for for tree Items
 				final Tree<? extends Symbol> tree = ((AbstractTreeItem)item).getTree();
-				
+
 				menuItem.getModel().addChangeListener(new ChangeListener(){
 					@Override
 					public void stateChanged(ChangeEvent e) {
 						if (treePreviewWindow != null) {
 							treePreviewWindow.setTree(tree);
-							
+
 							Point p = new Point(menuItem.getWidth(),0);
 							SwingUtilities.convertPointToScreen(p, menuItem);
 							treePreviewWindow.setLocation(p);
@@ -158,7 +158,7 @@ public abstract class Editor extends JPanel {
 					}
 				});
 			}
-			
+
 			applyMenu.add(menuItem);
 			menuItem.addActionListener(new ActionListener(){
 				@SuppressWarnings("unchecked")
@@ -171,7 +171,7 @@ public abstract class Editor extends JPanel {
 		}
 		return applyMenu;
 	}
-	
+
 	protected void initTreePreview(JPopupMenu menu){
 		menu.addPopupMenuListener(new PopupMenuListener(){
 			@Override public void popupMenuCanceled(PopupMenuEvent e) {}
@@ -196,9 +196,9 @@ public abstract class Editor extends JPanel {
 			}
 		}
 	}
-	
+
 	protected interface ApplyEvent<S extends Item>{
 		public void apply(S item);
 	}
-	
+
 }

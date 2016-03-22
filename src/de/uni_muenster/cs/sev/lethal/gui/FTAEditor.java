@@ -50,7 +50,7 @@ public class FTAEditor  extends AbstractTreeAutomatonEditor {
 
 	/** @see FTAItem */
 	protected FTAItem item;
-	
+
 	/**
 	 * Creates a new FTAEditor.
 	 * @param item FTAItem to edit by this editor.
@@ -80,11 +80,11 @@ public class FTAEditor  extends AbstractTreeAutomatonEditor {
 			public void insertUpdate(DocumentEvent e) {setDirty(true);}
 			public void removeUpdate(DocumentEvent e) {setDirty(true);}
 		});
-		
+
 		this.quickApplyButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				final EasyFTA automaton = tryParseCurrentAutomaton();
-				if (automaton == null) return; 
+				if (automaton == null) return;
 
 				final JPopupMenu menu = new JPopupMenu();
 				ApplyEvent<TreeItem> treeApplyAction = new ApplyEvent<TreeItem>(){
@@ -131,7 +131,7 @@ public class FTAEditor  extends AbstractTreeAutomatonEditor {
 								FTAEditor.this.item.getProject(),
 								FTAEditor.this.item.getName() + "_reduced",
 								FTAEditor.this.item,
-								"Buttom up reduce " + FTAEditor.this.item.getName());	
+								"Buttom up reduce " + FTAEditor.this.item.getName());
 					}
 				});
 				JMenuItem topDownReduceMenu = new JMenuItem("Top down");
@@ -143,7 +143,7 @@ public class FTAEditor  extends AbstractTreeAutomatonEditor {
 								FTAEditor.this.item.getProject(),
 								FTAEditor.this.item.getName() + "_reduced",
 								FTAEditor.this.item,
-								"Top down reduce " + FTAEditor.this.item.getName());	
+								"Top down reduce " + FTAEditor.this.item.getName());
 					}
 				});
 				JMenuItem fullReduceReduceMenu = new JMenuItem("Both");
@@ -155,14 +155,14 @@ public class FTAEditor  extends AbstractTreeAutomatonEditor {
 								FTAEditor.this.item.getProject(),
 								FTAEditor.this.item.getName() + "_reduced",
 								FTAEditor.this.item,
-								"Full reduce " + FTAEditor.this.item.getName());	
+								"Full reduce " + FTAEditor.this.item.getName());
 					}
 				});
 				reduceApplyMenu.add(bottomUpReduceMenu);
 				reduceApplyMenu.add(topDownReduceMenu);
 				reduceApplyMenu.add(fullReduceReduceMenu);
 				menu.add(reduceApplyMenu);
-				
+
 				JMenuItem determinizeApplyMenu = new JMenuItem("Determinize");
 				menu.add(determinizeApplyMenu);
 				determinizeApplyMenu.addActionListener(new ActionListener(){
@@ -178,7 +178,7 @@ public class FTAEditor  extends AbstractTreeAutomatonEditor {
 				});
 				JMenuItem completeApplyMenu = new JMenuItem("Complete");
 				menu.add(completeApplyMenu);
-				
+
 				completeApplyMenu.addActionListener(new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -218,7 +218,7 @@ public class FTAEditor  extends AbstractTreeAutomatonEditor {
 				final JMenuItem exampleTreeSmallMenu = new JMenuItem("Any");
 				final JMenuItem exampleTreeMinSizeMenu = new JMenuItem("Height at least      ");
 				final JTextField minHeightBox = new JFormattedTextField(NumberFormat.getIntegerInstance());
-				
+
 				minHeightBox.setText("3");
 				minHeightBox.setPreferredSize(new Dimension(25,0));
 				exampleTreeMinSizeMenu.setLayout(new BorderLayout());
@@ -226,7 +226,7 @@ public class FTAEditor  extends AbstractTreeAutomatonEditor {
 				exampleTreeMinSizeMenu.add(new JLabel(" Height at least"), BorderLayout.CENTER);
 				exampleTreeMenu.add(exampleTreeSmallMenu);
 				exampleTreeMenu.add(exampleTreeMinSizeMenu);
-				
+
 				ActionListener exmpleTreeAction = new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -245,19 +245,19 @@ public class FTAEditor  extends AbstractTreeAutomatonEditor {
 								return;
 							}
 						}
-						
+
 						new TreeDisplayWindow(tree,
 											  item.getProject(),
 											  item.getName() + "_exampletree",
 											  null,
 											  null,
 											  "Example tree accepted by " + item.getName());
-							
+
 					}
 				};
 				exampleTreeMinSizeMenu.addActionListener(exmpleTreeAction);
 				exampleTreeSmallMenu.addActionListener(exmpleTreeAction);
-				
+
 				if (FTAEditor.this.inputMode == AbstractTreeAutomatonItem.INPUT_MODE_GRAMMAR){
 					menu.addSeparator();
 					JMenuItem rulesConvert = new JMenuItem("Convert Grammar to FTA rules");
@@ -275,13 +275,13 @@ public class FTAEditor  extends AbstractTreeAutomatonEditor {
 						}
 					});
 				}
-				
+
 				initTreePreview(menu);
-				
+
 				menu.show(FTAEditor.this.quickApplyButton, 0, FTAEditor.this.quickApplyButton.getHeight());
 			}
 		});
-		
+
 		this.helpButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(FTAEditor.this, "Enter tree automaton rules using format:\nsymbol(state1,state2,...,stateN) -> deststate\nOr\nstate=>deststate\n\nMark final states with a tailing '!' (e.g 'fstate!').\nNote that a state will become a final state even if only some occurrences are marked with '!'.\n\nOne Rule in each line.", "Help", JOptionPane.INFORMATION_MESSAGE);
@@ -291,13 +291,13 @@ public class FTAEditor  extends AbstractTreeAutomatonEditor {
 		assert(this.dirty == false);
 	}
 
-	
+
 	@Override
 	protected boolean saveToItem(){
 		EasyFTA automaton = tryParseCurrentAutomaton();
 		if (automaton != null){
 			FTAEditor.this.item.setAutomaton(automaton, this.editorTextField.getText(), this.inputMode);
-			
+
 			setDirty(false);
 			return true;
 		} else {

@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treetransducer;
 
@@ -54,19 +54,19 @@ import de.uni_muenster.cs.sev.lethal.utils.Triple;
  *
  */
 public class TTOps {
-	
 
-	
+
+
 	/**
-	 * Returns a tree transducer that recognizes exactly the union of the languages 
+	 * Returns a tree transducer that recognizes exactly the union of the languages
 	 * of the given tree transducers.<br>
 	 * The resulting tree transducer is in general non-deterministic and its state type
 	 * is State.<br>
 	 * <br>
 	 * This is realized by guaranteeing that the states of the tree transducers are disjoint.
-	 * (Embed them disjointly in new states.) Then construct a new finite tree automaton with 
-	 * the union of states, union of final states and union of rules. 
-	 * 
+	 * (Embed them disjointly in new states.) Then construct a new finite tree automaton with
+	 * the union of states, union of final states and union of rules.
+	 *
 	 * @param <F> symbol type of the start alphabet of both tree transducers
 	 * @param <G> symbol type of the destination alphabet of both tree transducers
 	 * @param <Q1> state type of first tree transducer
@@ -74,8 +74,8 @@ public class TTOps {
 
 	 * @param tt1 the first tree transducer for the union
 	 * @param tt2 the second tree transducer for the union
-	 * 
-	 * @return a tree transducer that recognizes exactly the union of the 
+	 *
+	 * @return a tree transducer that recognizes exactly the union of the
 	 * languages of the given finite tree tree automata
 	 */
 	public static <F extends RankedSymbol, G extends RankedSymbol, Q1 extends State, Q2 extends State>
@@ -85,32 +85,32 @@ public class TTOps {
 			public TTState<State, G> convert(TTState<Q1, G> a) {
 				State stat = new NamedState<Pair<Q1,Boolean>>(new Pair<Q1,Boolean>(a.getState(),true));
 				return new TTState<State,G>(stat,a.getVarTree());
-			}	
+			}
 		};
 		Converter<TTState<Q2,G>,TTState<State,G>> conv2 = new Converter<TTState<Q2,G>,TTState<State,G>>(){
 			@Override
 			public TTState<State, G> convert(TTState<Q2, G> a) {
 				State stat = new NamedState<Pair<Q2,Boolean>>(new Pair<Q2,Boolean>(a.getState(),false));
 				return new TTState<State,G>(stat,a.getVarTree());
-			}	
+			}
 		};
 		IdentityConverter<F> fc =  new IdentityConverter<F>();
 		TTCreator<F,G,State> creator = new TTCreator<F,G,State>();
 		/*for (TTState<Q1,G> state: tt1.getStates()){
 			System.out.println(state + " converted " + conv1.convert(state));
 		}*/
-		
+
 		return FTAOps.union(tt1,tt2,conv1,conv2,fc,fc,creator);
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 	/**
 	 * Computes a finite tree automaton which recognizes the language gained by applying a given
 	 * tree transducer on all trees the given finite tree automaton accepts. <br>
-	 * Note that the tree transducer must be linear and 
+	 * Note that the tree transducer must be linear and
 	 * that only the symbols of the finite tree automata are considered, which are also symbols
 	 * of the tree transducer.
 	 * <br>
@@ -123,7 +123,7 @@ public class TTOps {
 	 *     if you have the destination states of the subtrees, s_i <br>
 	 *     add a rule g(s_0, ..., s_{m-1}) --> s_g, produced of regarded rules and tree <br>
 	 *     ad last add rule s_f -> (q,p).
-	 * 
+	 *
 	 * @param <F> type of ranked symbols in the finite tree automaton and the start alphabet of the tree transducer
 	 * @param <G> type of symbols in the destination alphabet
 	 * @param <Q> type of states in the tree transducer
@@ -151,18 +151,18 @@ public class TTOps {
 	R1 extends FTARule<F,Q1>,
 	R2 extends FTARule<G,Q2>,
 	T extends FTA<G,Q2,R2>>
-	T runOnAutomaton(GenTT<F,G,Q> tt, 
-			FTA<F,Q1,R1> fta, 
-			Converter<Pair<Q,Q1>,Q2> sc, 
+	T runOnAutomaton(GenTT<F,G,Q> tt,
+			FTA<F,Q1,R1> fta,
+			Converter<Pair<Q,Q1>,Q2> sc,
 			Converter<Triple<TTRule<F,G,Q>,R1,Tree<BiSymbol<G,Variable>>>,Q2> tsc,
 			FTACreator<G,Q2,R2,T> creator){
 		if (!tt.isLinear())
 			throw new IllegalArgumentException("The tree transducer must be linear.");
-		
+
 		Set<Q2> finals = new HashSet<Q2>();
 		Set<R2> rules = new HashSet<R2>();
 		Set<GenFTAEpsRule<Q2>> epsrules = new HashSet<GenFTAEpsRule<Q2>>();
-		
+
 		// consider all symbols which are in tt and fta, sort for arity.
 		Map<Integer,ArrayList<F>> alphabet = new HashMap<Integer,ArrayList<F>>();
 		for (F f: tt.getAlphabet()){
@@ -192,7 +192,7 @@ public class TTOps {
 						}
 						Q2 destState = sc.convert(new Pair<Q,Q1>(
 								ttrule.getDestStateAsQ(),ftarule.getDestState()));
-						if (tt.getFinalStates().contains(ttrule.getDestState()) || 
+						if (tt.getFinalStates().contains(ttrule.getDestState()) ||
 								fta.getFinalStates().contains(ftarule.getDestState())){
 							finals.add(destState);
 						}
@@ -205,9 +205,9 @@ public class TTOps {
 			}
 		}
 		// create corresponding finite tree automaton
-		return creator.createFTA(tt.getDestAlphabet(), Collections.<Q2>emptySet(), finals, rules, epsrules);	
+		return creator.createFTA(tt.getDestAlphabet(), Collections.<Q2>emptySet(), finals, rules, epsrules);
 	}
-	
+
 	/*Helper Method for runOnAutomaton*/
 	private static <F extends RankedSymbol,
 	G extends RankedSymbol,
@@ -216,8 +216,8 @@ public class TTOps {
 	Q2 extends State,
 	R1 extends FTARule<F,Q1>,
 	R2 extends FTARule<G,Q2>,
-	T extends FTA<G,Q2,R2>> 
-	Q2 produceTreeRules(R1 ftarule, TTRule<F,G,Q> ttrule, Tree<BiSymbol<G,Variable>> varTree, 
+	T extends FTA<G,Q2,R2>>
+	Q2 produceTreeRules(R1 ftarule, TTRule<F,G,Q> ttrule, Tree<BiSymbol<G,Variable>> varTree,
 			Set<R2> rules, Set<GenFTAEpsRule<Q2>> epsrules,
 			List<Q2> src,
 			Converter<Triple<TTRule<F,G,Q>,R1,Tree<BiSymbol<G,Variable>>>,Q2> tsc,
@@ -239,15 +239,15 @@ public class TTOps {
 			rules.add(creator.createRule(varTree.getSymbol().asInnerSymbol(), newsrc, dest));
 			return dest;
 		}
-		
+
 	}
-	
+
 	/**
 	 * Computes a finite tree automaton which recognizes the language gained by applying a given
 	 * tree transducer on all trees the given finite tree automaton accepts. <br>
-	 * The variant for generic finite tree automaton without converters and creators. The states of the 
+	 * The variant for generic finite tree automaton without converters and creators. The states of the
 	 * resulting finite tree automaton are in fact some NamedStates with very complicated names.
-	 * 
+	 *
 	 * @param <F> type of ranked symbols in the finite tree automaton and the start alphabet of the tree transducer
 	 * @param <G> type of symbols in the destination alphabet
 	 * @param <Q> type of states in the tree transducer
@@ -255,7 +255,7 @@ public class TTOps {
 	 * @param tt given tree transducer, which is applied
 	 * @param fta given finite tree automaton, the tree transducer is applied to
 	 * @return finite tree automaton which recognizes the language gained by applying the
-	 * tree transducer on all trees the given finite tree automaton accepts. 
+	 * tree transducer on all trees the given finite tree automaton accepts.
 	 */
 	public static <F extends RankedSymbol, G extends RankedSymbol, Q extends State, Q1 extends State>
 	GenFTA<G,State> runOnAutomaton(GenTT<F,G,Q> tt, GenFTA<F,Q1> fta){
@@ -265,23 +265,23 @@ public class TTOps {
 				return new NamedState<Object>(a);
 			}
 		};
-		Converter<Triple<TTRule<F,G,Q>,GenFTARule<F,Q1>,Tree<BiSymbol<G,Variable>>>,State> tsc = 
+		Converter<Triple<TTRule<F,G,Q>,GenFTARule<F,Q1>,Tree<BiSymbol<G,Variable>>>,State> tsc =
 			new Converter<Triple<TTRule<F,G,Q>,GenFTARule<F,Q1>,Tree<BiSymbol<G,Variable>>>,State>(){
 				@Override
 				public State convert(
 						Triple<TTRule<F, G, Q>, GenFTARule<F, Q1>, Tree<BiSymbol<G, Variable>>> a) {
 					return new NamedState<Object>(a);
 				}
-			
+
 		};
 		return runOnAutomaton(tt,fta,sc,tsc,new GenFTACreator<G,State>());
 	}
-	
-	
+
+
 	/**
 	 * Converts a fitting generic tree transducer to an easy one. <br>
 	 * This is useful for converting the results of the algorithms.
-	 * 
+	 *
 	 * @param tt generic tree transducer of type RankedSymbol,RankedSymbol and State
 	 * @return the same as easy tree transducer
 	 */

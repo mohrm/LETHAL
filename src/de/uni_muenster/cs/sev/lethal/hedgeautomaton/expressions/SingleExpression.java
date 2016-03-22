@@ -28,7 +28,7 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.UnrankedSymbol;
 import java.util.Collection;
 
 /**
- * This interface is used in the regular expressions. 
+ * This interface is used in the regular expressions.
  * It represents a regular expression without multipicators.
  *
  * @author Anton, Maria
@@ -66,7 +66,7 @@ public interface SingleExpression<G_Symbol extends UnrankedSymbol, G_State exten
 
 	/**
 	 * Compares two expressions.
-	 * 
+	 *
 	 * @param exp expression to compare to
 	 * @return whether this Expression is equal to the given one
 	 */

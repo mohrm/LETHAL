@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treeautomata.easy;
 
@@ -33,15 +33,15 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.common.FTARule;
 /**
  * FTACreator for EasyFTA.<br>
  * To create rules and finite tree automata in an easy way without generic type parameters.
- * 
+ *
  * @see FTACreator
  * @see EasyFTA
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public class EasyFTACreator extends FTACreator<RankedSymbol,State,EasyFTARule,EasyFTA> {
 
-	
+
 	/**
 	 * @see de.uni_muenster.cs.sev.lethal.treeautomata.common.FTACreator#createFTA(java.util.Collection, java.util.Collection, java.util.Collection, java.util.Collection)
 	 */
@@ -49,7 +49,7 @@ public class EasyFTACreator extends FTACreator<RankedSymbol,State,EasyFTARule,Ea
 	public EasyFTA createFTA(Collection<RankedSymbol> alphabet, Collection<State> states, Collection<State> finalStates, Collection<? extends FTARule<RankedSymbol,State>> rules) {
 		return new EasyFTA(alphabet, states,finalStates,rules);
 	}
-	
+
 	/**
 	 * @see de.uni_muenster.cs.sev.lethal.treeautomata.common.FTACreator#createFTA(java.util.Collection, java.util.Collection)
 	 */

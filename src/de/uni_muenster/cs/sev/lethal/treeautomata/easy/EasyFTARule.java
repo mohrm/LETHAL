@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treeautomata.easy;
 
@@ -30,9 +30,9 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.generic.GenFTARule;
 
 /**
  * Standard implementation of FTARule without generic types.
- * 
+ *
  * @author Dorothea, Irene, Martin
- * 
+ *
  * @see de.uni_muenster.cs.sev.lethal.treeautomata.common.FTARule
  */
 public class EasyFTARule extends GenFTARule<RankedSymbol,State>{
@@ -47,10 +47,10 @@ public class EasyFTARule extends GenFTARule<RankedSymbol,State>{
 
 
 	/**
-	 * Constructs a rule from the characteristic data. <br> 
+	 * Constructs a rule from the characteristic data. <br>
 	 * VarArg-constructor for convenience!<br>
 	 * Note that the destination state has to be specified <em> before </em> the source states!
-	 * 
+	 *
 	 * @param symbol necessary root symbol of a term t
 	 * @param destState  destination state
 	 * @param states source states of the rule, it can be empty if the symbol is a constant.

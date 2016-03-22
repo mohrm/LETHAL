@@ -36,11 +36,11 @@ public class TreeItem extends AbstractTreeItem {
 	 * @param parentElement XML element to load from
 	 * @param project project the item will be part of
 	 * @return the loaded TreeItem
-	 * @throws ParseException thrown if a parser error occurs 
+	 * @throws ParseException thrown if a parser error occurs
 	 * @throws TokenMgrError thrown if a parser error occurs
 	 */
 	public static TreeItem fromXML(Element parentElement, Project project) throws ParseException, TokenMgrError{
-		TreeItem item = new TreeItem(parentElement.getAttribute("name"), project);		
+		TreeItem item = new TreeItem(parentElement.getAttribute("name"), project);
 		String treeString = parentElement.getTextContent().trim();
 
 		if (treeString == null || treeString.length() == 0){

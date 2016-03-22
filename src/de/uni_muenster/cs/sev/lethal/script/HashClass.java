@@ -33,7 +33,7 @@ public class HashClass extends ScriptClass {
 
 	/** Singleton HashClass class instance */
 	public static final HashClass hashClass = new HashClass();
-	
+
 	private HashClass() {
 		super("Hash", null, RootClass.newStaticClassEnvironment(), true);
 	}
@@ -52,14 +52,14 @@ public class HashClass extends ScriptClass {
 
 /**
  * Hash object class.
- * Wraps a HashMap for script usage 
+ * Wraps a HashMap for script usage
  * @author Philipp
  *
  */
 class HashObject extends ScriptObject {
 
 	private HashMap<ScriptObject,ScriptObject> contents;
-	
+
 	public HashObject(final HashMap<ScriptObject,ScriptObject> contents) {
 		super(HashClass.hashClass);
 		this.contents = contents;
@@ -157,25 +157,25 @@ class HashObject extends ScriptObject {
 			}
 		});
 	}
-	
+
 	public HashMap<ScriptObject,ScriptObject> getContent(){
 		return this.contents;
 	}
-	
+
 	@Override
 	public String toString(){
 		return contents.toString();
 	}
-	
+
 	@Override
 	public boolean equals(Object o){
 		if (!(o instanceof ArrayObject)) return false;
 		return ((ArrayObject)o).getContent().equals(this.contents);
 	}
-	
+
 	@Override
 	public int hashCode(){
 		return this.contents.hashCode();
 	}
-	
+
 }

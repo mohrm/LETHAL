@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treeautomata.common;
 
@@ -33,15 +33,15 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.RankedSymbol;
 
 
 /**
- * A rule set implementation which stores the finite tree automata rules 
- * in a more simple (but maybe also slower) way. 
- * 
+ * A rule set implementation which stores the finite tree automata rules
+ * in a more simple (but maybe also slower) way.
+ *
  * @param <Q> state type used in the rules
  * @param <F> symbol type used in the rules
  * @param <R> rules type
- * 
+ *
  * @see FTARuleSet
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public class SimpleFTARuleSet<F extends RankedSymbol, Q extends State,R extends FTARule<F,Q>> extends FTARuleSet<F,Q,R> {
@@ -49,7 +49,7 @@ public class SimpleFTARuleSet<F extends RankedSymbol, Q extends State,R extends 
 	/** The underlying structure is just a set of rules. */
 	private Set<R> rules;
 
-	/** Map that maps each symbol to the set of rules that use this symbol. */	
+	/** Map that maps each symbol to the set of rules that use this symbol. */
 	private Map<F, Set<R>> symbolRules = new HashMap<F,Set<R>>();
 
 
@@ -80,7 +80,7 @@ public class SimpleFTARuleSet<F extends RankedSymbol, Q extends State,R extends 
 		return this.rules.add(e);
 	}
 
-	/** 
+	/**
 	 * @see java.util.Set#clear()
 	 */
 	@Override

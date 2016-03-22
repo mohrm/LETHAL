@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.grammars;
 
@@ -39,7 +39,7 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.common.FTARule;
 
 /**
  * Implements the construction of a regular tree grammar out of a finite tree automaton.
- * 
+ *
  * @see FTA
  * @see RTG
  *
@@ -51,7 +51,7 @@ public class RTGOps {
 
 	/**
 	 * Given a finite tree automaton, constructs an equivalent regular tree grammar.
-	 * 
+	 *
 	 * @param <Q> type of the states occurring in the given finite tree automaton
 	 * @param <F> type of the ranked symbols occurring in the given finite tree automaton
 	 * @param fta finite tree automaton that is be converted in an equivalent regular tree grammar

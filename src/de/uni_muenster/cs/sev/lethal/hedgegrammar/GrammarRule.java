@@ -38,7 +38,7 @@ public class GrammarRule<G_Symbol extends UnrankedSymbol> {
 	 * Creates a new grammar rule
 	 * @param n the left side Nonterminal of the rule.
 	 * @param t the terminal of the right side function of the rule (all grammar rules must start with a function).
-	 * @param exp the argument grammar expression for the right side function. 
+	 * @param exp the argument grammar expression for the right side function.
 	 */
 	public GrammarRule(Nonterminal<G_Symbol> n, Terminal<G_Symbol> t, GrammarExpression<G_Symbol> exp) {
 		super();

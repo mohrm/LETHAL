@@ -17,33 +17,33 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treeautomata.common;
 
 
 /**
  * Represents an epsilon rule of a finite tree automaton, which is of the form
- * q -> r where q and r are states. <br> 
+ * q -> r where q and r are states. <br>
  * q is called <em>source state</em>, r is called <em>destination state</em>. <br>
  * Epsilon rules help to define some automata easier. They can be eliminated.
- * 
+ *
  * @param <Q> state type occurring in rule
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public interface FTAEpsRule<Q> {
 
 	/**
 	 * Returns the source state of the left side of this rule.
-	 * 
+	 *
 	 * @return the source state of this rule
 	 */
 	Q getSrcState();
 
 	/**
 	 * Returns the destination state of the right side of this rule.
-	 * 
+	 *
 	 * @return the destination state of this rule
 	 */
 	Q getDestState();

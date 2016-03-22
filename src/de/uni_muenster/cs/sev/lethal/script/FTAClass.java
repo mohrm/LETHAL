@@ -48,10 +48,10 @@ import de.uni_muenster.cs.sev.lethal.utils.*;
  * @author Philipp
  */
 public class FTAClass extends ScriptClass{
-	
+
 	/** Singleton FTAClass class instance */
 	public static final FTAClass ftaClass = new FTAClass();
-	
+
 	/**
 	 * Create the FTAClass. To be done once by script interpreter initialization.
 	 * @param classEnvironment environment for this class
@@ -86,7 +86,7 @@ public class FTAClass extends ScriptClass{
 class FTAObject extends ScriptObject{
 
 	private EasyFTA automaton;
-	
+
 	/**
 	 * Create a new FTAObject
 	 * @param automaton FTA be contained by this FTAObject
@@ -102,7 +102,7 @@ class FTAObject extends ScriptObject{
 				return ScriptObject.make(FTAObject.this.automaton.decide(t.getTree()));
 			}
 		});
-		
+
 		this.setMember("trace", new Method(1){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -110,11 +110,11 @@ class FTAObject extends ScriptObject{
 				TreeObject t = (TreeObject)args.get(0);
 
 				Map<Tree<RankedSymbol>,Set<FTARule<RankedSymbol,State>>> tracemap = FTAOps.annotateTreeWithRules(FTAObject.this.automaton,t.getTree());
-				
+
 				return new FTATraceObject(t, (FTAObject)env.getThis(), tracemap);
 			}
 		});
-		
+
 		this.setMember("*", this.setMember("intersect", new Method(1){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -139,7 +139,7 @@ class FTAObject extends ScriptObject{
 				return new FTAObject(EasyFTAOps.difference(FTAObject.this.automaton, t.automaton));
 			}
 		})));
-		
+
 		this.setMember("reduce_bottom_up", this.setMember("reduce", new Method(0){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -214,7 +214,7 @@ class FTAObject extends ScriptObject{
 				return ScriptObject.make(FTAProperties.checkComplete(FTAObject.this.automaton));
 			}
 		});
-		
+
 		this.setMember("==",this.setMember("same_language", this.setMember("sameLanguage", this.setMember("sameLanguageAs", new Method(1){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -240,7 +240,7 @@ class FTAObject extends ScriptObject{
 			}
 		});
 
-		
+
 		this.setMember("example_tree", this.setMember("exampleTree", new Method(Method.ARITY_ZERO_OR_ONE){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -249,26 +249,26 @@ class FTAObject extends ScriptObject{
 					 tree = EasyFTAOps.constructTreeFrom(FTAObject.this.automaton);
 				 } else {
 					 if (!(args.get(0) instanceof IntegerObject)) throw new ScriptRuntimeError("FTA.example_tree() expectes none or Integer argument");
-					 int minHeight = ((IntegerObject)args.get(0)).getValue(); 
+					 int minHeight = ((IntegerObject)args.get(0)).getValue();
 					 tree = EasyFTAOps.constructTreeWithMinHeightFrom(FTAObject.this.automaton, minHeight, false);
 				 }
 				 return tree == null ? ScriptObject.nullValue : new TreeObject(tree);
 			}
 		}));
-		
+
 		this.setMember("rename_states", new Method(0){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, final MethodObject block) {
 				if (block == null) throw new ScriptRuntimeError("rename_states requires a block");
 				final List<ScriptObject> blockArgs = new ArrayList<ScriptObject>(1);
 				blockArgs.add(null);
-				
+
 				EasyFTA fta = FTAOps.ftaConverter(FTAObject.this.automaton,
 					new CachedConverter<State,State>(){
 						@Override
 						public State uniqueConvert(State a) {
 							blockArgs.set(0, ScriptObject.make(a.toString()));
-							return StateFactory.getStateFactory().makeState(block.call(blockArgs, null).toString()); 
+							return StateFactory.getStateFactory().makeState(block.call(blockArgs, null).toString());
 						}
 					}, new IdentityConverter<RankedSymbol>(), new EasyFTACreator());
 				return new FTAObject(fta);
@@ -278,11 +278,11 @@ class FTAObject extends ScriptObject{
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, final MethodObject block) {
 				if (block == null) throw new ScriptRuntimeError("rename_symbols requires a block");
-				
+
 				final List<ScriptObject> blockArgs = new ArrayList<ScriptObject>(2);
 				blockArgs.add(null);
 				blockArgs.add(null);
-				
+
 				EasyFTA fta = FTAOps.ftaConverter(FTAObject.this.automaton,
 					new IdentityConverter<State>(),
 					new CachedConverter<RankedSymbol,RankedSymbol>(){
@@ -290,13 +290,13 @@ class FTAObject extends ScriptObject{
 					public RankedSymbol uniqueConvert(RankedSymbol s) {
 						blockArgs.set(0, ScriptObject.make(s.toString()));
 						blockArgs.set(1, ScriptObject.make(s.getArity()));
-						return new StdNamedRankedSymbol<String>(block.call(blockArgs, null).toString(), s.getArity()); 
+						return new StdNamedRankedSymbol<String>(block.call(blockArgs, null).toString(), s.getArity());
 					}
 				}, new EasyFTACreator());
 				return new FTAObject(fta);
 			}
 		});
-		
+
 		List<ScriptObject> states = new ArrayList<ScriptObject>(this.automaton.getStates().size());
 		for (State state : (Set<? extends State>)this.automaton.getStates()){
 			states.add(ScriptObject.make(state.toString()));
@@ -308,24 +308,24 @@ class FTAObject extends ScriptObject{
 		}
 		this.setMember("final_states", new ArrayObject(states));
 
-		
+
 	}
-	
+
 	@Override
 	public boolean equals(Object o){
 		if (!(o instanceof FTAObject)) return false;
 		return FTAProperties.sameLanguage(((FTAObject)o).getAutomaton(), this.automaton);
 	}
-	
+
 	@Override
 	public String toString(){
 		return this.automaton.toString();
 	}
-	
+
 	public EasyFTA getAutomaton(){
 		return this.automaton;
 	}
-	
+
 	@Override
 	public int hashCode(){
 		return this.automaton.hashCode();

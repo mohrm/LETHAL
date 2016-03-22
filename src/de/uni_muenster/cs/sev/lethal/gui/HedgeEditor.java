@@ -61,7 +61,7 @@ public class HedgeEditor extends AbstractTreeEditor {
 		this.quickApplyButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				final Tree<UnrankedSymbol> hedge = tryParseCurrentTree(true);
-				if (hedge == null) return; 
+				if (hedge == null) return;
 
 				JPopupMenu menu = new JPopupMenu();
 
@@ -151,7 +151,7 @@ public class HedgeEditor extends AbstractTreeEditor {
 	protected HedgeItem getItem() {
 		return this.item;
 	}
-	
+
 	@Override
 	protected Class<? extends Symbol> getTreeSymbolClass() {
 		return UnrankedSymbol.class;

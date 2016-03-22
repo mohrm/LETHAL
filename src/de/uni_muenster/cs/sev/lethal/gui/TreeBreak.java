@@ -37,36 +37,36 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.Symbol;
 import de.uni_muenster.cs.sev.lethal.tree.common.Tree;
 
 /**
- * 
+ *
  */
 public class TreeBreak extends TreeViewer {
-	
+
 	private NamedSymbolTreeFactory<Symbol> tf;
-	
+
 	private Thread gameThread;
 	private boolean running = false;
 	private boolean abort = false;
-	
+
 	private static final int WIDTH = 600;
 	private static final int HEIGHT = 400;
 	private static final int BASELINE = 360;
 	private static final int BALL_RADIUS = 5;
 	private static final int PADDLE_WIDTH = 60;
 	private static final int PADDLE_HEIGHT = 4;
-	
+
 	private static final Color paddleColor = new Color(120,60,0);
-	
+
 	private Point2D.Float ballPos = new Point2D.Float(); //Center of the ball
 	private Point2D.Float newBallPos = new Point2D.Float(); //Center of the ball
 	private Point2D.Float ballVelocity = new Point2D.Float();
 	private Point paddlePos = new Point(WIDTH / 2, BASELINE); //Center of the upper edge of the paddle
 	private Point mousePoint = new Point(paddlePos);
 	private int lives;
-	
+
 	private Calendar cal = Calendar.getInstance();
-	
+
 	/**
-	 * Constructor 
+	 * Constructor
 	 * @param <S> Symbol type used in the tree factory
 	 * @param tf tree factory used to create to create new trees.
 	 */
@@ -103,9 +103,9 @@ public class TreeBreak extends TreeViewer {
 				if (getTree() == null) {setTree(tf.generateRandomTree(7, 17, 17)); init(3);}
 				if (e.getButton() == MouseEvent.BUTTON1) running = !running;
 			}
-			
+
 		});
-		
+
 		init(3);
 		gameThread.start();
 	}
@@ -118,12 +118,12 @@ public class TreeBreak extends TreeViewer {
 		this.ballVelocity.y = -0.7F;
 		this.running = false;
 	}
-	
+
 	private void nextStep(){
 		Graphics g = this.paintBox.getGraphics();
 		if (g == null) return;
 		String s = "Lives: " + lives;
-		
+
 		Rectangle2D srect = g.getFontMetrics().getStringBounds(s, g);
 		g.setColor(Color.WHITE);
 		g.fillRect(5, 5, (int)srect.getWidth(), (int)srect.getHeight());
@@ -131,31 +131,31 @@ public class TreeBreak extends TreeViewer {
 		g.setColor(Color.BLACK);
 		g.drawRect(0, 0, WIDTH, HEIGHT);
 		g.drawString(s, 5, g.getFontMetrics().getHeight());
-		
+
 		//if (paddlePos.x != mousePoint.x){
 			g.setColor(Color.WHITE);
 			g.fillRect(paddlePos.x - PADDLE_WIDTH / 2, paddlePos.y, PADDLE_WIDTH+1, PADDLE_HEIGHT+1);
-			
+
 			paddlePos.x = mousePoint.x;
-			
+
 			g.setColor(paddleColor);
 			g.fillRect(paddlePos.x - PADDLE_WIDTH / 2, paddlePos.y, PADDLE_WIDTH, PADDLE_HEIGHT);
 			g.setColor(Color.BLACK);
 			g.drawRect(paddlePos.x - PADDLE_WIDTH / 2, paddlePos.y, PADDLE_WIDTH, PADDLE_HEIGHT);
 		//}
-		
+
 		if (running){
-		
+
 			if (nodeInfos == null) calcNodeInfos(g,this.tree);
-			
+
 			//Preliminary calculation before collision checks
 			newBallPos.x = (ballPos.x + ballVelocity.x);
 			newBallPos.y = (ballPos.y + ballVelocity.y);
-			
+
 			//outer bounds hit
-			if ((newBallPos.x + BALL_RADIUS > WIDTH) || (newBallPos.x < BALL_RADIUS)) ballVelocity.x = -ballVelocity.x; 
+			if ((newBallPos.x + BALL_RADIUS > WIDTH) || (newBallPos.x < BALL_RADIUS)) ballVelocity.x = -ballVelocity.x;
 			if (newBallPos.y < BALL_RADIUS) ballVelocity.y = -ballVelocity.y;
-			
+
 			//node hit
 			for (NodeInfo node : this.nodeInfos){
 				if (node.rect.contains(newBallPos.x, newBallPos.y - BALL_RADIUS)){ //upper edge hit
@@ -179,21 +179,21 @@ public class TreeBreak extends TreeViewer {
 					break;
 				}
 			}
-			
+
 			//paddle hit
 			if (newBallPos.y + BALL_RADIUS > paddlePos.y && ballPos.y + BALL_RADIUS <= paddlePos.y){
 				if ((newBallPos.x + BALL_RADIUS >= paddlePos.x - (PADDLE_WIDTH / 2)) && (newBallPos.x - BALL_RADIUS <= paddlePos.x + (PADDLE_WIDTH / 2))){
 					ballVelocity.x = 0.1F + (1.5F * (newBallPos.x - paddlePos.x) / (PADDLE_WIDTH / 2));
-					ballVelocity.y = -ballVelocity.y; 
+					ballVelocity.y = -ballVelocity.y;
 				}
 			}
-			
+
 			//loss
 			if (newBallPos.y + BALL_RADIUS > HEIGHT){
 				init(lives - 1);
 				if (lives == 0) g.drawString("Game Over", 5, g.getFontMetrics().getHeight());
 			}
-			
+
 			g.setColor(Color.WHITE);
 			g.fillOval((int)ballPos.x- BALL_RADIUS, (int)ballPos.y - BALL_RADIUS, BALL_RADIUS * 2, BALL_RADIUS * 2);
 			ballPos.x += ballVelocity.x;
@@ -201,7 +201,7 @@ public class TreeBreak extends TreeViewer {
 		}
 		g.setColor(paddleColor);
 		g.fillOval((int)ballPos.x - BALL_RADIUS, (int)ballPos.y - BALL_RADIUS, BALL_RADIUS * 2, BALL_RADIUS * 2);
-		
+
 	}
 	@Override
 	public void paintTree(JComponent comp, Graphics g) {
@@ -215,7 +215,7 @@ public class TreeBreak extends TreeViewer {
 			g.drawRect(0, 0, WIDTH, HEIGHT);
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private <S extends Symbol> void removeNode(NodeInfo node){
 		synchronized(this){
@@ -229,7 +229,7 @@ public class TreeBreak extends TreeViewer {
 			for (int i = 0; i < parent.tree.getSubTrees().size(); i++){
 				if (i != node.childIndex) subtrees.add((Tree<Symbol>) parent.tree.getSubTrees().get(i));
 			}
-			
+
 			Tree<Symbol> tree = tf.makeTreeFromName(node.parent.tree.getSymbol().toString(), subtrees);
 			node = parent;
 			parent = parent.parent;
@@ -242,7 +242,7 @@ public class TreeBreak extends TreeViewer {
 						subtrees.add(tree);
 					}
 				}
-				
+
 				tree = TreeFactory.getTreeFactory().<Symbol>makeTreeFromSymbol(node.parent.tree.getSymbol(), subtrees);
 				node = parent;
 				parent = parent.parent;
@@ -251,16 +251,16 @@ public class TreeBreak extends TreeViewer {
 			if (nodeInfos == null) calcNodeInfos(paintBox.getGraphics(),this.tree);
 		}
 	}
-	
-	
+
+
 	private void win(){
 		running = false;
 	}
-	
+
 	@Override
 	public void setVisible(boolean visible){
 		super.setVisible(visible);
 		if (!visible) abort = true;
 	}
-	
+
 }

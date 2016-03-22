@@ -33,7 +33,7 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.UnrankedSymbol;
  */
 public class EasyHedgeGrammar extends HedgeGrammar<UnrankedSymbol> {
 
-	
+
 	/**
 	 * @see HedgeGrammar#HedgeGrammar()
 	 */
@@ -55,11 +55,11 @@ public class EasyHedgeGrammar extends HedgeGrammar<UnrankedSymbol> {
 	}
 
 	/**
-	 * @return The Hedge Automaton specified by this HedgeGrammar 
+	 * @return The Hedge Automaton specified by this HedgeGrammar
 	 */
 	@Override
 	public EasyHedgeAutomaton getHA() {
-		return (EasyHedgeAutomaton)super.getHA(); //Cast is safe because this only returns what was once created by constructAutmaton() which is EasyHedgeAutomaton in this case. 
+		return (EasyHedgeAutomaton)super.getHA(); //Cast is safe because this only returns what was once created by constructAutmaton() which is EasyHedgeAutomaton in this case.
 	}
 
 }

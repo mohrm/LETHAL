@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treetransducer;
 
@@ -35,21 +35,21 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTA;
 import de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTARule;
 /**
  * Class to represent tree tranducers in an easy way.<br>
- * 
+ *
  * @see FTA
  * @see TTRuleSet
  * @see GenTT
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public class EasyTT extends GenTT<RankedSymbol,RankedSymbol,State>{
 
 
 	/**
-	 * Constructs a new tree transducer with given final states, 
+	 * Constructs a new tree transducer with given final states,
 	 * start alphabet, destination alphabet and rules.<br>
 	 * The states are calculated from the rules.
-	 * 
+	 *
 	 * @param finalStat final states
 	 * @param startAlph start alphabet
 	 * @param destAlph destination alphabet
@@ -67,16 +67,16 @@ public class EasyTT extends GenTT<RankedSymbol,RankedSymbol,State>{
 			epsRul2.add(new TTEpsRule<RankedSymbol,State>(r.getFirst(),r.getSecond()));
 		}
 		rules = new TTRuleSet<RankedSymbol,RankedSymbol,State>(rul2,epsRul2);
-		
+
 		finalStates.addAll(finalStates);
 		preserveInvariants();
 	}
 
 	/**
-	 * Constructs a new tree transducer with given final states, 
+	 * Constructs a new tree transducer with given final states,
 	 * start alphabet, destination alphabet and rules (without epsilon rules).<br>
 	 * The states are calculated from the rules.
-	 * 
+	 *
 	 * @param finalStat final states
 	 * @param startAlph start alphabet
 	 * @param destAlph destination alphabet
@@ -95,12 +95,12 @@ public class EasyTT extends GenTT<RankedSymbol,RankedSymbol,State>{
 	/**
 	 * Constructs a new tree transducer with given final states and rules. <br>
 	 * The states and alphabets are calculated from the rules.
-	 * 
+	 *
 	 * @param finalStat final states
 	 * @param rul rules
 	 * @param epsRul epsilon rules
 	 */
-	public EasyTT(Collection<State> finalStat, Collection<? extends TTRule<RankedSymbol,RankedSymbol,State>> rul, 
+	public EasyTT(Collection<State> finalStat, Collection<? extends TTRule<RankedSymbol,RankedSymbol,State>> rul,
 			Collection<? extends TTEpsRule<RankedSymbol,State>> epsRul) {
 		super(finalStat,new HashSet<TTRule<RankedSymbol,RankedSymbol,State>>(),new HashSet<TTEpsRule<RankedSymbol,State>>());
 		Set<TTRule<RankedSymbol,RankedSymbol,State>> rul2 = new HashSet<TTRule<RankedSymbol,RankedSymbol,State>>();
@@ -111,7 +111,7 @@ public class EasyTT extends GenTT<RankedSymbol,RankedSymbol,State>{
 		for (TTEpsRule<RankedSymbol,State> r: epsRul){
 			epsRul2.add(new TTEpsRule<RankedSymbol,State>(r.getSrcState(),r.getDestState()));
 		}
-		
+
 		rules = new TTRuleSet<RankedSymbol,RankedSymbol,State>(rul2,epsRul2);
 
 		finalStates.addAll(finalStates);
@@ -120,7 +120,7 @@ public class EasyTT extends GenTT<RankedSymbol,RankedSymbol,State>{
 	/**
 	 * Constructs a new tree transducer with given final states and rules. <br>
 	 * The states and alphabets are calculated from the rules.
-	 * 
+	 *
 	 * @param finalStat final states
 	 * @param rul rules
 	 */
@@ -135,13 +135,13 @@ public class EasyTT extends GenTT<RankedSymbol,RankedSymbol,State>{
 		finalStates.addAll(finalStates);
 		preserveInvariants();
 	}
-	
+
 
 	/**
 	 * A part of the functionality of a tree transducer is the same as the one of a finite tree automaton.
-	 * Thus such a corresponding the finite tree automaton can be obtained from the transducer by 
+	 * Thus such a corresponding the finite tree automaton can be obtained from the transducer by
 	 * transforming the rules (just the first parameter of each right side is needed).
-	 * 
+	 *
 	 * @return the finite tree automaton which is inside the tree transducer
 	 */
 	@Override

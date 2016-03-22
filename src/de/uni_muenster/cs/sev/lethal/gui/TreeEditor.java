@@ -61,7 +61,7 @@ public class TreeEditor extends AbstractTreeEditor{
 		this.quickApplyButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				final Tree<RankedSymbol> tree = tryParseCurrentTree(true);
-				if (tree == null) return; 
+				if (tree == null) return;
 
 				JPopupMenu menu = new JPopupMenu();
 
@@ -71,7 +71,7 @@ public class TreeEditor extends AbstractTreeEditor{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						EasyFTA fta = EasyFTAOps.computeSingletonFTA(tree);
-						final HashMap<State,State> stateMap = new HashMap<State,State>(); 
+						final HashMap<State,State> stateMap = new HashMap<State,State>();
 						fta = FTAOps.ftaConverter(fta, new Converter<State,State>(){
 							@Override
 							public State convert(State a) {
@@ -89,7 +89,7 @@ public class TreeEditor extends AbstractTreeEditor{
 								"Singleton FTA for tree" + item.getName());
 					}
 				});
-				
+
 				menu.show(TreeEditor.this.quickApplyButton, 0, TreeEditor.this.quickApplyButton.getHeight());
 			}
 		});
@@ -118,7 +118,7 @@ public class TreeEditor extends AbstractTreeEditor{
 			setValid(false);
 		}
 	}
-	
+
 	/**
 	 * @see de.uni_muenster.cs.sev.lethal.gui.Editor#saveToItem()
 	 */

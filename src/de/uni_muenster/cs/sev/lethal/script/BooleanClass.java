@@ -29,7 +29,7 @@ public class BooleanClass extends ScriptClass {
 
 	/** Singleton BooleanClass class instance */
 	public static final BooleanClass booleanClass = new BooleanClass();
-	
+
 	private BooleanClass() {
 		super("Boolean", null, RootClass.newStaticClassEnvironment(), false);
 	}
@@ -47,7 +47,7 @@ public class BooleanClass extends ScriptClass {
  *
  */
 class BooleanObject extends ScriptObject{
-	
+
 	private static final IntegerObject zero = new IntegerObject(0);
 	private static final IntegerObject one = new IntegerObject(1);
 	private static final Environment booleanInstEnv = FloatClass.floatClass.newInstanceEnvironment(); //one shared instance env for all integer objects. Don't need one for each of them.
@@ -60,28 +60,28 @@ class BooleanObject extends ScriptObject{
 		});
 		booleanInstEnv.setOwner(BooleanClass.booleanClass); //it is actually  an instance env, but it is shared among all instances. So we set the class as the owner.
 	}
-	
+
 	private boolean value;
-	
+
 	protected BooleanObject(boolean value) {
 		super(BooleanClass.booleanClass, booleanInstEnv.newFrame());
 		this.value = value;
 	}
-	
+
 	public boolean getValue(){
 		return this.value;
 	}
-	
+
 	@Override
 	public boolean isTrue(){
 		return this.value;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj){
 		return (obj instanceof BooleanObject && ((BooleanObject)obj).getValue() == this.value);
 	}
-	
+
 	@Override
 	public String toString(){
 		return String.valueOf(this.value);

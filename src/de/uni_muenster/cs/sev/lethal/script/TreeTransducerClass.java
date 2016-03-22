@@ -37,7 +37,7 @@ public class TreeTransducerClass extends ScriptClass {
 
 	/** Singleton TreeTransducerClass class instance */
 	public static final TreeTransducerClass treeTransducerClass = new TreeTransducerClass();
-	
+
 	private TreeTransducerClass() {
 		super("TreeTransducer", null, RootClass.newStaticClassEnvironment(), true);
 	}
@@ -67,11 +67,11 @@ public class TreeTransducerClass extends ScriptClass {
 class TreeTransducerObject extends ScriptObject{
 
 	private EasyTT treeTransducer;
-	
+
 	public TreeTransducerObject(final EasyTT treeTransducer) {
 		super(TreeTransducerClass.treeTransducerClass);
 		this.treeTransducer = treeTransducer;
-		
+
 		this.setMember("decide", new Method(1){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -85,11 +85,11 @@ class TreeTransducerObject extends ScriptObject{
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
 				if (!(args.get(0) instanceof TreeObject)) throw new ScriptRuntimeError("TreeTransducer.run exptect a Tree as parameter");
 				Tree<RankedSymbol> tree = ((TreeObject)args.get(0)).getTree();
-				List<ScriptObject> outputTreeObjects = new ArrayList<ScriptObject>(); 
+				List<ScriptObject> outputTreeObjects = new ArrayList<ScriptObject>();
 				for (Tree<RankedSymbol> resultTree : treeTransducer.doARun(tree)){
 					outputTreeObjects.add(new TreeObject(resultTree));
 				}
-				
+
 				return new ArrayObject(outputTreeObjects);
 			}
 		}));
@@ -100,7 +100,7 @@ class TreeTransducerObject extends ScriptObject{
 			}
 		});
 	}
-	
+
 	public EasyTT getTreeTransducer(){
 		return this.treeTransducer;
 	}
@@ -121,7 +121,7 @@ class TreeTransducerObject extends ScriptObject{
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString(){
 		return this.treeTransducer.toString();

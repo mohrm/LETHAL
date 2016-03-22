@@ -43,7 +43,7 @@ import de.uni_muenster.cs.sev.lethal.tree.common.Tree;
 import de.uni_muenster.cs.sev.lethal.tree.standard.StdTree;
 
 /**
- * 
+ *
  * Contains the tests
  * for the testing of the HedgeAutomaton.
  *
@@ -96,7 +96,7 @@ public class HedgeTest extends TestCase {
    * recognizable by this hedgeautomaton
    */
   public void test1() {
-    
+
     UnrankedSymbol s = new UnrankedSymbol() {
     };
     State q1 = new State(){};
@@ -154,7 +154,7 @@ public class HedgeTest extends TestCase {
     Set<HedgeRule<UnrankedSymbol, State>> rules = new HashSet<HedgeRule<UnrankedSymbol, State>>();
     rules.add(r1);
     rules.add(r2);
-    
+
     // hedgeautomaton
     HedgeAutomaton<UnrankedSymbol, State> autom = new HedgeAutomaton<UnrankedSymbol, State>(st, finSt, rules);
     // hedge: b(a(nil), a(nil), a(nil))
@@ -215,7 +215,7 @@ public class HedgeTest extends TestCase {
     rules.add(r1);
     rules.add(r2);
     rules.add(r3);
-    
+
     // hedgeautomaton
     HedgeAutomaton<UnrankedSymbol,State> autom = new HedgeAutomaton<UnrankedSymbol,State>(st, finSt, rules);
     // hedge: c(a(nil), a(nil), a(nil), a(nil), a(nil))
@@ -278,7 +278,7 @@ public class HedgeTest extends TestCase {
     rules.add(r1);
     rules.add(r2);
     rules.add(r3);
-    
+
     // hedgeautomaton
     HedgeAutomaton<UnrankedSymbol,State> autom = new HedgeAutomaton<UnrankedSymbol,State>(st, finSt, rules);
     // hedge: c(b(nil), a(nil), a(nil), b(nil), a(nil), b(nil), a(nil), b(nil))
@@ -344,7 +344,7 @@ public class HedgeTest extends TestCase {
     rules.add(r1);
     rules.add(r2);
     rules.add(r3);
-    
+
     // hedgeautomaton
     HedgeAutomaton<UnrankedSymbol,State> autom = new HedgeAutomaton<UnrankedSymbol,State>(st, finSt, rules);
     // hedge: a(b(nil), a(nil), b(nil), b(nil))
@@ -407,7 +407,7 @@ public class HedgeTest extends TestCase {
     rules.add(r2);
     rules.add(r3);
     rules.add(r4);
-    
+
     // hedgeautomaton
     HedgeAutomaton<UnrankedSymbol,State> autom = new HedgeAutomaton<UnrankedSymbol,State>(st, finSt, rules);
     // hedge: a(b(a(b(nil))), b(nil), b(nil), b(nil))
@@ -481,7 +481,7 @@ public class HedgeTest extends TestCase {
     rules.add(r2);
     rules.add(r3);
     rules.add(r4);
-    
+
     // hedgeautomaton
     HedgeAutomaton<UnrankedSymbol,State> autom = new HedgeAutomaton<UnrankedSymbol,State>(st, finSt, rules);
     // hedge: a(b(a(nil), a(nil)), c(a(nil), a(nil), a(nil), a(nil)))
@@ -589,7 +589,7 @@ public class HedgeTest extends TestCase {
     rules.add(r5);
     rules.add(r6);
     rules.add(r7);
-    
+
     // hedgeautomaton
     HedgeAutomaton<UnrankedSymbol,State> autom = new HedgeAutomaton<UnrankedSymbol,State>(st, finSt, rules);
     // hedge: a(a(b(nil), c(nil)), a(b(nil)), a(b(nil), c(nil)))
@@ -665,7 +665,7 @@ public class HedgeTest extends TestCase {
     Set<HedgeRule<UnrankedSymbol,State>> rules = new HashSet<HedgeRule<UnrankedSymbol,State>>();
     rules.add(r1);
     rules.add(r2);
-    
+
     // set of final states of the hedgeautomaton
     Set<State> finSt = new HashSet<State>();
     finSt.add(q2);
@@ -860,7 +860,7 @@ public class HedgeTest extends TestCase {
     hRules.add(hRule5);
     hRules.add(hRule6);
     hRules.add(hRule7);
-    
+
     // hedgeautomaton
     HedgeAutomaton<UnrankedSymbol,State> ha = new HedgeAutomaton<UnrankedSymbol,State>(hStates, hFinStates, hRules);
     // hedge: a(a(b(nil), c(nil)), a(b(nil)), a(b(nil), c(nil)))

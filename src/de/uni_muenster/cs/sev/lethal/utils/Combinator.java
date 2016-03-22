@@ -29,15 +29,15 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.common.FTAOps;
 /**
  * Encapsulates several combinatorial algorithm. <br>
  * <br>
- * The algorithms: 
+ * The algorithms:
  * <ul>
  * <li> {@link #combine combine}: Given a set of instances of type S, calculates the n-fold Cartesian product.</li>
  * <li> {@link #cartesianProduct cartesianProduct}: Returns the Cartesian product of a given list of sets. </li>
- * <li> {@link #allListsContainingXCombine allListsContainingXCombine}: Given some set, an object and an integer n, the method 
+ * <li> {@link #allListsContainingXCombine allListsContainingXCombine}: Given some set, an object and an integer n, the method
  * creates all lists of given length consisting of elements
  * of the given set such that each list contains the given object. </li>
  * </ul>
- * 
+ *
  * @author Martin
  */
 
@@ -47,7 +47,7 @@ public class Combinator {
 	/**
 	 * Given a set of instances of type S, calculates the n-fold Cartesian
 	 * product, represented as the set of all lists of cardinal number n.
-	 * 
+	 *
 	 * @param <S> type of objects occurring in the set
 	 * @param myset given set of objects
 	 * @param n	 dimension of the Cartesian product
@@ -82,7 +82,7 @@ public class Combinator {
 					 * Let l be a list of the returned set, then there exists an element x of myset
 					 * that is the first element of l. Conversely, each element x of myset
 					 * is the first element of some list l of the returned set.
-					 * In particular, all lists of myset^n with first element x are constructed 
+					 * In particular, all lists of myset^n with first element x are constructed
 					 * by adding x to all lists of myset^{n-1}.
 					 */
 					for (List<S> l: rest) {
@@ -98,9 +98,9 @@ public class Combinator {
 
 	/**
 	 * Returns the Cartesian product of a given list of sets. <br>
-	 * The idea is similar to the idea of combine, which is in fact 
+	 * The idea is similar to the idea of combine, which is in fact
 	 * just a special case of a Cartesian product.
-	 * 
+	 *
 	 * @param <S> type of the elements in the given sets
 	 * @param sets list of sets to be set theoretically multiplied
 	 * @return the Cartesian product of the given sets
@@ -110,15 +110,15 @@ public class Combinator {
 		/*
 		 * If the list of given sets is empty, the Cartesian product
 		 * contains just the empty list.
-		 */ 
+		 */
 		if (sets.size()==0) {
 			ret.add(new LinkedList<S>());
 			return ret;
 		}
 		/*
 		 * If there is just one list set given, the Cartesian product
-		 * consists all singleton lists, where the elements of the singleton 
-		 * lists are the elements of the given set. 
+		 * consists all singleton lists, where the elements of the singleton
+		 * lists are the elements of the given set.
 		 */
 		else {
 			if (sets.size()==1) {
@@ -133,7 +133,7 @@ public class Combinator {
 				return ret;
 			}
 			/*
-			 * idea: CartesianProduct(A1,...,An) = 
+			 * idea: CartesianProduct(A1,...,An) =
 			 * CartesianProduct(A1,CartesianProduct(A2,...,An))
 			 */
 			else {
@@ -141,7 +141,7 @@ public class Combinator {
 				Set<S> A1 = sets.get(0);
 				// A := CartesianProduct(A2,...,An)
 				Set<List<S>> A2toN = cartesianProduct(sets.subList(1, sets.size()));
-				/* 
+				/*
 				 * CartesianProduct(A1,A): for each element x of A1 and each list l of A
 				 * create a new list consisting of x and the elements of l.
 				 */
@@ -165,13 +165,13 @@ public class Combinator {
 	 * Idea: This set consists exactly of all lists (a_1,...,a_{j-1},x,a_{j+1},...,a_n) where
 	 * the a_i are elements of the union of the given set and {x}. <br>
 	 * Just used in {@link FTAOps#determinize}
-	 * 
+	 *
 	 * @param <Q> type of elements
 	 * @param set arbitrary set
-	 * @param x arbitrary element 
+	 * @param x arbitrary element
 	 * @param n STRICTLY POSITIVE number which describes the length of the lists to return
-	 * @return the smallest set A of lists with the following properties: 
-	 * (i) for each l \in A: x \in A, 
+	 * @return the smallest set A of lists with the following properties:
+	 * (i) for each l \in A: x \in A,
 	 * (ii) A contains all combinations of n elements of (set \cup {x})
 	 */
 	public static <Q> Set<List<Q>> allListsContainingXCombine(Set<Q> set, Q x, int n) {
@@ -179,8 +179,8 @@ public class Combinator {
 		Set<Q> cpySet = new HashSet<Q>(set);
 		Set<List<Q>> ret = new HashSet<List<Q>>();
 		cpySet.add(x);
-		/* 
-		 * all lists with length n of elements of cpySet; 
+		/*
+		 * all lists with length n of elements of cpySet;
 		 * this shall become the (a_1,..,a_{j-1},a_{j+1},..,a_n)
 		 */
 		Set<List<Q>> foo = combine(cpySet,n-1);
@@ -190,7 +190,7 @@ public class Combinator {
 				l.add(pos, x);
 				ret.add(new ArrayList<Q>(l));
 				l.remove(pos);
-			}	
+			}
 		}
 		return ret;
 	}

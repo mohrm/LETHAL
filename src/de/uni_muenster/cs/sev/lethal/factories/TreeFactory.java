@@ -38,7 +38,7 @@ public abstract class TreeFactory {
 
 	private static TreeFactory genericTreeFactory = null;
 
-	private static HashMap<Class<? extends Symbol>, NamedSymbolTreeFactory<? extends Symbol>> namedSymbolTreeFactories = new HashMap<Class<? extends Symbol>, NamedSymbolTreeFactory<? extends Symbol>>(); 
+	private static HashMap<Class<? extends Symbol>, NamedSymbolTreeFactory<? extends Symbol>> namedSymbolTreeFactories = new HashMap<Class<? extends Symbol>, NamedSymbolTreeFactory<? extends Symbol>>();
 
 	static {
 		namedSymbolTreeFactories.put(UnrankedSymbol.class, new NamedSymbolTreeFactory<UnrankedSymbol>(UnrankedSymbol.class){
@@ -84,7 +84,7 @@ public abstract class TreeFactory {
 		assert(genericTreeFactory == null);
 		genericTreeFactory = factory;
 	}
-	
+
 	/**
 	 * Returns a tree factory instance that can create trees from a root symbol and subtrees.
 	 * @return a tree factory instance that can create trees from a root symbol and subtrees
@@ -105,7 +105,7 @@ public abstract class TreeFactory {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <S extends Symbol> NamedSymbolTreeFactory<S> getTreeFactory(Class<? extends S> symClass) {
-		/* 
+		/*
 		 * the following cast is safe because the symbol type associated to the tree factory
 		 * is compatible to the type of the key, see {@link #putTreeFactory}
 		 */
@@ -113,8 +113,8 @@ public abstract class TreeFactory {
 	}
 
 	/**
-	 * Registers a new NamedSymbolTreeFactory for a Symbol class. 
-	 * 
+	 * Registers a new NamedSymbolTreeFactory for a Symbol class.
+	 *
 	 * @param <S> class of the symbol to create (inferred automatically by compiler)
 	 * @param symClass class of the symbol to create
 	 * @param factory the NamedSymbolTreeFactory to create

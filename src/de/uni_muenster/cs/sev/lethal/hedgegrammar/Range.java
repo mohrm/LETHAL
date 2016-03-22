@@ -27,8 +27,8 @@ import de.uni_muenster.cs.sev.lethal.states.State;
 import de.uni_muenster.cs.sev.lethal.symbol.common.UnrankedSymbol;
 
 /**
- * 
- * 
+ *
+ *
  * @author Anton, Maria
  * @param <G_Symbol> symbol type of the hedge grammar
  */

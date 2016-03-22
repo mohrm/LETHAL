@@ -50,11 +50,11 @@ public class TreeDisplayWindow extends JFrame {
 	private JButton closeButton = new JButton("Discard");
 	private JButton addButton = new JButton("Add to Project");
 	private JTextField nameField = new JTextField("newtree");
-	
+
 	/**
 	 * Creates and shows a new TreeDisplayWindow.
 	 * @param tree tree or hedge to show
-	 * @param project project to add the tree to when the user clicks "Add to Project". 
+	 * @param project project to add the tree to when the user clicks "Add to Project".
 	 * If null, the tree cannot be added to a project and the controls for that will be removed.
 	 * @param suggestedName suggested name when added to the project. It may be null.
 	 * @param finalStates final state to highlight. This parameter may be null.
@@ -72,10 +72,10 @@ public class TreeDisplayWindow extends JFrame {
 				boolean isFinal = false;
 				for (FTARule<RankedSymbol,State> rule : rules){
 					states.add(rule.getDestState());
-					
+
 					toolTip.append("<br />");
 					toolTip.append(rule.toString().replaceAll(">", "&gt;") );
-					
+
 					if (finalStates.contains(rule.getDestState())){
 						toolTip.append("<i>!</i>");
 						isFinal = true;
@@ -85,7 +85,7 @@ public class TreeDisplayWindow extends JFrame {
 				if (!states.isEmpty()) nodeAnnotations.put(key, new NodeAnnotation(states.toString(), toolTip.toString(), isFinal));
 			}
 		}
-		
+
 		this.closeButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -110,25 +110,25 @@ public class TreeDisplayWindow extends JFrame {
 				TreeDisplayWindow.this.dispose();
 			}
 		});
-		
+
 		this.setLayout(new BorderLayout());
-		
+
 		TreeViewer tv = new TreeViewer(tree,nodeAnnotations);
 		this.add(tv, BorderLayout.CENTER);
-		
+
 		if (project != null){
 			toolbar.add(this.closeButton);
 			toolbar.addSeparator();
 			toolbar.add(new JLabel("Name:"));
 			toolbar.add(this.nameField);
 			toolbar.add(this.addButton);
-			
+
 			if (suggestedName == null) suggestedName = "newtree";
 			suggestedName = project.convertToValidNewItemName(suggestedName);
 			this.nameField.setText(suggestedName);
-			
+
 			this.add(toolbar, BorderLayout.NORTH);
-			
+
 			try {
 				TreeParser.parseString(tree.toString(), tree.getSymbolClass());
 			} catch (TokenMgrError ex){
@@ -143,7 +143,7 @@ public class TreeDisplayWindow extends JFrame {
 				this.addButton.setEnabled(false);
 			}
 		}
-		
+
 		this.setTitle("Tree Display" + ((title != null) ? " - " + title : ""));
 		this.setSize(500,400);
 		this.setVisible(true);

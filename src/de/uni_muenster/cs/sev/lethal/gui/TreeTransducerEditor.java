@@ -46,7 +46,7 @@ public class TreeTransducerEditor extends Editor {
 	private JTextArea editorTextField = new JTextArea();
 
 	protected JButton quickApplyButton = new JButton("Quick Operations", Resources.loadIcon("fta-quickops.png"));
-	
+
 	/** @see TreeTransducerItem  */
 	private TreeTransducerItem item;
 
@@ -73,15 +73,15 @@ public class TreeTransducerEditor extends Editor {
 			public void insertUpdate(DocumentEvent e) {setDirty(true);}
 			public void removeUpdate(DocumentEvent e) {setDirty(true);}
 		});
-		
-		
+
+
 		this.quickApplyButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				final EasyTT trans = tryParseCurrentTransducer();
 				if (trans == null) return;
-				
+
 				JPopupMenu menu = new JPopupMenu();
-				
+
 				ApplyEvent<TreeItem> applyAction = new ApplyEvent<TreeItem>(){
 					@Override
 					public void apply(TreeItem treeItem){
@@ -96,7 +96,7 @@ public class TreeTransducerEditor extends Editor {
 										item.getProject(),
 										treeItem.getName() + "_" + item.getName(),
 										null,
-										null, 
+										null,
 										"Transformation result: " + TreeTransducerEditor.this.item.getName() + " on " + treeItem.getName()
 							);
 							}
@@ -125,7 +125,7 @@ public class TreeTransducerEditor extends Editor {
 				menu.show(quickApplyButton, 0, quickApplyButton.getHeight());
 			}
 		});
-		
+
 		this.helpButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(TreeTransducerEditor.this, "Enter tree transducer rules using format:\nfunction(state1[:var1],state2[:var2],...,stateN[:varN]) -> deststate, tree(subtree(...,var1,...),...,subtree(...,varN))\nOr\nstate:var => deststate, tree(...,subtree(...,var,...)) \n\nOne Rule in each line.", "Help", JOptionPane.INFORMATION_MESSAGE);
@@ -138,7 +138,7 @@ public class TreeTransducerEditor extends Editor {
 		String transducerDescribtion = TreeTransducerEditor.this.editorTextField.getText();
 		EasyTT transducer = tryParseCurrentTransducer();
 		if (transducer == null) return false;
-		
+
 		item.setTreeTransducer(transducer, transducerDescribtion);
 
 		setDirty(false);
@@ -164,7 +164,7 @@ public class TreeTransducerEditor extends Editor {
 			return null;
 		}
 	}
-	
+
 	@Override
 	public TreeTransducerItem getItem(){
 		return this.item;

@@ -43,7 +43,7 @@ public class HedgeItem extends AbstractTreeItem {
 	public static HedgeItem fromXML(Element parentElement, Project project) throws ParseException, TokenMgrError{
 		HedgeItem item = new HedgeItem(parentElement.getAttribute("name"), project);
 		String treeString = parentElement.getTextContent().trim();
-		
+
 		if (treeString == null || treeString.length() == 0){
 			item.hedge = null;
 		} else {
@@ -51,7 +51,7 @@ public class HedgeItem extends AbstractTreeItem {
 		}
 		return item;
 	}
-	
+
 	/**
 	 * User visible class name of this Item class.
 	 * @return user visible class name of this Item class
@@ -59,12 +59,12 @@ public class HedgeItem extends AbstractTreeItem {
 	public static String getItemClassName(){
 		return "Hedge";
 	}
-	
+
 	/**
 	 * Hedge encapsulated by this item.
 	 */
 	private Tree<UnrankedSymbol> hedge;
-	
+
 	/**
 	 * Creates a new tree Item, with no hedge in it.
 	 * @param name item name
@@ -73,7 +73,7 @@ public class HedgeItem extends AbstractTreeItem {
 	public HedgeItem(String name, Project project){
 		super(name, project);
 	}
-	
+
 	/**
 	 * Creates a new tree Item, containing the given hedge.
 	 * @param name item name
@@ -84,13 +84,13 @@ public class HedgeItem extends AbstractTreeItem {
 		super(name, project);
 		this.hedge = tree;
 	}
-	
-	
+
+
 	@Override
 	public Tree<UnrankedSymbol> getTree() {
 		return hedge;
 	}
-	
+
 	/**
 	 * Updates the hedge inside this item. An ItemEdited Project event will be raised.
 	 * @param hedge new hedge to store inside this item.

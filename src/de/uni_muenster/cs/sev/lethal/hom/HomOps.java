@@ -49,38 +49,38 @@ import de.uni_muenster.cs.sev.lethal.utils.Pair;
  * Operations on homomorphisms which involve regular tree languages: <br>
  * <ul>
  * <li> {@link #apply apply}: applying a homomorphism on a tree </li>
- * <li> {@link #applyOnAutomaton applyOnAutomaton}: given a linear homomorphism and a regular tree language 
+ * <li> {@link #applyOnAutomaton applyOnAutomaton}: given a linear homomorphism and a regular tree language
  * (represented by a finite tree automaton), returns the regular tree language (automaton)
  * given by the images of the trees of the given language under the homomorphism. </li>
  * <li> {@link #applyInverseOnAutomaton applyInverseOnAutomaton}: given a homomorphism and a regular tree language
  * (represented by a finite tree automaton), returns the regular tree language (automaton)
  * whose language is mapped by the homomorphism to the given language. </li>
- * </ul> 
+ * </ul>
  * <br>
- * 
+ *
  * Properties of homomorphisms: <br>
  * <ul>
  * <li> {@link #isLinear linear}: A homomorphism is called linear if each variable occurs at most once. </li>
  * <li> {@link #isEpsilonFree epsilon free}: A homomorphism is called epsilon free if no symbol is mapped just to a variable. </li>
- * <li> {@link #isSymbolToSymbol symbol to symbol}: A homomorphism is called symbol to symbol if for each symbol the height 
+ * <li> {@link #isSymbolToSymbol symbol to symbol}: A homomorphism is called symbol to symbol if for each symbol the height
  * of the image of this symbol is 1. </li>
- * <li> {@link #isComplete complete}: A homomorphism is called complete if for each symbol with arity n, 
+ * <li> {@link #isComplete complete}: A homomorphism is called complete if for each symbol with arity n,
  * the image of f contains all variables from 0 to n-1. </li>
  * <li> {@link #isDelabeling delabeling}: A homomorphism is called delabeling if it is complete, linear and symbol to symbol. </li>
- * <li> {@link #isAlphabetic alphabetic}: A homomorphism is called alphabetic if for each symbol f the image of f 
+ * <li> {@link #isAlphabetic alphabetic}: A homomorphism is called alphabetic if for each symbol f the image of f
  * is of the form g(x_0, ...x_{n-1}) where g is a symbol of the destination alphabet. </li>
  * </ul>
- * 
+ *
  * @see Hom
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
-public class HomOps {   
+public class HomOps {
 
 	/**
 	 * Computes the smallest possible destination alphabet of the homomorphism. <br>
-	 * This is the set of function symbols occurring in the image trees of the homomorphism. 
-	 * 
+	 * This is the set of function symbols occurring in the image trees of the homomorphism.
+	 *
 	 * @param <F> type of function symbols in source alphabet of the given homomorphism
 	 * @param <G> type of function symbols occurring in image trees of the given homomorphism
 	 * @param <V> type of variables occurring in image trees of the given homomorphism
@@ -88,10 +88,10 @@ public class HomOps {
 	 * @param hom homomorphism whose destination alphabet is to be identified
 	 * @return all function symbols which occur in image trees of given homomorphism
 	 */
-	public static <F extends RankedSymbol, 
-	G extends RankedSymbol, 
-	V extends Variable, 
-	T extends Tree<? extends BiSymbol<G,V>>> 
+	public static <F extends RankedSymbol,
+	G extends RankedSymbol,
+	V extends Variable,
+	T extends Tree<? extends BiSymbol<G,V>>>
 	Set<G> computeDestAlphabet(Hom<F,G,V> hom) {
 		Set<G> ret = new HashSet<G>();
 		for (F f: hom.getSrcAlphabet()) {
@@ -107,13 +107,13 @@ public class HomOps {
 	/**
 	 * Applies the homomorphism on a given tree. <br>
 	 * <br>
-	 * Algorithm: <br> 
-	 * Build the tree recursively: 
-	 * Let f(t_0,...,t_{n-1}) be a given tree. First apply the homomorphism on the subtrees, 
-	 * then gain a list out of function trees of length n, the arity of f. 
-	 * Then replace the variables (using the method {@link VarTreeOps#replaceVariables(Tree, List, TreeCreator)}) 
-	 * in the image of f according to this list. 
-	 * 
+	 * Algorithm: <br>
+	 * Build the tree recursively:
+	 * Let f(t_0,...,t_{n-1}) be a given tree. First apply the homomorphism on the subtrees,
+	 * then gain a list out of function trees of length n, the arity of f.
+	 * Then replace the variables (using the method {@link VarTreeOps#replaceVariables(Tree, List, TreeCreator)})
+	 * in the image of f according to this list.
+	 *
 	 * @param hom the homomorphism to be applied to the given tree
 	 * @param startTree the tree on which the given homomorphism is to be applied to
 	 * @param tc tree creator to construct the resulting tree
@@ -124,16 +124,16 @@ public class HomOps {
 	 * @param <Y> type of trees in the destination range of the homomorphism
 	 * @return the tree of the destination alphabet which is gained by applying the homomorphism
 	 */
-	public static <F extends RankedSymbol, 
-	G extends RankedSymbol, 
+	public static <F extends RankedSymbol,
+	G extends RankedSymbol,
 	V extends Variable,
-	X extends Tree<F>, 
-	Y extends Tree<G>> 
+	X extends Tree<F>,
+	Y extends Tree<G>>
 	Y apply(Hom<F,G,V> hom, X startTree, TreeCreator<G,Y> tc) {
-		/* 
-		 * idea: number the variables and save in a list at the i-th place, 
+		/*
+		 * idea: number the variables and save in a list at the i-th place,
 		 * what should replace variable i, then replace it
-		 */ 
+		 */
 		List<? extends Tree<F>> subTrees1 = startTree.getSubTrees();
 		// apply the homomorphism on subtrees
 		List<Y> subTrees2 = new LinkedList<Y>();
@@ -155,7 +155,7 @@ public class HomOps {
 	/**
 	 * Applies a given homomorphism on a regular language. <br>
 	 * In detail:
-	 * Given a finite tree automaton, the method constructs a new one, which recognises the language 
+	 * Given a finite tree automaton, the method constructs a new one, which recognises the language
 	 * obtained by applying the homomorphism on the regular language which is recognised
 	 * by the given finite tree automaton. This is only possible, if the homomorphism is linear,
 	 * i.e. there is no image tree in which a variable occurs twice. If the given homomorphism
@@ -163,7 +163,7 @@ public class HomOps {
 	 * <br>
 	 * Algorithm: <br>
 	 * First a finite tree automaton with epsilon rules is created,
-	 * then the epsilon rules are eliminated. The rules of this automaton are gained in the 
+	 * then the epsilon rules are eliminated. The rules of this automaton are gained in the
 	 * following way:<br>
 	 * 	r = f(q1,...,qn)->q rule of the first ta, <br>
 	 * 	tf = image of f under the map h that specifies the homomorphism <br>
@@ -177,7 +177,7 @@ public class HomOps {
 	 *  Q' = Q cup bigcup_r Q^r<br>
 	 *  Q_f' = Q_f<br>
 	 *  Delta = bigcup_{r} Delta^r<br>
-	 *  
+	 *
 	 * @param <F> type of function symbols in source alphabet of the given homomorphism
 	 * @param <G> type of function symbols occurring in image trees of the given homomorphism
 	 * @param <V> type of variables occurring in image trees of the given homomorphism
@@ -191,21 +191,21 @@ public class HomOps {
 	 * @param c converts states of type Q1 into states of type Q2
 	 * @param c2 converts pairs of rules and lists into states of type Q2
 	 * @param fc to create epsilon rules of the given type
-	 * @return new tree automaton which describes all trees gained by applying the homomorphism 
+	 * @return new tree automaton which describes all trees gained by applying the homomorphism
 	 * on all trees given by the given finite tree automaton
 	 */
-	public static <F extends RankedSymbol, 
-	G extends RankedSymbol, 
+	public static <F extends RankedSymbol,
+	G extends RankedSymbol,
 	V extends Variable,
-	Q1 extends State, 
-	Q2 extends State, 
-	R0 extends FTARule<F,Q1>, 
-	R extends FTARule<G,Q2>, 
+	Q1 extends State,
+	Q2 extends State,
+	R0 extends FTARule<F,Q1>,
+	R extends FTARule<G,Q2>,
 	X extends FTA<G,Q2,R>>
-	X applyOnAutomaton(Hom<F,G,V> hom, 
-			FTA<F,Q1,R0> ta, 
-			Converter<? super Q1,Q2> c, 
-			Converter<? super Pair<R0,List<Integer>>,Q2> c2, 
+	X applyOnAutomaton(Hom<F,G,V> hom,
+			FTA<F,Q1,R0> ta,
+			Converter<? super Q1,Q2> c,
+			Converter<? super Pair<R0,List<Integer>>,Q2> c2,
 			FTACreator<G,Q2,R,X> fc){
 		if (!isLinear(hom)){
 			throw new IllegalArgumentException("The homomorphismus ist not linear and can therefore " +
@@ -224,8 +224,8 @@ public class HomOps {
 		//create set of new states
 		HashSet<Q2> newStates = new HashSet<Q2>();
 		//embed old states (that is because "Q subset Q' ")
-		//create map to remember which old state belongs to which new state 
-		HashMap<Q1,Q2> mapOldStates = new HashMap<Q1,Q2>(); 
+		//create map to remember which old state belongs to which new state
+		HashMap<Q1,Q2> mapOldStates = new HashMap<Q1,Q2>();
 		for (Q1 oldState: ta.getStates()){
 			//State q = factory.createState(oldState);
 			//newStates.add(q);
@@ -236,18 +236,18 @@ public class HomOps {
 		HashSet<R> newRules = new HashSet<R>();
 		HashSet<GenFTAEpsRule<Q2>> newEpsRules = new HashSet<GenFTAEpsRule<Q2>>();
 
-		//create new states 
-		for (R0 rule: ta.getRules()){ 
+		//create new states
+		for (R0 rule: ta.getRules()){
 			// for each rule r = f(q1,..,q.n)->q, get tf,
 			Tree<? extends BiSymbol<G,V>> tree = hom.imageOf(rule.getSymbol());
 			// examine the positions of tf,
-			LinkedList<Integer> position = new LinkedList<Integer>(); 
+			LinkedList<Integer> position = new LinkedList<Integer>();
 			// add first rule for pole position (case (c))
 			// the position is epsilon, in other words: the empty list
 			Q2 q = c2.convert(new Pair<R0,List<Integer>>(rule,position));
 			newStates.add(q);
 			GenFTAEpsRule<Q2> epsRule = new GenFTAEpsRule<Q2>(q,c.convert(rule.getDestState()));// q_{eps}^r->q
-			newEpsRules.add(epsRule); 
+			newEpsRules.add(epsRule);
 
 			HomOps.createRulesForAutomaton(rule, tree, position, newStates, newRules, newEpsRules, q, mapOldStates, c2, fc);
 		}
@@ -262,10 +262,10 @@ public class HomOps {
 	}
 
 
-	/** 
-	 * Helper method for applyOnAutomaton: Creates the rules needed 
-	 * and specified in {@link HomOps#applyOnAutomaton}.  
-	 * 
+	/**
+	 * Helper method for applyOnAutomaton: Creates the rules needed
+	 * and specified in {@link HomOps#applyOnAutomaton}.
+	 *
 	 * @param <F> type of function symbols in source alphabet of the given homomorphism
 	 * @param <G> type of function symbols occurring in image trees of the given homomorphism
 	 * @param <V> type of variables occurring in image trees of the given homomorphism
@@ -285,28 +285,28 @@ public class HomOps {
 	 * @param c2 converts pairs of rules and lists of integers into states of type Q2
 	 * @param fc to create epsilon rules of given type
 	 */
-	private static <F extends RankedSymbol, 
-	G extends RankedSymbol, 
+	private static <F extends RankedSymbol,
+	G extends RankedSymbol,
 	V extends Variable,
 	Q1 extends State,
 	R0 extends FTARule<F,Q1>,
-	Q2 extends State, 
-	R extends FTARule<G,Q2>, 
-	X extends FTA<G,Q2,R>> 
+	Q2 extends State,
+	R extends FTARule<G,Q2>,
+	X extends FTA<G,Q2,R>>
 	void createRulesForAutomaton(
-			R0 rule, 
-			Tree<? extends BiSymbol<G,V>> tree, 
-					LinkedList<Integer> actPos, 
-					Set<Q2> newStates, 
-					Set<R> newRules, 
-					Set<GenFTAEpsRule<Q2>> newEpsRules, 
-					Q2 actDestState, 
-					HashMap<Q1,Q2> map, 
-					Converter<? super Pair<R0,List<Integer>>,Q2> c2, 
+			R0 rule,
+			Tree<? extends BiSymbol<G,V>> tree,
+					LinkedList<Integer> actPos,
+					Set<Q2> newStates,
+					Set<R> newRules,
+					Set<GenFTAEpsRule<Q2>> newEpsRules,
+					Q2 actDestState,
+					HashMap<Q1,Q2> map,
+					Converter<? super Pair<R0,List<Integer>>,Q2> c2,
 					FTACreator<G,Q2,R,X> fc){
 		// symbol = tf (the root symbol of the regarded subtree is exactly tf)
-		BiSymbol<G,V> symbol = tree.getSymbol(); 
-		// create new states of subtrees 
+		BiSymbol<G,V> symbol = tree.getSymbol();
+		// create new states of subtrees
 		newStates.add(c2.convert(new Pair<R0,List<Integer>> (rule,actPos)));
 		// create new rule
 		// case (b) : is it (tf=xi), then create as a new rule q_i->q_p^r
@@ -340,13 +340,13 @@ public class HomOps {
 		}
 		// create new rule
 		R newRule = fc.createRule(tree.getSymbol().asInnerSymbol(),srcStates,actDestState);//g(q_{p_1}^r,...,q_{p_n}^r)->q_p^
-		newRules.add(newRule); 
+		newRules.add(newRule);
 	}
 
 
 	/* section: applying an inverse homomorphism */
 
-	/** 
+	/**
 	 * Given a finite tree automaton, this method returns a finite tree automaton
 	 * whose language is mapped by the homomorphism to the language of the given automaton. <br>
 	 * <br>
@@ -360,7 +360,7 @@ public class HomOps {
 	 * add a rule f(q_1,...,q_n)->q where q_i=p_i if x_i occurs and q_i= s otherwise </li>
 	 * <li> For each symbol f with arity n add a rule f(s,...,s)->s </li>
 	 * </ul>
-	 * 
+	 *
 	 * @param <F> type of function symbols in the source alphabet of the given homomorphism
 	 * @param <G> type of function symbols in the destination alphabet of the given homomorphism
 	 * @param <V> type of variables occurring in the image of the given homomorphism
@@ -375,30 +375,30 @@ public class HomOps {
 	 * on which the inverse homomorphism is to be applied
 	 * @param btc to create configuration trees needed for the algorithm
 	 * @param s some state needed for the construction - must not be contained in the given finite tree automaton
-	 * @param c to convert the states of the given finite tree automaton into the states of the resulting finite tree automaton - 
+	 * @param c to convert the states of the given finite tree automaton into the states of the resulting finite tree automaton -
 	 * conversion must be injective!
-	 * @param tc creator object for trees in the range of the given homomorphism - 
+	 * @param tc creator object for trees in the range of the given homomorphism -
 	 * needed for replacing variables
 	 * @param fc to create the resulting automaton
-	 * 
-	 * @return a finite tree automaton whose language is mapped by the homomorphism 
+	 *
+	 * @return a finite tree automaton whose language is mapped by the homomorphism
 	 * to the language of the given automaton. <br>
 	 */
-	public static <F extends RankedSymbol, 
-	G extends RankedSymbol, 
+	public static <F extends RankedSymbol,
+	G extends RankedSymbol,
 	V extends Variable,
 	U extends Tree<G>,
 	Q2 extends State,
-	V0 extends Tree<BiSymbol<G,Q2>>, 
-	Q1 extends State, 
-	R extends FTARule<F,Q1>, 
-	Y extends FTA<F,Q1,R>> 
-	Y applyInverseOnAutomaton(Hom<F,G,V> hom, 
-			FTA<G,Q2,? extends FTARule<G,Q2>> ta, 
-					Q1 s, 
-					Converter<Q2,Q1> c, 
-					TreeCreator<G,U> tc, 
-					FTACreator<F,Q1,R,Y> fc, 
+	V0 extends Tree<BiSymbol<G,Q2>>,
+	Q1 extends State,
+	R extends FTARule<F,Q1>,
+	Y extends FTA<F,Q1,R>>
+	Y applyInverseOnAutomaton(Hom<F,G,V> hom,
+			FTA<G,Q2,? extends FTARule<G,Q2>> ta,
+					Q1 s,
+					Converter<Q2,Q1> c,
+					TreeCreator<G,U> tc,
+					FTACreator<F,Q1,R,Y> fc,
 					TreeCreator<BiSymbol<G,Q2>,V0> btc){
 
 		// add one new state (that is the state s) to the set of states
@@ -422,10 +422,10 @@ public class HomOps {
 			if (n == 0){
 				// (a)
 				newRules.add(fc.createRule(f,newSrcStates,s));
-				// (b) 
+				// (b)
 				// convert tree (is possible, because it contains no variables)
-				U tree2 = VarTreeOps.<G,V,U>replaceVariables(tree, new LinkedList<U>(), tc); 
-				Set<Q2> reachableStates = FTAProperties.accessibleStates(ta, tree2); 
+				U tree2 = VarTreeOps.<G,V,U>replaceVariables(tree, new LinkedList<U>(), tc);
+				Set<Q2> reachableStates = FTAProperties.accessibleStates(ta, tree2);
 				for (Q2 q : reachableStates){
 					newRules.add(fc.createRule(f,newSrcStates,c.convert(q)));
 				}
@@ -440,7 +440,7 @@ public class HomOps {
 				}
 				newRules.add(fc.createRule(f,newSrcStates,s));
 				newSrcStates.clear();
-				// (b) 
+				// (b)
 				for (Q2 dest: ta.getStates()){
 					List<Map<Integer,Q2>> replacing = 	getStatesForReplacing(tree,ta,dest);
 					for (Map<Integer,Q2> map: replacing){
@@ -455,7 +455,7 @@ public class HomOps {
 								src.add(s);
 							}
 						}
-					
+
 						Set<Q2> reachableStates = FTAProperties.accessibleStatesFromConfigTree(ta,
 								substituteStatesInTree(tree, stateCombi, btc));
 						if (reachableStates.contains(dest))
@@ -472,12 +472,12 @@ public class HomOps {
 	}
 
 
-	private static <G extends RankedSymbol, 
+	private static <G extends RankedSymbol,
 	V extends Variable,
 	U extends Tree<G>,
-	Q2 extends State> 
-	List<Map<Integer,Q2>> getStatesForReplacing(Tree<? extends BiSymbol<G,V>> tree, 
-			FTA<G,Q2,? extends FTARule<G,Q2>> ta, 
+	Q2 extends State>
+	List<Map<Integer,Q2>> getStatesForReplacing(Tree<? extends BiSymbol<G,V>> tree,
+			FTA<G,Q2,? extends FTARule<G,Q2>> ta,
 					Q2 dest){
 		// if variable
 		//System.out.println(tree.getSymbol() + " and replacing " +replacing);
@@ -525,7 +525,7 @@ public class HomOps {
 							}
 						}
 						repl = temp;
-						
+
 						j++;
 					}
 					set.addAll(repl);
@@ -536,10 +536,10 @@ public class HomOps {
 	}
 
 
-	/** 
-	 * Substitutes the variables of a tree by given states. <br> 
+	/**
+	 * Substitutes the variables of a tree by given states. <br>
 	 * Helper method for {@link HomOps#applyInverseOnAutomaton}.
-	 * 
+	 *
 	 * @param <F> type of function symbols occurring in the given variable tree
 	 * @param <V> type of variables occurring in given variable tree
 	 * @param <U> type of resulting configuration tree
@@ -548,23 +548,23 @@ public class HomOps {
 	 * @param states list of states to replace the variables in the variable tree where the position in
 	 * the list corresponds to the number of the variable to be replaced
 	 * @param tc for the creation of resulting tree(s)
-	 * 
+	 *
 	 * @return tree as given, but where each variable is replaced by the corresponding state
 	 */
-	private static <F extends RankedSymbol, 
+	private static <F extends RankedSymbol,
 	V extends Variable,
 	Q extends State,
-	U extends Tree<BiSymbol<F,Q>>> 
+	U extends Tree<BiSymbol<F,Q>>>
 	U substituteStatesInTree(Tree<? extends BiSymbol<F,V>> tree, List<Q> states, TreeCreator<BiSymbol<F,Q>,U> tc){
 		// factory.makeConfigurationTree needs a ConfigurationSymbol!
 		BiSymbol<F,V> rootSymbol = tree.getSymbol();
 		if (rootSymbol.isLeafType()) {
-			int varNr = rootSymbol.asLeafSymbol().getComponentNumber(); 
+			int varNr = rootSymbol.asLeafSymbol().getComponentNumber();
 			return tc.makeTree(new LeafSymbol<F,Q>(states.get(varNr)));
-		} 
+		}
 		else {
 			//symbol is a function symbol
-			LinkedList<U> subTrees = new LinkedList<U>(); 
+			LinkedList<U> subTrees = new LinkedList<U>();
 			for (Tree<? extends BiSymbol<F,V>> sub: tree.getSubTrees()){
 				subTrees.add(HomOps.<F,V,Q,U>substituteStatesInTree(sub,states,tc));
 			}
@@ -581,17 +581,17 @@ public class HomOps {
 	 * <br>
 	 * Algorithm:<br>
 	 * For each variable tree given by the homomorphism, check whether there occurs
-	 * some variable at least twice.  
-	 * 
+	 * some variable at least twice.
+	 *
 	 * @param <F> type of function symbols in source alphabet of the given homomorphism
 	 * @param <G> type of function symbols occurring in image trees of the given homomorphism
 	 * @param <V> type of variables occurring in image trees of the given homomorphism
 	 * @param hom homomorphism to be analyzed
-	 * @return true if and only if the homomorphism is linear, 
+	 * @return true if and only if the homomorphism is linear,
 	 * i.e. in each tree each variable occurs at most once
 	 */
-	public static <F extends RankedSymbol, 
-	G extends RankedSymbol, 
+	public static <F extends RankedSymbol,
+	G extends RankedSymbol,
 	V extends Variable>
 	boolean isLinear(Hom<F,G,V> hom) {
 		for (F start: hom.getSrcAlphabet()){
@@ -603,20 +603,20 @@ public class HomOps {
 		return true;
 	}
 
-	/** 
+	/**
 	 * Returns whether the homomorphism is epsilon free. <br>
 	 * A homomorphism is called epsilon free if no symbol is mapped just to a variable.<br>
-	 * 
+	 *
 	 * @param <F> type of function symbols in source alphabet of the given homomorphism
 	 * @param <G> type of function symbols occurring in image trees of the given homomorphism
 	 * @param <V> type of variables occurring in image trees of the given homomorphism
 	 * @param hom homomorphism to be analyzed
-	 * @return true if and only if the given homomorphism is epsilon free, 
+	 * @return true if and only if the given homomorphism is epsilon free,
 	 * i.e. no symbol is mapped just to a variable
 	 */
-	public static <F extends RankedSymbol, 
-	G extends RankedSymbol, 
-	V extends Variable> 
+	public static <F extends RankedSymbol,
+	G extends RankedSymbol,
+	V extends Variable>
 	boolean isEpsilonFree(Hom<F,G,V> hom) {
 		for (F f: hom.getSrcAlphabet()){
 			if (hom.imageOf(f).getSymbol().isLeafType())
@@ -625,23 +625,23 @@ public class HomOps {
 		return true;
 	}
 
-	/** 
+	/**
 	 * Returns whether the homomorphism is symbol to symbol.<br>
-	 * A homomorphism is called symbol to symbol if for each symbol the height of the 
+	 * A homomorphism is called symbol to symbol if for each symbol the height of the
 	 * image of this symbol is 1. <br>
-	 * Note: A symbolToSymbol-Homomorphism can change the label of the input symbol, 
+	 * Note: A symbolToSymbol-Homomorphism can change the label of the input symbol,
 	 * possibly erase some subtrees and modify the order of the subtrees.
-	 * 
+	 *
 	 * @param <F> type of function symbols in source alphabet of the given homomorphism
 	 * @param <G> type of function symbols occurring in image trees of the given homomorphism
 	 * @param <V> type of variables occurring in image trees of the given homomorphism
 	 * @param hom homomorphism to be analyzed
-	 * @return true if and only if the given homomorphism is symbol to symbol, 
+	 * @return true if and only if the given homomorphism is symbol to symbol,
 	 * i.e. for each symbol the height of the image of this symbol is 1.
 	 */
-	public static <F extends RankedSymbol, 
-	G extends RankedSymbol, 
-	V extends Variable> 
+	public static <F extends RankedSymbol,
+	G extends RankedSymbol,
+	V extends Variable>
 	boolean isSymbolToSymbol(Hom<F,G,V> hom){
 
 		for (F f: hom.getSrcAlphabet()){
@@ -650,20 +650,20 @@ public class HomOps {
 		return true;
 	}
 
-	/** 
+	/**
 	 * Returns whether the homomorphism is complete. <br>
-	 * A homomorphism is called complete if for each symbol with arity n, 
+	 * A homomorphism is called complete if for each symbol with arity n,
 	 * the image of f contains all variables from 0 to n-1. <br>
-	 * 
+	 *
 	 * @param <F> type of function symbols in the source alphabet of the given homomorphism
 	 * @param <G> type of function symbols occurring in the image trees of the given homomorphism
 	 * @param <V> type of variables occurring in the image trees of the given homomorphism
 	 * @param hom homomorphism to be analyzed
-	 * @return true if and only if the given homomorphism is complete, 
+	 * @return true if and only if the given homomorphism is complete,
 	 * i.e. for each symbol with arity n, the image of f contains all variables from 0 to n-1
 	 */
-	public static <F extends RankedSymbol, 
-	G extends RankedSymbol, 
+	public static <F extends RankedSymbol,
+	G extends RankedSymbol,
 	V extends Variable>
 	boolean isComplete(Hom<F,G,V> hom){
 		for (F f: hom.getSrcAlphabet()){
@@ -676,12 +676,12 @@ public class HomOps {
 		return true;
 	}
 
-	/** 
+	/**
 	 * Returns whether this homomorphism is delabeling. <br>
-	 * A homomorphism is called delabeling if it is complete, linear and symbol to symbol. <br>  
+	 * A homomorphism is called delabeling if it is complete, linear and symbol to symbol. <br>
 	 * Note: A delabeling homomorphism only changes the label of the input symbol and
 	 * possibly the order of the subtrees.<br>
-	 * 
+	 *
 	 * @param <F> type of function symbols in the source alphabet of the given homomorphism
 	 * @param <G> type of function symbols occurring in the image trees of the given homomorphism
 	 * @param <V> type of variables occurring in the image trees of the given homomorphism
@@ -689,19 +689,19 @@ public class HomOps {
 	 * @return true if and only if the given homomorphism is delabeling,
 	 * i.e. it is complete, linear and symbol to symbol
 	 */
-	public static <F extends RankedSymbol, 
-	G extends RankedSymbol, 
-	V extends Variable> 
+	public static <F extends RankedSymbol,
+	G extends RankedSymbol,
+	V extends Variable>
 	boolean isDelabeling(Hom<F,G,V> hom){
 		return isComplete(hom) && isSymbolToSymbol(hom) && isLinear(hom);
 	}
 
 
-	/** 
+	/**
 	 * Returns whether a homomorphism is alphabetic. <br>
 	 * A homomorphism is called alphabetic if for each symbol f the image of f is of the form
 	 * g(x_0,...,x_{n-1}) where g is a symbol of the destination alphabet.<br>
-	 * 
+	 *
 	 * @param <F> type of function symbols in the source alphabet of the given homomorphism
 	 * @param <G> type of function symbols occurring in the image trees of the given homomorphism
 	 * @param <V> type of variables occurring in the image trees of the given homomorphism
@@ -710,9 +710,9 @@ public class HomOps {
 	 * i.e. for each symbol f the image of f is of the form
 	 * g(x_0, ...x_{n-1}) where g is a symbol of the destination alphabet
 	 */
-	public static <F extends RankedSymbol, 
-	G extends RankedSymbol, 
-	V extends Variable> 
+	public static <F extends RankedSymbol,
+	G extends RankedSymbol,
+	V extends Variable>
 	boolean isAlphabetic(Hom<F,G,V> hom) {
 		for (F f: hom.getSrcAlphabet()){
 			int i = 0;

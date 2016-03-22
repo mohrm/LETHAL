@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treeautomata.common;
 
@@ -48,7 +48,7 @@ import de.uni_muenster.cs.sev.lethal.utils.Triple;
 
 /**
  * Encapsulates several standard operations on finite tree automata.<br>
- * 
+ *
  * The following operations are contained:
  * <ul>
  * <li>change only one finite tree automaton: {@link #complete complete},
@@ -62,29 +62,29 @@ import de.uni_muenster.cs.sev.lethal.utils.Triple;
  * intersectionTD}, {@link #intersectionWR intersectionWR}, {@link #difference
  * difference}</li>
  * <li>special languages: substitute some languages in a variable tree (
- * {@link #substitute substitute}), 
- * build up a tree automaton which accepts exactly the given tree 
+ * {@link #substitute substitute}),
+ * build up a tree automaton which accepts exactly the given tree
  * ({@link #computeSingletonFTA computeSingletonFTA}),
- * build up a finite tree automaton accepting all trees of a given alphabet 
- * ({@link #computeAlphabetFTA computeAlphabetFTA}), 
- * build up a tree automaton that accepts exactly all trees of a language 
+ * build up a finite tree automaton accepting all trees of a given alphabet
+ * ({@link #computeAlphabetFTA computeAlphabetFTA}),
+ * build up a tree automaton that accepts exactly all trees of a language
  * which are not higher than specified
- * ({@link #restrictToMaxHeight(FTA, int, FTACreator, Converter)}}) 
+ * ({@link #restrictToMaxHeight(FTA, int, FTACreator, Converter)}})
  * </li>
  * <li>construct a tree which the given automaton accepts (
  * {@link #constructTreeFrom})</li>
  * </ul>
- * 
+ *
  * The algorithms are based on <a href="http://tata.gforge.inria.fr/">TATA</a>.
- * 
- * 
+ *
+ *
  * @see FTA
  * @see Tree
- * 
+ *
  * @see FTACreator
  * @see Converter
  * @see Combinator
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public class FTAOps {
@@ -107,7 +107,7 @@ public class FTAOps {
 	 * also in the new automaton rules.</li>
 	 * <li>for the remaining tuples, add a rule with destination state qbot.</li>
 	 * </ol>
-	 * 
+	 *
 	 * @param <Q>
 	 *            state type of the finite tree automaton to be completed
 	 * @param <F>
@@ -187,7 +187,7 @@ public class FTAOps {
 	 * Algorithm:<br>
 	 * First union the alphabets and then use the method {@link #complete
 	 * complete}.
-	 * 
+	 *
 	 * @param <Q>
 	 *            state type of finite tree automaton to be completed
 	 * @param <F>
@@ -205,10 +205,10 @@ public class FTAOps {
 	 *            fresh state for rules to be added
 	 * @param fc
 	 *            {@link FTACreator} to copy the finite tree automaton
-	 * 
+	 *
 	 * @return complete finite tree automaton equivalent to the given finite
 	 *         tree automaton w.r.t. the given alphabet
-	 * 
+	 *
 	 * @see #complete
 	 */
 	public static <Q extends State, F extends RankedSymbol, R extends FTARule<F, Q>, T extends FTA<F, Q, R>> T completeAlphabet(
@@ -255,7 +255,7 @@ public class FTAOps {
 	 * stored. <br>
 	 * If this setstate has not been created before, the toDo-list is extended
 	 * as described above.
-	 * 
+	 *
 	 * @param <Q>
 	 *            state type of the finite tree automaton to be determinized
 	 * @param <Q0>
@@ -276,7 +276,7 @@ public class FTAOps {
 	 *            states of type Q0. It must be injective, that means if s1 and
 	 *            s2 are different sets of Q, then sc.convert(s1) and
 	 *            sc.convert(s2) must also be different!
-	 * 
+	 *
 	 * @return deterministic finite tree automaton equivalent to the given one
 	 */
 	public static <Q extends State, Q0 extends State, F extends RankedSymbol, R0 extends FTARule<F, Q0>, U extends FTA<F, Q0, R0>> U determinize(
@@ -470,7 +470,7 @@ public class FTAOps {
 	 * symbol f, computes all states for which there is a rule f(q1,...,qn) with
 	 * qi \in s_i for i=1,...,n <br>
 	 * Used as helper method for determinize.
-	 * 
+	 *
 	 * @param fta
 	 *            finite tree automaton to examine
 	 * @param combi
@@ -483,7 +483,7 @@ public class FTAOps {
 	 *            symbol type of finite tree automaton to be analysed
 	 * @return the set of all states q, for which there is a rule f(q1,...,qn)
 	 *         with (q1,...,qn) \in combi(0)x...xcombi(combi.length()-1)
-	 * 
+	 *
 	 * @see #determinize(FTA, FTACreator, Converter)
 	 */
 	private static <Q extends State, F extends RankedSymbol> Pair<Set<Q>, Boolean> getDestStates(
@@ -537,7 +537,7 @@ public class FTAOps {
 	 * states are marked. The process ends if no rule can be used to mark an
 	 * additional state. For the new finite tree automaton only marked states
 	 * and rules (that do not contain any not marked state) are used.
-	 * 
+	 *
 	 * @param <Q>
 	 *            state type of finite tree automaton to be reduced
 	 * @param <F>
@@ -550,7 +550,7 @@ public class FTAOps {
 	 *            finite tree automaton to be reduced
 	 * @param fc
 	 *            {@link FTACreator} to create the reduced finite tree automaton
-	 * 
+	 *
 	 * @return reduced version of supplied finite tree automaton
 	 */
 	public static <Q extends State, F extends RankedSymbol, R extends FTARule<F, Q>, T extends FTA<F, Q, R>> T reduceBottomUp(
@@ -686,7 +686,7 @@ public class FTAOps {
 	 * rule and the corresponding source states to the resulting states of the
 	 * new automaton.<br>
 	 * Do this until the work list is empty.
-	 * 
+	 *
 	 * @param <Q>
 	 *            state type of the finite tree automaton to be reduced
 	 * @param <F>
@@ -699,7 +699,7 @@ public class FTAOps {
 	 *            finite tree automaton to be reduced
 	 * @param fc
 	 *            {@link FTACreator} to create the reduced finite tree automaton
-	 * 
+	 *
 	 * @return equivalent finite tree automaton which only contains states from
 	 *         which a final state is reachable and contains only the rules in
 	 *         which merely these states occur.
@@ -768,7 +768,7 @@ public class FTAOps {
 	 * In conclusion, for each rule of the resulting automaton there is a tree t
 	 * and a final state qf, such that t can be reduced to a configuration tree
 	 * containing the left-hand side of the rule, which can be reduced to qf.
-	 * 
+	 *
 	 * @param <Q>
 	 *            state type of the finite tree automaton to be reduced
 	 * @param <F>
@@ -781,16 +781,16 @@ public class FTAOps {
 	 *            finite tree automaton to be reduced
 	 * @param fc
 	 *            creator for the reduced finite tree automaton and its rules
-	 * 
+	 *
 	 * @return fully reduced version of the given finite tree automaton, that
 	 *         means for every rule f(q1,...qn) - q there is a tree t, a
 	 *         configuration tree tc and a final state qf such that f(q1,...qn)
 	 *         is a subtree of tc, t can be reduced to tc and tc can be reduced
 	 *         to qf.
-	 * 
+	 *
 	 * @see FTAOps#reduceBottomUp
 	 * @see FTAOps#reduceTopDown
-	 * 
+	 *
 	 */
 	public static <Q extends State, F extends RankedSymbol, R extends FTARule<F, Q>, T extends FTA<F, Q, R>> T reduceFull(
 			FTA<F, Q, ? extends FTARule<F, Q>> fta, FTACreator<F, Q, R, T> fc) {
@@ -821,7 +821,7 @@ public class FTAOps {
 	 * final set, the new state becomes a final state. The new rules are created
 	 * out of the former rules by substituting occurring states by their
 	 * equivalence classes.
-	 * 
+	 *
 	 * @param fta
 	 *            finite tree automaton to be minimized
 	 * @param qbot
@@ -849,10 +849,10 @@ public class FTAOps {
 	 *            rule type of the resulting finite tree automaton
 	 * @param <U>
 	 *            type of the finite tree automaton to be returned
-	 * 
+	 *
 	 * @throws IllegalArgumentException
 	 *             if the given finite tree automaton is not deterministic
-	 * 
+	 *
 	 * @return finite tree automaton with a minimal number of states which has
 	 *         the same language as the given one
 	 */
@@ -1002,7 +1002,7 @@ public class FTAOps {
 	 * (ii) there is exactly one index i with !(l1.get(i).equals(l2.get(i)))<br>
 	 * (iii) for all indices i: !(l1.get(i).equals(l2.get(i))) ==>
 	 * l1.get(i).equals(q1) && l2.get(i).equals(q2)
-	 * 
+	 *
 	 * @param rules
 	 *            rules filtered for compatibility with respect to the two given
 	 *            states
@@ -1016,7 +1016,7 @@ public class FTAOps {
 	 *            symbol type of rules to examine
 	 * @param <R>
 	 *            type of rules to examine
-	 * 
+	 *
 	 * @return all pairs (r1,r2) where rules.contains(r1), rules.contains(r2)
 	 *         and the following conditions are met (abbreviate l1 :=
 	 *         r1.getSrcStates(), l2 := r2.getSrcStates()) (i) l1.size() ==
@@ -1024,7 +1024,7 @@ public class FTAOps {
 	 *         !(l1.get(i).equals(l2.get(i))) (iii) for all i:
 	 *         !(l1.get(i).equals(l2.get(i))) ==> l1.get(i).equals(q1) &&
 	 *         l2.get(i).equals(q2)
-	 * 
+	 *
 	 * @see #minimize(FTA, State, FTACreator, Converter, FTACreator)
 	 */
 	private static <Q extends State, F extends RankedSymbol, R extends FTARule<F, Q>> List<Pair<R, R>> compatibleRules(
@@ -1065,7 +1065,7 @@ public class FTAOps {
 	 * Algorithm:<br>
 	 * Foremost, the finite tree automaton is determinized and the result
 	 * completed. Finally final states and non-final states are switched.
-	 * 
+	 *
 	 * @param <Q>
 	 *            state type of the finite tree automaton to be complemented
 	 * @param <Q0>
@@ -1109,7 +1109,7 @@ public class FTAOps {
 	 * Foremost, the finite tree automaton is determinized and the result
 	 * completed with respect to the union of its and the given alphabet.
 	 * Finally final states and non-final states are switched.
-	 * 
+	 *
 	 * @param <Q>
 	 *            state type of automaton to be complemented
 	 * @param <Q0>
@@ -1129,7 +1129,7 @@ public class FTAOps {
 	 *            injective!
 	 * @param fc0
 	 *            creator object for the complemented automaton
-	 * 
+	 *
 	 * @return complemented finite tree automaton
 	 */
 	public static <Q extends State, Q0 extends State, F extends RankedSymbol, R0 extends FTARule<F, Q0>, T0 extends FTA<F, Q0, R0>> T0 complementAlphabet(
@@ -1160,7 +1160,7 @@ public class FTAOps {
 	 * automata are disjoint. (Embed them disjointly in new states.) Then
 	 * construct a new finite tree automaton with the union of states, union of
 	 * final states and union of rules.
-	 * 
+	 *
 	 * @param <Q1>
 	 *            state type of the first finite tree automaton
 	 * @param <F1>
@@ -1200,7 +1200,7 @@ public class FTAOps {
 	 * @param fc
 	 *            {@link FTACreator} for the result finite tree automaton and
 	 *            its rules
-	 * 
+	 *
 	 * @return a finite tree automaton that recognizes exactly the union of the
 	 *         languages of the given finite tree tree automata
 	 */
@@ -1265,7 +1265,7 @@ public class FTAOps {
 				srcStates.add(states2.get(srcState));
 			newRules.add(fc.createRule(symbol, srcStates, destState));
 		}
-		
+
 		// now we have collected all data
 		return fc.createFTA(newAlphabet, newStates, newFinals, newRules);
 
@@ -1277,7 +1277,7 @@ public class FTAOps {
 	 * map m is returned which maps every state which occurs as source state in
 	 * a rule and every possible number i to all rules, in which q occurs in the
 	 * source state list at position i.
-	 * 
+	 *
 	 * @param <F>
 	 *            symbol type of rules to be examined
 	 * @param <Q>
@@ -1288,8 +1288,8 @@ public class FTAOps {
 	 *         state in a rule and every possible number i to all rules, in
 	 *         which q occurs in the source state list at position i.
 	 */
-	private static <F extends RankedSymbol, 
-	Q extends State> 
+	private static <F extends RankedSymbol,
+	Q extends State>
 	Map<Q, Map<Pair<F,Integer>, Collection<FTARule<F,Q>>>> groupRulesBySrcState(Set<? extends FTARule<F,Q>> rules) {
 		Map<Q, Map<Pair<F, Integer>, Collection<FTARule<F, Q>>>> ret = new HashMap<Q, Map<Pair<F,Integer>,Collection<FTARule<F,Q>>>>();
 		for (FTARule<F,Q> r: rules) {
@@ -1332,7 +1332,7 @@ public class FTAOps {
 	 * of the second automaton such that (q_1,r_1),...,(q_n,r_n) are reachable.
 	 * Reachable states and corresponding rules are added, until there is no
 	 * more reachable state and thus no change in the set of new states.
-	 * 
+	 *
 	 * @param <F>
 	 *            symbol type of all three finite tree automata. Since the
 	 *            result recognizes the intersection of the two operands'
@@ -1492,7 +1492,7 @@ public class FTAOps {
 		//		 }
 		//		 }
 		//		 }
-		//				
+		//
 		//		 Map<Pair<Q1,Q2>,Q3> newStates = new HashMap<Pair<Q1,Q2>,Q3>();
 		//		 LinkedList<Q3> newFinals = new LinkedList<Q3>();
 		//		 LinkedList<R> newRules = new LinkedList<R>();
@@ -1501,7 +1501,7 @@ public class FTAOps {
 		//		 if (pairFinals.contains(statePair))
 		//		 newFinals.add(newStates.get(statePair));
 		//		 }
-		//				
+		//
 		//		 for (Pair<FTARule<F,Q1>, FTARule<F,Q2>> rulePair: pairRules) {
 		//		 List<Q3> srcStates = new ArrayList<Q3>();
 		//		 Iterator<Q1> states1 =
@@ -1542,7 +1542,7 @@ public class FTAOps {
 	 * If there is a rule of the first automaton with symbol f and one of the
 	 * second with the same symbol, a new rule with the corresponding pair
 	 * states is constructed.
-	 * 
+	 *
 	 * @param <F>
 	 *            symbol type of all three finite tree automata. Since the
 	 *            result recognizes the intersection of the two operands'
@@ -1573,13 +1573,13 @@ public class FTAOps {
 	 * @return finite tree automaton which accepts a tree if and only if both
 	 *         finite tree automata accept it
 	 */
-	public static 
-	<F extends RankedSymbol, 
-	Q1 extends State, 
-	Q2 extends State, 
-	Q3 extends State, 
-	R extends FTARule<F, Q3>, 
-	T extends FTA<F, Q3, R>> 
+	public static
+	<F extends RankedSymbol,
+	Q1 extends State,
+	Q2 extends State,
+	Q3 extends State,
+	R extends FTARule<F, Q3>,
+	T extends FTA<F, Q3, R>>
 	T intersectionTD(FTA<F, Q1, ? extends FTARule<F, Q1>> fta1,
 			FTA<F, Q2, ? extends FTARule<F, Q2>> fta2,
 					Converter<Pair<Q1, Q2>, Q3> pc, FTACreator<F, Q3, R, T> fc) {
@@ -1650,7 +1650,7 @@ public class FTAOps {
 
 				/* if there is a source state pair (q1,q2), which has not been reached before,
 				 * add all pairs of rules f(...) -> q1 and f(...) -> q2 to worklist, i.e.
-				 * all pairs of rules with same symbol and right destination states. 
+				 * all pairs of rules with same symbol and right destination states.
 				 **/
 				boolean isNew = pairStates.add(statePair);
 				if (isNew) {
@@ -1812,7 +1812,7 @@ public class FTAOps {
 	 * first automaton and every rule f(r_1,...,r_n) -> r of the second
 	 * automaton, there is a rule f((q_1,r_1),...,(q_n,r_n)) -> (q,r) of the
 	 * resulting automaton.
-	 * 
+	 *
 	 * @param <F>
 	 *            symbol type of all three automata. Since the result recognizes
 	 *            the intersection of the two operands' languages, all three
@@ -1839,7 +1839,7 @@ public class FTAOps {
 	 * @param fc
 	 *            {@link FTACreator} for creating the result automaton and its
 	 *            rules
-	 * 
+	 *
 	 * @return finite tree automaton which accepts a tree if and only if both
 	 *         finite tree automata accept it
 	 */
@@ -1865,7 +1865,7 @@ public class FTAOps {
 			}
 
 		/*
-		 * for each pair of rules f(q1,...,qn)->q of the first automaton 
+		 * for each pair of rules f(q1,...,qn)->q of the first automaton
 		 * and f(r1,...,rn)->r of the second automaton, add a rule
 		 * f((q1,r1),...,(qn,rn)) -> (q,r)
 		 */
@@ -1882,7 +1882,7 @@ public class FTAOps {
 					Q3 pair = newStates.get(new Pair<Q1,Q2>(q1,q2));
 					src.add(pair);
 				}
-				// 'replace' the destination states with their pair 
+				// 'replace' the destination states with their pair
 				newRules.add(fc.createRule(r1d1.getSymbol(), src, newStates.get(new Pair<Q1, Q2>(r1d1.getDestState(), r2d2.getDestState()))));
 			}
 		}
@@ -1898,7 +1898,7 @@ public class FTAOps {
 	 * <br>
 	 * This is realized by an intersection of the first finite tree automaton
 	 * with the complement of the second one.
-	 * 
+	 *
 	 * @param <F>
 	 *            type of the symbols
 	 * @param <Q1>
@@ -1975,7 +1975,7 @@ public class FTAOps {
 	 * the second automaton, whose symbol is not contained in the first
 	 * automaton. Then, the complement can be executed with respect to the first
 	 * automaton's alphabet.
-	 * 
+	 *
 	 * @param <Q>
 	 *            state type of the finite tree automaton to be filtered
 	 * @param <F>
@@ -1984,10 +1984,10 @@ public class FTAOps {
 	 *            finite tree automaton to be filtered
 	 * @param alphabet
 	 *            symbols which shall stay in returned finite tree automaton
-	 * 
+	 *
 	 * @return finite tree automaton which contains only rules whose symbol is
 	 *         contained in the given alphabet
-	 * 
+	 *
 	 * @see #difference(FTA, FTA, Converter, FTACreator, Converter, FTACreator)
 	 */
 	protected static <Q extends State, F extends RankedSymbol> FTA<F, Q, ? extends FTARule<F, Q>> filter(
@@ -2055,7 +2055,7 @@ public class FTAOps {
 	 * final states of the automata of the corresponding languages is
 	 * constructed. ({@link FTAOps#buildAutomatonForOneTree})</li>
 	 * </ol>
-	 * 
+	 *
 	 * @param <F>
 	 *            type of the symbols of the given finite tree automata and
 	 *            trees
@@ -2167,7 +2167,7 @@ public class FTAOps {
 	 * Constructs a finite tree automaton with the same behaviour as the given
 	 * one but with consistently renamed states.<br>
 	 * Helper method for substitute.
-	 * 
+	 *
 	 * @param <Q>
 	 *            type of the states of the given finite tree automaton
 	 * @param <Q0>
@@ -2184,7 +2184,7 @@ public class FTAOps {
 	 *            {@link FTACreator} to create the renamed finite tree automaton
 	 * @return essentially the same finite tree automaton, but with states which
 	 *         are renamed by the given specified map
-	 * 
+	 *
 	 * @see #substitute(Tree, Map, Converter, Converter, Converter, FTACreator)
 	 */
 	private static <Q extends State, Q0 extends State, F extends RankedSymbol, R0 extends FTARule<F, Q0>> FTA<F, Q0, R0> renameAutomatonStates(
@@ -2224,8 +2224,8 @@ public class FTAOps {
 	 * of these trees is reduced to the state of the corresponding map. <br>
 	 * Helper method for
 	 * {@link FTAOps#substitute(Tree, Map, Converter, Converter, Converter, FTACreator)}
-	 * 
-	 * 
+	 *
+	 *
 	 * @param <F>
 	 *            type of the symbols of the rules and tree
 	 * @param <Q>
@@ -2245,7 +2245,7 @@ public class FTAOps {
 	 *            {@link FTACreator} to create rules
 	 * @param treeStateConv
 	 *            converts a tree into a state - conversion must be injective
-	 * 
+	 *
 	 * @return destination state which shall be the final state of the new
 	 *         automaton
 	 */
@@ -2282,7 +2282,7 @@ public class FTAOps {
 	 * Then all final states of the subtree-automata are collected and a
 	 * corresponding new rule is constructed. The destination state of this rule
 	 * will become the final state of the wished finite tree automaton.
-	 * 
+	 *
 	 * @param <Q>
 	 *            state type of the finite tree automaton to be returned
 	 * @param <F>
@@ -2360,7 +2360,7 @@ public class FTAOps {
 	 * <br>
 	 * This is implemented by simply taking one state and all possible rules
 	 * with the symbols in the alphabet and this state.
-	 * 
+	 *
 	 * @param <F>
 	 *            type of the ranked symbols in the alphabet
 	 * @param <Q>
@@ -2401,7 +2401,7 @@ public class FTAOps {
 
 
 	/**
-	 * Constructs the regular tree language containing all trees of this regular tree language 
+	 * Constructs the regular tree language containing all trees of this regular tree language
 	 * which are not higher than specified.<br>
 	 * <br>
 	 * Algorithm:<br>
@@ -2415,20 +2415,20 @@ public class FTAOps {
 	 * and you get a series of rule applications of the new automaton. Conversely, if such a rule
 	 * sequence is given, a corresponding rule sequence of the incoming automaton can be obtained
 	 * by omitting the indices.
-	 * 
+	 *
 	 * @param <F> symbol type of the finite tree automaton to be restricted
 	 * @param <Q> state type of the finite tree automaton to be restricted
 	 * @param <Q0> state type of the restricted finite tree automaton
 	 * @param <T> type of the restricted finite tree automaton
-	 * @param fta finite tree automaton whose language is to be restricted 
+	 * @param fta finite tree automaton whose language is to be restricted
 	 * @param maxHeight maximum height of the trees contained in the language to be returned
 	 * @param fc {@link FTACreator} for the finite tree automaton to be returned
 	 * @param stateBuilder can build a state from arbitrary objects - conversion must be injective!
-	 * 
-	 * @return a finite tree automaton representing the regular tree language containing 
+	 *
+	 * @return a finite tree automaton representing the regular tree language containing
 	 * all trees of the given language which are not higher than specified
 	 */
-	public static <F extends RankedSymbol, Q extends State, Q0 extends State, T extends FTA<F, Q0, ? extends FTARule<F, Q0>>> 
+	public static <F extends RankedSymbol, Q extends State, Q0 extends State, T extends FTA<F, Q0, ? extends FTARule<F, Q0>>>
 	T restrictToMaxHeight(
 			FTA<F,Q,? extends FTARule<F, Q>> fta,
 					int maxHeight,
@@ -2445,7 +2445,7 @@ public class FTAOps {
 					newSrc.add(stateBuilder.convert(new Pair<Q,Integer>(qsrc,i)));
 				for (int j=i+1; j<=maxHeight; j++) {
 					Q0 newDst = stateBuilder.convert(new Pair<Q,Integer>(r.getDestState(),j));
-					newRules.add(fc.createRule(r.getSymbol(), newSrc, newDst)); 
+					newRules.add(fc.createRule(r.getSymbol(), newSrc, newDst));
 					if (fta.getFinalStates().contains(r.getDestState()))
 						newFinals.add(newDst);
 				}
@@ -2460,29 +2460,29 @@ public class FTAOps {
 
 	/**
 	 * Constructs a tree which can be annotated by the given finite tree automaton
-	 * with the given state and is at least as high as specified, if there is such a tree. 
+	 * with the given state and is at least as high as specified, if there is such a tree.
 	 * Otherwise, null is returned.<br>
 	 * If the given state is specified as null, then a tree is constructed, which
 	 * is accepted by the given finite tree automaton, i.e. which can be annotated
 	 * with a final state.<br>
-	 * 
+	 *
 	 * <emph>Algorithm:</emph><br>
 	 * A map is constructed, which stores for each state a tree,
 	 * which can be annotated with that state. This is done by a worklist algorithm: <br>
-	 * The worklist is initialized with all rules having leaves as symbols. In each iteration, 
+	 * The worklist is initialized with all rules having leaves as symbols. In each iteration,
 	 * a rule is taken from the worklist. If all its source states are found in the map, and its
-	 * destination q state is not or the tree of q is not high enough, q is stored in the map 
-	 * or updated, respectively. The associated tree is constructed from the symbol of the rule 
-	 * and the trees of the source states. Then, the worklist is extended by all the rules, which 
-	 * have q as a source state. The parameter 'depthFirst' specifies whether the worklist is 
-	 * organized as a stack (depthFirst==true) or a queue. 
-	 * In the first case, the new rules are pushed on the top of the worklist, and thus are 
-	 * processed in the very next iterations. In the second case, they are appended and thus 
-	 * examined not until the other rules on the worklist have been examined first. 
-	 * This has influence on the shape of the resulting tree. 
+	 * destination q state is not or the tree of q is not high enough, q is stored in the map
+	 * or updated, respectively. The associated tree is constructed from the symbol of the rule
+	 * and the trees of the source states. Then, the worklist is extended by all the rules, which
+	 * have q as a source state. The parameter 'depthFirst' specifies whether the worklist is
+	 * organized as a stack (depthFirst==true) or a queue.
+	 * In the first case, the new rules are pushed on the top of the worklist, and thus are
+	 * processed in the very next iterations. In the second case, they are appended and thus
+	 * examined not until the other rules on the worklist have been examined first.
+	 * This has influence on the shape of the resulting tree.
 	 * The operation is aborted, if either the specified state was stored in the map and the
-	 * associated tree is high enough or if the specified state is null, a final state was stored 
-	 * in the map and its associated tree is high enough. In both cases, the resulting tree is 
+	 * associated tree is high enough or if the specified state is null, a final state was stored
+	 * in the map and its associated tree is high enough. In both cases, the resulting tree is
 	 * the tree which belongs to that (final) state.
 	 * @param <F> symbol type of the finite tree automaton to be examined
 	 * @param <Q> state type of the finite tree automaton to be examined
@@ -2494,7 +2494,7 @@ public class FTAOps {
 	 * @param depthFirst indicates whether the worklist is to be organized as a stack or a queue -
 	 * in the first case, the resulting tree has minimal height, if the specified height is 0.
 	 * @return if the given state is not null: a tree which can be annotated with that state, or
-	 * null if there is no such tree <br> 
+	 * null if there is no such tree <br>
 	 * If the given state is null: a tree of minimum which is accepted by the given finite tree automaton
 	 * and has minimum height, or null if there is no such tree
 	 */
@@ -2545,7 +2545,7 @@ public class FTAOps {
 						allMarked = false;
 						break;
 					}
-					else 
+					else
 						subTrees.add(whytree.get(q));
 				}
 
@@ -2559,8 +2559,8 @@ public class FTAOps {
 					int newHeight = TreeOps.getHeight(newTree);
 					whytree.put(dest, newTree);
 					/*
-					 * if an appropriate state has been reached, 
-					 * i.e. accState or a final state if accState==null, 
+					 * if an appropriate state has been reached,
+					 * i.e. accState or a final state if accState==null,
 					 * then the right tree is found and can be returned
 					 */
 					if (newHeight>=minHeight && (dest.equals(accState) || (accState==null && fta.getFinalStates().contains(dest))))
@@ -2570,7 +2570,7 @@ public class FTAOps {
 						 * if the state and tree just reached is not appropriate, try one more
 						 * rule application - add all rules which could be reached in
 						 * the next step, i.e. all rules which have the current state
-						 * as source state 
+						 * as source state
 						 */
 						if (rulesBySrcState.containsKey(dest)) {
 							for (FTARule<F,Q> considerNext: rulesBySrcState.get(dest))
@@ -2618,8 +2618,8 @@ public class FTAOps {
 	 * Given a finite tree automaton, constructs a tree accepted by it, which has
 	 * at least the specified height. <br>
 	 * This is done by delegating to {@link #constructTreeAcceptedInState} and specifying
-	 * null as the accepting state, and the given height as the minimum height. 
-	 * Thus, the smallest tree exceeding the specified height and being accepted in any final state 
+	 * null as the accepting state, and the given height as the minimum height.
+	 * Thus, the smallest tree exceeding the specified height and being accepted in any final state
 	 * is constructed.
 	 * @param <F> symbol type of the finite tree automaton to be examined
 	 * @param <Q> state type of the finite tree automaton to be examined
@@ -2645,7 +2645,7 @@ public class FTAOps {
 	 * This is done by translating the given state converter and symbol
 	 * converter into maps and then translating all symbols, states and rules
 	 * using these maps.
-	 * 
+	 *
 	 * @param <Q1>
 	 *            state type of the given finite tree automaton
 	 * @param <Q2>
@@ -2659,7 +2659,7 @@ public class FTAOps {
 	 * @param <T2>
 	 *            resulting finite tree automaton type using the wished state
 	 *            and symbol type
-	 * 
+	 *
 	 * @param aut
 	 *            given automaton that is to be converted
 	 * @param sc
@@ -2671,7 +2671,7 @@ public class FTAOps {
 	 * @param fc
 	 *            {@link FTACreator} to create rules and automaton with
 	 *            converted states and symbols
-	 * 
+	 *
 	 * @return finite tree automaton equivalent to the given one with new state
 	 *         and symbol type
 	 */
@@ -2719,7 +2719,7 @@ public class FTAOps {
 	/**
 	 * Annotates a given tree and all its subtrees with states they can be
 	 * annotated with by a given finite tree automaton.
-	 * 
+	 *
 	 * @param fta
 	 *            finite tree automaton which is used to annotate the given tree
 	 * @param <F>
@@ -2728,7 +2728,7 @@ public class FTAOps {
 	 * @param <Q>
 	 *            state type of the finite tree automaton which is used to
 	 *            annotate the given tree
-	 * 
+	 *
 	 * @param tree
 	 *            tree to be annotated
 	 * @return a map which assigns each tree contained in t the set of states
@@ -2748,10 +2748,10 @@ public class FTAOps {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * Annotates a given tree and all its subtrees with all rules of a given finite tree automaton which
-	 * can be applied on them. 
+	 * can be applied on them.
 	 * @param fta
 	 *            finite tree automaton which is used to annotate the given tree
 	 * @param <F>
@@ -2760,11 +2760,11 @@ public class FTAOps {
 	 * @param <Q>
 	 *            state type of the finite tree automaton which is used to
 	 *            annotate the given tree
-	 * 
+	 *
 	 * @param tree
 	 *            tree to be annotated
 	 * @return a map which assigns each tree contained in t the set of rules
-	 *         which the automaton can apply to this tree 
+	 *         which the automaton can apply to this tree
 	 **/
 	public static <F extends RankedSymbol, Q extends State> Map<Tree<F>, Set<FTARule<F,Q>>> annotateTreeWithRules(
 			FTA<F, Q, ? extends FTARule<F, Q>> fta, Tree<F> tree) {
@@ -2781,7 +2781,7 @@ public class FTAOps {
 		}
 		return ret;
 	}
-	
+
 
 	/**
 	 * Converts the rules of the given finite tree automaton to a string
@@ -2789,14 +2789,14 @@ public class FTAOps {
 	 * rules. The result can be parsed back in with the FTAParser if all
 	 * distinct states and symbols used in the automaton have different string
 	 * representations.
-	 * 
+	 *
 	 * @param fta
 	 *            finite tree automaton to be converted to a string
 	 * @param <F>
 	 *            symbol type of the finite tree automaton to be converted
 	 * @param <Q>
 	 *            state type of the finite tree automaton to be converted
-	 * 
+	 *
 	 * @return a string for all rules which the FTAParser can parse back
 	 */
 	public static <Q extends State, F extends RankedSymbol> String rulesToString(

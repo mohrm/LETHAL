@@ -45,9 +45,9 @@ import de.uni_muenster.cs.sev.lethal.utils.Converter;
  *
  */
 class HedgeClass extends ScriptClass{
-	
+
 	public static final HedgeClass hedgeClass = new HedgeClass();
-	
+
 	public HedgeClass() {
 		super("Hedge", null, RootClass.newStaticClassEnvironment(), true);
 		this.setMember("random", new Method(0){
@@ -80,7 +80,7 @@ class HedgeClass extends ScriptClass{
 					throw new ScriptRuntimeError("Hedge.new expects a String, Hedge or Array of Hedge as "+i+" parameter");
 				}
 			}
-			
+
 			if (args.get(0) instanceof StringObject){
 				String nodeName = ((StringObject)args.get(0)).getValue();
 				try {
@@ -95,7 +95,7 @@ class HedgeClass extends ScriptClass{
 			throw new ScriptRuntimeError("Hedge.new expects at least 1 parameter");
 		}
 	}
-	
+
 	private Tree<UnrankedSymbol> makeTree(String treeString){
 		try {
 			return  TreeParser.parseStringAsHedge(treeString);
@@ -105,8 +105,8 @@ class HedgeClass extends ScriptClass{
 			throw new ScriptRuntimeError("Invalid Hedge Term: '" + treeString + "'");
 		}
 	}
-	
-	
+
+
 }
 
 
@@ -118,7 +118,7 @@ class HedgeClass extends ScriptClass{
 class HedgeObject extends ScriptObject{
 
 	private Tree<UnrankedSymbol> hedge;
-	
+
 	public HedgeObject(Tree<UnrankedSymbol> hedge) {
 		super(HedgeClass.hedgeClass);
 		this.hedge = hedge;
@@ -162,21 +162,21 @@ class HedgeObject extends ScriptObject{
 		this.setMember("symbol", ScriptObject.make(hedge.getSymbol().toString()));
 		this.setMember("height", ScriptObject.make(TreeOps.getHeight(hedge)));
 	}
-	
+
 	public Tree<UnrankedSymbol> getTree(){
 		return this.hedge;
 	}
-	
+
 	@Override
 	public boolean equals(Object o){
 		return (o instanceof HedgeObject) && this.getTree().equals(((HedgeObject)o).getTree());
 	}
-	
+
 	@Override
 	public String toString(){
 		return this.hedge.toString();
 	}
-	
+
 	@Override
 	public int hashCode(){
 		return this.hedge.hashCode();

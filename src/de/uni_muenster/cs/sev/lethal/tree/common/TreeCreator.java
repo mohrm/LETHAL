@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.tree.common;
 
@@ -29,7 +29,7 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.Symbol;
 
 /**
  * Creator object which knows how to create new trees.
- * 
+ *
  * @param <S> symbol type of tree
  * @param <T> type of tree
  * @author Dorothea, Irene, Martin
@@ -39,7 +39,7 @@ public interface TreeCreator<S extends Symbol, T extends Tree<S>> {
 	/**
 	 * Creates a new tree of the characteristic data, that is a symbol for the root node
 	 * and the list of subtrees.
-	 * 
+	 *
 	 * @param symbol symbol at root
 	 * @param subTrees sub trees
 	 * @return new tree with the given symbol at root and the given trees as subtrees
@@ -48,7 +48,7 @@ public interface TreeCreator<S extends Symbol, T extends Tree<S>> {
 
 	/**
 	 * Creates a new tree with no subtrees and the given symbol as root symbol.
-	 * 
+	 *
 	 * @param symbol symbol at root
 	 * @return new tree with the given symbol at root and no subtrees
 	 */

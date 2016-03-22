@@ -33,7 +33,7 @@ public class ScriptItem extends Item {
 	public static String getItemClassName(){
 		return "Script";
 	}
-	
+
 	/**
 	 * Reads the script stored in an XML element.
 	 * @param parentElement XML element to read from
@@ -47,14 +47,14 @@ public class ScriptItem extends Item {
 		item.script = script;
 		return item;
 	}
-	
+
 	/**
 	 * The script stored in this item.
 	 */
 	String script;
 
 	/**
-	 * Creates a new empty script item. 
+	 * Creates a new empty script item.
 	 * @param name name of the item
 	 * @param project project this item belongs to
 	 */
@@ -86,7 +86,7 @@ public class ScriptItem extends Item {
 	public Editor getEditor() {
 		return new ScriptEditor(this);
 	}
-	
+
 	@Override
 	public void toXML(Element parentElement) {
 		parentElement.setTextContent(script);

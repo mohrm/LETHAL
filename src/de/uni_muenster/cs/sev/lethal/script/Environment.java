@@ -34,7 +34,7 @@ public class Environment {
 	private Environment parent;
 	private HashMap<String,ScriptObject> bindings = new HashMap<String,ScriptObject>();
 	private ScriptObject owner;
-	
+
 	/**
 	 * New Environmnt instance
 	 * @param parent parent env of this environment.
@@ -42,7 +42,7 @@ public class Environment {
 	Environment(Environment parent){
 		this.parent = parent;
 	}
-	
+
 	/**
 	 * returns the parent environment
    * @return the parent environment
@@ -50,7 +50,7 @@ public class Environment {
 	public Environment getParent(){
 		return this.parent;
 	}
-	
+
 	/**
 	 * creates and returns a new environment on top of this one.
 	 * @return new environment on top of this one
@@ -58,24 +58,24 @@ public class Environment {
 	public Environment newFrame(){
 		return new Environment(this);
 	}
-	
+
 	/**
 	 * Reads the value for the given name from this environment.
 	 * If the value is not found the parent environments will be
 	 * searched recursively and the first match is returned.
-	 * If no match is found an UndefinedNameException is thrown. 
+	 * If no match is found an UndefinedNameException is thrown.
 	 * @param name Name of the variable to read.
 	 * @return the value of the variable.
 	 * @throws UndefinedNameException if no match for the given name is found.
 	 */
 	public ScriptObject get(String name) throws UndefinedNameException{
 		ScriptObject ret = this.bindings.get(name);
-		if (ret == null && this.parent != null) ret = this.parent.get(name); 
+		if (ret == null && this.parent != null) ret = this.parent.get(name);
 		if (ret == null) throw new UndefinedNameException(name);
-		
+
 		return ret;
 	}
-	
+
 	/**
 	 * Like get() but only returns a value if the given name is bound to a Method.
 	 * @param name name of the method to fetch
@@ -88,10 +88,10 @@ public class Environment {
 		if (!(ret instanceof Method)) throw new ScriptRuntimeError("'" + name + "' is not a method");
 		return (Method)ret;
 	}
-	
+
 	/**
 	 * Reads the value for the given name from this environment.
-	 * If no match is found an UndefinedNameException is thrown. 
+	 * If no match is found an UndefinedNameException is thrown.
 	 * @param name Name of the variable to read.
 	 * @return the value of the variable.
 	 * @throws UndefinedNameException if no match for the given name is found.
@@ -101,7 +101,7 @@ public class Environment {
 		if (ret == null) throw new UndefinedNameException(name);
 		return ret;
 	}
-	
+
 	/**
 	 * Sets a new value for the given name in the first environment it is found in.
 	 * If the name is not found, a new binding will be created in this environment.
@@ -116,9 +116,9 @@ public class Environment {
 			this.bindings.put(name, value);
 		} else { //know name, change the value where the innermost definition is.
 			env.bindLocal(name, value);
-		}	
+		}
 	}
-	
+
 	/**
 	 * Updates the value for the given name in THIS environment.
 	 * If the name is not bound in this environment, an UndefinedNameException is thrown.
@@ -135,7 +135,7 @@ public class Environment {
 			throw new UndefinedNameException(name);
 		}
 	}
-	
+
 	/**
 	 * Updates the value of or creates a new binding for the given name in THIS environment.
 	 * @param name name to set the value for.
@@ -146,11 +146,11 @@ public class Environment {
 		this.bindings.put(name, value);
 		return value;
 	}
-	
+
 	/**
 	 * Looks up the environment where a given name is bound in
 	 * @param name name to search for
-	 * @return the env where the name is bound, of null if it is not found 
+	 * @return the env where the name is bound, of null if it is not found
 	 */
 	private Environment findEnv(String name){
 		if (this.bindings.containsKey(name)){
@@ -169,28 +169,28 @@ public class Environment {
 	public Set<String> getLocalMembers(){
 		return this.bindings.keySet();
 	}
-	
+
 	/**
 	 * Sets the owner object of this Environment.
 	 * It binds "this" to the owner object
-	 * This is called in the ScriptObject and ScriptClass constructor automatically setting the owner of the object and class envs 
+	 * This is called in the ScriptObject and ScriptClass constructor automatically setting the owner of the object and class envs
 	 * @param owner the owner object of this Environment.
 	 */
 	public void setOwner(ScriptObject owner){
 		this.owner = owner;
 		this.bindings.put("this", owner);
 	}
-	
+
 	/**
 	 * returns the owner of this env.
 	 * This is similar to getThis or get("this") but it does not recurse into parent envs.
-	 * This is equivalent to calling getLocal("this") 
+	 * This is equivalent to calling getLocal("this")
 	 * @return the owner of this env.
 	 */
 	public ScriptObject getOwner(){
 		return this.owner;
 	}
-	
+
 	/**
 	 * returns the owner of this or any parent env (first non-null owner found)
 	 * @return the owner of this or any parent env (first non-null owner found)
@@ -201,7 +201,7 @@ public class Environment {
 		return null;
 	}
 
-	
+
 }
 /**
  * Thrown if a lookup for a unbound name is performed

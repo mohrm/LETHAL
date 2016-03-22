@@ -24,16 +24,16 @@ package de.uni_muenster.cs.sev.lethal.symbol.common;
 /**
  * Represents a symbol, which uses a name for identifying itself.<br>
  * Note that it is impossible to change the name after creation.
- * 
+ *
  * @author Dorothea, Irene. Martin
- * 
+ *
  * @param <N> type of name (for identifying)
  */
 public interface NamedSymbol<N> extends Symbol {
 
 	/**
 	 * Returns the name of this symbol.
-	 * 
+	 *
 	 * @return name of the symbol
 	 */
 	public N getName();

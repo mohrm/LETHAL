@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treeautomata.easy;
 
@@ -40,9 +40,9 @@ import de.uni_muenster.cs.sev.lethal.utils.Converter;
 
 /**
  * Implements a finite tree automaton without generic types.
- * 
+ *
  * @see FTA
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public class EasyFTA extends AbstractModFTA<RankedSymbol,State,EasyFTARule>{
@@ -52,7 +52,7 @@ public class EasyFTA extends AbstractModFTA<RankedSymbol,State,EasyFTARule>{
 	 * @param grammar regular tree grammar out of which the new EasyFTA is to be created
 	 * @param stateBuilder creator object, which is used to create states out of non-terminals
 	 * and trees in the normalization process
-	 * @param <P> type of non-terminals occurring in the grammar rules 
+	 * @param <P> type of non-terminals occurring in the grammar rules
 	 * @see FTACreator#makeFTAFromGrammar
 	 */
 	public <P extends State> EasyFTA(RTG<RankedSymbol, P> grammar,
@@ -82,23 +82,23 @@ public class EasyFTA extends AbstractModFTA<RankedSymbol,State,EasyFTARule>{
 
 	/**
 	 * Creates a new finite tree automaton from the given alphabet, states, final states and rules.
-	 * 
+	 *
 	 * @param newAlphabet alphabet of the new finite tree automaton
 	 * @param newStates states of the new finite tree automaton
 	 * @param newFinalStates final states of the new finite tree automaton
 	 * @param newRules rules of the new finite tree automaton
 	 */
 	public EasyFTA(Collection<RankedSymbol> newAlphabet,
-			Collection<State> newStates, 
+			Collection<State> newStates,
 			Collection<State> newFinalStates,
 			Collection<? extends FTARule<RankedSymbol,State>> newRules) {
 		super(newAlphabet, newStates, newFinalStates, newRules);
 	}
-	
+
 	/**
 	 * Creates a new finite tree automaton from rules, final states and additional epsilon rules.
-	 * The epsilon rules are eliminated and thus converted into normal rules. 
-	 * 
+	 * The epsilon rules are eliminated and thus converted into normal rules.
+	 *
 	 * @param newRules rules of the new finite tree automaton
 	 * @param newEpsRules epsilon rules of the new finite tree automaton
 	 * @param newFinals final states of the new finite tree automaton
@@ -108,10 +108,10 @@ public class EasyFTA extends AbstractModFTA<RankedSymbol,State,EasyFTARule>{
 			Collection<State> newFinals) {
 		super(newRules, newEpsRules, newFinals);
 	}
-	
+
 	/**
 	 * Creates a new finite tree automaton from a given one accepting the same language.
-	 * 
+	 *
 	 * @param fta finite tree automaton which the new instance shall be created out of
 	 */
 	public EasyFTA(FTA<RankedSymbol,State, ? extends FTARule<RankedSymbol,State>> fta) {
@@ -121,12 +121,12 @@ public class EasyFTA extends AbstractModFTA<RankedSymbol,State,EasyFTARule>{
 
 	/**
 	 * var arg constructor for convenience
-	 * 
+	 *
 	 * @param rules2 rules for the finite tree automaton
 	 * @param finalStates2 final states for the finite tree automaton
 	 */
 	public EasyFTA(Collection<EasyFTARule> rules2, State... finalStates2) {
-		this(rules2, Arrays.asList(finalStates2)); 
+		this(rules2, Arrays.asList(finalStates2));
 	}
 
 	/**

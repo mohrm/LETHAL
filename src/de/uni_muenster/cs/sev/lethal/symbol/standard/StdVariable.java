@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.symbol.standard;
 
@@ -26,7 +26,7 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.Variable;
 
 /**
  * Standard implementation of a homomorphism variable.
- * 
+ *
  * @see Variable
  * @author Anton, Dorothea, Irene, Maria, Martin, Sezar
  */
@@ -35,12 +35,12 @@ public class StdVariable implements Variable {
 
 	/**
 	 * Number of the homomorphism variable.
-	 * 
+	 *
 	 * @see de.uni_muenster.cs.sev.lethal.symbol.common.Variable#getComponentNumber()
 	 */
 	private int number;
 
-	
+
 	/**
 	 * @see de.uni_muenster.cs.sev.lethal.symbol.common.Variable#getComponentNumber()
 	 */
@@ -49,11 +49,11 @@ public class StdVariable implements Variable {
 		return number;
 	}
 
-	
+
 	/**
 	 * Constructs a new standard homomorphism variable with the given number. <br>
 	 * The numbers begin at zero.
-	 * 
+	 *
 	 * @param componentNumber number this variable is to be initialized with
 	 */
 	public StdVariable(int componentNumber){
@@ -63,7 +63,7 @@ public class StdVariable implements Variable {
 		number = componentNumber;
 	}
 
-	
+
 	/**
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -75,7 +75,7 @@ public class StdVariable implements Variable {
 		return result;
 	}
 
-	
+
 	/**
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -93,7 +93,7 @@ public class StdVariable implements Variable {
 		return true;
 	}
 
-	
+
 	/**
 	 * @see java.lang.Object#toString()
 	 */
@@ -101,5 +101,5 @@ public class StdVariable implements Variable {
 	public String toString(){
 		return "var_"+number;
 	}
-	
+
 }

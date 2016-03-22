@@ -45,33 +45,33 @@ import de.uni_muenster.cs.sev.lethal.utils.Pair;
 
 /**
  * Class to represent tree tranducers.<br>
- * Tree transducers extend the functionality of finite tree automata. Like those, 
+ * Tree transducers extend the functionality of finite tree automata. Like those,
  * a tree transducer represents a language and can decide, whether a given tree
- * is contained in this language. Furthermore a tree transducer creates a new tree 
+ * is contained in this language. Furthermore a tree transducer creates a new tree
  * out of the given one and can therefore be used for some calculations on trees
- * or for changing trees into others. The functioning of this transforming is 
+ * or for changing trees into others. The functioning of this transforming is
  * a bit similar to the one of a homomorphism.<br>
- * With these rules in a run of the tree automaton, recursively subtrees like f(q1,...,qn) 
- * are annotated by q, until no rule can be applied or until only one state remains. 
- * If the remaining state is in the final states, 
+ * With these rules in a run of the tree automaton, recursively subtrees like f(q1,...,qn)
+ * are annotated by q, until no rule can be applied or until only one state remains.
+ * If the remaining state is in the final states,
  * we say that the finite tree automaton accepts or recognizes the tree.
- * Simultaneously, a new tree is created out of the trees containig variables 
- * of the right side of the rules. 
- * 
+ * Simultaneously, a new tree is created out of the trees containig variables
+ * of the right side of the rules.
+ *
  * @param <F> type of symbols of the start alphabet (left side of the rules)
  * @param <G> type of symbols of the destination alphabet (right side of the rules)
  * @param <Q> type of used states
- * 
+ *
  * @see FTA
  * @see TTRuleSet
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
-public class GenTT<F extends RankedSymbol, G extends RankedSymbol, Q extends State> 
+public class GenTT<F extends RankedSymbol, G extends RankedSymbol, Q extends State>
 implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 
 	/**
-	 * States of the tree transducer. 
+	 * States of the tree transducer.
 	 */
 	protected Set<TTState<Q,G>> states;
 
@@ -83,7 +83,7 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 	protected Set<TTState<Q,G>> finalStates;
 
 	/**
-	 * The start alphabet is a set of ranked symbols. The tree 
+	 * The start alphabet is a set of ranked symbols. The tree
 	 * transducer can run on all trees over this alphabet. <br>
 	 * The left side of a rule which is not an epsilon rule
 	 * always contains a symbol of the start alphabet.
@@ -98,12 +98,12 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 	 */
 	protected Set<G> destAlphabet;
 
-	/** 
+	/**
 	 * Here the rules are saved in an efficient form. <br>
-	 * Normal rules have the form f(q1...qn)->(q,u), epsilon rules have the 
+	 * Normal rules have the form f(q1...qn)->(q,u), epsilon rules have the
 	 * form q1->(q,v), where q1,...qn,q are states, f is a ranked symbol
 	 * of the start alphabet, u is a variable tree containing variables
-	 * with numbers between 0 and n-1 and ranked symbols of the destination 
+	 * with numbers between 0 and n-1 and ranked symbols of the destination
 	 * alphabet and v is a variable tree containing only one variable
 	 * with number 0 and ranked symbols of the destination alphabet.<br>
 	 * Rules are used to apply a tree transducer on a tree, they build the base
@@ -112,24 +112,24 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 	protected TTRuleSet<F,G,Q> rules;
 
 	/**
-	 * Constructs a new tree transducer with given final states, 
+	 * Constructs a new tree transducer with given final states,
 	 * start alphabet, destination alphabet and rules given as TTRuleSet.
 	 * The states are calculated from the rules.
-	 * 
+	 *
 	 * @param finalStat final states
 	 * @param startAlph start alphabet
 	 * @param destAlph destination alphabet
 	 * @param rul rules
 	 * @param epsRul epsilon rules
 	 */
-	public GenTT(Collection<Q> finalStat, Collection<F> startAlph, Collection<G> destAlph, 
+	public GenTT(Collection<Q> finalStat, Collection<F> startAlph, Collection<G> destAlph,
 			Collection<? extends FTARule<F,TTState<Q,G>>> rul, Collection<? extends FTAEpsRule<TTState<Q,G>>> epsRul) {
 		if (epsRul == null)    throw new IllegalArgumentException("GenTT(): epsRul must not be null.");
 		if (rul == null)       throw new IllegalArgumentException("GenTT(): rul must not be null.");
 		if (finalStat == null) throw new IllegalArgumentException("GenTT(): finalStat must not be null.");
 		if (startAlph == null) throw new IllegalArgumentException("GenTT(): startAlph must not be null.");
 		if (destAlph == null)  throw new IllegalArgumentException("GenTT(): destAlph must not be null.");
-		
+
 		finalStates = new HashSet<TTState<Q,G>>();
 		for (Q q: finalStat){
 			finalStates.add(new TTState<Q,G>(q));
@@ -141,19 +141,19 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 		//preserve invariants
 		preserveInvariants();
 	}
-	
-	
+
+
 	/**
-	 * Constructs a new tree transducer with given final states, 
+	 * Constructs a new tree transducer with given final states,
 	 * start alphabet, destination alphabet and rules given as TTRuleSet.
 	 * The states are calculated from the rules.
-	 * 
+	 *
 	 * @param finalStat final states
 	 * @param startAlph start alphabet
 	 * @param destAlph destination alphabet
 	 * @param rul rules
 	 */
-	public GenTT(Collection<Q> finalStat, Collection<F> startAlph, Collection<G> destAlph, 
+	public GenTT(Collection<Q> finalStat, Collection<F> startAlph, Collection<G> destAlph,
 			Collection<? extends FTARule<F,TTState<Q,G>>> rul) {
 		finalStates = new HashSet<TTState<Q,G>>();
 		for (Q q: finalStat){
@@ -171,7 +171,7 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 	/**
 	 * Constructs a new tree transducer with given final states and rules. <br>
 	 * The states and alphabets are calculated from the rules.
-	 * 
+	 *
 	 * @param finalStat final states
 	 * @param rul rules
 	 * @param epsRul epsilon rules
@@ -194,11 +194,11 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 		//preserve invariants
 		preserveInvariants();
 	}
-	
+
 	/**
 	 * Constructs a new tree transducer with given final states and rules. <br>
 	 * The states and alphabets are calculated from the rules.
-	 * 
+	 *
 	 * @param newFinals final states
 	 * @param newRules rules
 	 */
@@ -220,7 +220,7 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 
 	/**
 	 * Preserves the invariants: final states are always states, all symbols occurring in the
-	 * rules are contained in the start or the destination alphabet, respectively, 
+	 * rules are contained in the start or the destination alphabet, respectively,
 	 * and all states in the rules are contained in the states.
 	 */
 	protected void preserveInvariants(){
@@ -232,9 +232,9 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 
 	/**
 	 * Checks whether the tree transducer accepts a given tree. <br>
-	 * It works equivalent to the corresponding procedure at automatons, 
+	 * It works equivalent to the corresponding procedure at automatons,
 	 * it uses the doARun function.
-	 * 
+	 *
 	 * @param tree tree to check whether the tree transducer will accept it
 	 * @return whether a tree is accepted by the tree transducer
 	 */
@@ -243,18 +243,18 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 	}
 
 	/**
-	 * Checks which trees are gained by transducing an given input tree.<br> 
+	 * Checks which trees are gained by transducing an given input tree.<br>
 	 * The method works recursively on the given tree, it is similar to the method
-	 * in the class {@link FTAOps}. Additionally trees are constructed 
-	 * by applying the tree transducer rules. 
-	 * 
+	 * in the class {@link FTAOps}. Additionally trees are constructed
+	 * by applying the tree transducer rules.
+	 *
 	 * @param tree input tree that is to be transduced
 	 * @return the transduced trees where the tree transducer accepts the tree
 	 */
 	public Set<Tree<G>> doARun(Tree<F> tree){
 		if (!startAlphabet.containsAll(TreeOps.getAllContainedSymbols(tree))){
 			//throw new IllegalArgumentException("tree must have the same alphabet as the start alphabet of this tree transducer");
-			return new HashSet<Tree<G>>(); 
+			return new HashSet<Tree<G>>();
 		}
 		Set<Tree<G>> ret = new HashSet<Tree<G>>();
 
@@ -266,20 +266,20 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 				ret.add(pair.getSecond());
 			}
 		}
-		
+
 		return ret;
 	}
 
 
 	/**
-	 * Given a set of pairs of State and InputTree, collects all inputTrees 
-	 * that are the second parameter of a pair where the first parameter is equal to 
+	 * Given a set of pairs of State and InputTree, collects all inputTrees
+	 * that are the second parameter of a pair where the first parameter is equal to
 	 * the given state q.
-	 * 
+	 *
 	 * @param set set of pairs of state and input tree
-	 * @param state the state which is to be the first parameter of collected pairs 
+	 * @param state the state which is to be the first parameter of collected pairs
 	 * @return all trees t where (q,t) is in set
-	 */ 
+	 */
 	private Set<Tree<G>> contained(Set<Pair<Q,Tree<G>>> set, Q state){
 		Set<Tree<G>> ret = new HashSet<Tree<G>>();
 		for (Pair<Q,Tree<G>> pair: set){
@@ -291,15 +291,15 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 	}
 
 	/**
-	 * Method which is used for the decide-method to get all states 
+	 * Method which is used for the decide-method to get all states
 	 * which can be reached with a given tree. It does not matter whether
 	 * it is a final state or not. <br>
 	 * Algorithm:<br>
 	 * The method works recursively on the tree, first it is applied to all subtrees.
 	 * Having collected the accessible states for the subtrees, all rules are collected
 	 * which can be applied. Then the transduced tree is computed from the right side of the rule
-	 * and state and tree are stored in a set which is, at last, returned. 
-	 * 
+	 * and state and tree are stored in a set which is, at last, returned.
+	 *
 	 * @param t tree, input for the tree automaton, should be an input tree
 	 * @return the set of reachable states and reached trees of destination alphabet
 	 */
@@ -313,7 +313,7 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 		}
 
 		F f = t.getSymbol();
-		int n = f.getArity();	
+		int n = f.getArity();
 		// checks whether there are some fitting states for the rules, breaks otherwise
 		boolean someFittingRules = true;
 
@@ -334,7 +334,7 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 					//break if there is nothing
 					if (allTreesWithStatei.isEmpty()){
 						someFittingRules = false;
-						break; 
+						break;
 					}
 					treesToInsert.add(allTreesWithStatei);
 				}
@@ -356,7 +356,7 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 
 	/**
 	 * Returns the states of the tree transducer.
-	 * 
+	 *
 	 * @return the states
 	 */
 	@Override
@@ -367,7 +367,7 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 	/**
 	 * Returns the final states of the tree transducer,
 	 * that are the states where the tree transducer accepts.
-	 * 
+	 *
 	 * @return the finalStates
 	 */
 	public Set<TTState<Q,G>> getFinalStates() {
@@ -375,9 +375,9 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 	}
 
 	/**
-	 * Returns the start alphabet of the tree transducer, i.e. the symbols 
+	 * Returns the start alphabet of the tree transducer, i.e. the symbols
 	 * of the left side of the rules.
-	 * 
+	 *
 	 * @return the startAlphabet
 	 */
 	public Set<F> getStartAlphabet() {
@@ -387,7 +387,7 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 	/**
 	 * Returns the destination alphabet of the tree transducer, i.e. the symbols
 	 * of the right side of the rules in variable trees.
-	 * 
+	 *
 	 * @return the destAlphabet
 	 */
 	public Set<G> getDestAlphabet() {
@@ -396,7 +396,7 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 
 	/**
 	 * Returns the set of rules of the tree transducer.
-	 * 
+	 *
 	 * @return the rules
 	 */
 	public Set<? extends TTRule<F, G, Q>> getRules() {
@@ -405,11 +405,11 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 
 
 	/**
-	 * Checks whether the tree transducer is linear, i.e. in each rule every variable occurs just once. 
+	 * Checks whether the tree transducer is linear, i.e. in each rule every variable occurs just once.
 	 * Therefore a corresponding method in {@link VarTreeOps} is used.
-	 * 
-	 * @return true if and only if the tree transducer is linear, 
-	 * i.e. in each rule every variable occurs just once. 
+	 *
+	 * @return true if and only if the tree transducer is linear,
+	 * i.e. in each rule every variable occurs just once.
 	 */
 	public boolean isLinear(){
 		//all variable trees must be linear
@@ -423,9 +423,9 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 
 	/**
 	 * A part of the functionality of a tree transducer is the same as the one of a finite tree automaton.
-	 * Thus such a corresponding the finite tree automaton can be obtained from the transducer by 
+	 * Thus such a corresponding the finite tree automaton can be obtained from the transducer by
 	 * transforming the rules (just the first parameter of each right side is needed).
-	 * 
+	 *
 	 * @return the finite tree automaton which is inside the tree transducer
 	 */
 	public AbstractModFTA<F,Q, ? extends FTARule<F,Q>> getFTAPart(){
@@ -453,7 +453,7 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 		+ "\n With rules: \n" + rules;
 	}
 
-	
+
 	/**
 	 * @see de.uni_muenster.cs.sev.lethal.treeautomata.common.FTA#getAlphabet()
 	 */
@@ -462,7 +462,7 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 		return startAlphabet;
 	}
 
-	
+
 	/**
 	 * @see de.uni_muenster.cs.sev.lethal.treeautomata.common.FTA#getSymbolRules(de.uni_muenster.cs.sev.lethal.symbol.common.RankedSymbol)
 	 */
@@ -470,6 +470,6 @@ implements FTA<F,TTState<Q,G>,TTRule<F,G,Q>>{
 	public Set<? extends TTRule<F, G, Q>> getSymbolRules(F f) {
 		return rules.getSymbolRulesAsTTRules(f);
 	}
-	
+
 
 }

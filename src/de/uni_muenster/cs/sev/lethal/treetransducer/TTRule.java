@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treetransducer;
 
@@ -34,34 +34,34 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.common.FTARule;
 
 /**
  * Represents a rule for a tree transducer, which has the form
- * f(q1,...qn) -> (q,u), where f is a ranked symbol, q1, ...,qn,q are states 
+ * f(q1,...qn) -> (q,u), where f is a ranked symbol, q1, ...,qn,q are states
  * and u is a variable tree with at most n different variables.<br>
  * Note, that if f(q1,...qn)->(q,u) and f(q1,...qn)->(q,v) are two rules, than
- * u and v must be equal. Otherwise it works not in the right way. 
+ * u and v must be equal. Otherwise it works not in the right way.
  * For realizing something like this, add one state and
  * an epsilon rule: f(q1,...qn)->(q,u), f(q1,...qn)->(p,v) and p -> q.
- * 
+ *
  * @param <F> type of symbols of the start alphabet
  * @param <G> type of symbols of the destination alphabet
  * @param <Q> type of used states
- * 
+ *
  * @see EasyTT
  * @see TTEpsRule
  * @see TTRuleSet
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public class TTRule<F extends RankedSymbol, G extends RankedSymbol, Q extends State> implements FTARule<F,TTState<Q,G>>{
 
 	/** Symbol of the rule. */
 	protected F symbol;
-	
+
 	/** List of source states of the rule. */
 	protected List<TTState<Q,G>> srcStates;
-	
+
 	/** Destination state of the rule. */
 	protected TTState<Q,G> destState;
-	
+
 	/** destination tree of the rule with one variable
 	 * @see Variable
 	 */
@@ -69,14 +69,14 @@ public class TTRule<F extends RankedSymbol, G extends RankedSymbol, Q extends St
 
 
 	/**
-	 * Constructs a new TTRule of the form f(q1,...qn) -> (q,u), 
-	 * where f is a ranked symbol, q1,...,qn, q are states and u is a 
+	 * Constructs a new TTRule of the form f(q1,...qn) -> (q,u),
+	 * where f is a ranked symbol, q1,...,qn, q are states and u is a
 	 * variable tree with at most n different variables.
-	 * 
+	 *
 	 * @param s symbol of the rule
 	 * @param src list of source states of the rule
 	 * @param q destination state of the rule
-	 * @param tree destination tree of the rule, that is a variable tree with at most n different variables, 
+	 * @param tree destination tree of the rule, that is a variable tree with at most n different variables,
 	 * that means the highest number of a variable is arity(s)-1.
 	 */
 	public TTRule(F s, List<Q> src, Q q, Tree<BiSymbol<G,Variable>> tree){
@@ -93,12 +93,12 @@ public class TTRule<F extends RankedSymbol, G extends RankedSymbol, Q extends St
 		// destTree = tree;
 		destState = new TTState<Q,G>(q,tree);
 	}
-	
+
 	/**
-	 * Constructs a new TTRule in the form f(q1,...qn) -> (q,u), 
-	 * where f is a ranked symbol, q1,...,qn, q are states and u is a 
+	 * Constructs a new TTRule in the form f(q1,...qn) -> (q,u),
+	 * where f is a ranked symbol, q1,...,qn, q are states and u is a
 	 * variable tree with at most n different variables.
-	 * 
+	 *
 	 * @param s function symbol of the rule
 	 * @param src list of source states of the rule
 	 * @param dest destination state and tree in {@link TTState} of the rule
@@ -116,11 +116,11 @@ public class TTRule<F extends RankedSymbol, G extends RankedSymbol, Q extends St
 		destState = dest;
 	}
 
-	
+
 	/**
 	 * Returns the destination state of the rule, i.e.
 	 * the state on the right side of the rule.
-	 * 
+	 *
 	 * @return destination state of the rule
 	 */
 	public Q getDestStateAsQ() {
@@ -130,7 +130,7 @@ public class TTRule<F extends RankedSymbol, G extends RankedSymbol, Q extends St
 	/**
 	 * Returns the destination state of the rule, i.e.
 	 * the state on the right side of the rule.
-	 * 
+	 *
 	 * @return destination state of the rule
 	 */
 	public TTState<Q,G> getDestState() {
@@ -140,7 +140,7 @@ public class TTRule<F extends RankedSymbol, G extends RankedSymbol, Q extends St
 	/**
 	 * Returns the destination tree, i.e. the variable
 	 * tree on the right side of the rule.
-	 * 
+	 *
 	 * @return destination tree of the rule
 	 */
 	public Tree<BiSymbol<G,Variable>> getDestTree() {
@@ -150,17 +150,17 @@ public class TTRule<F extends RankedSymbol, G extends RankedSymbol, Q extends St
 	/**
 	 * Returns the source states, i.e. the list of states
 	 * on the left side of the rule, needed for applying the rule.
-	 * 
+	 *
 	 * @return source states of the rule
 	 */
 	public List<TTState<Q,G>> getSrcStates() {
 		return srcStates;
 	}
-	
+
 	/**
 	 * Returns the source states, i.e. the list of states
 	 * on the left side of the rule, needed for applying the rule.
-	 * 
+	 *
 	 * @return source states of the rule
 	 */
 	public List<Q> getSrcStatesAsQ() {
@@ -174,7 +174,7 @@ public class TTRule<F extends RankedSymbol, G extends RankedSymbol, Q extends St
 	/**
 	 * Returns the symbol of the rule, i.e. the ranked symbol
 	 * on the left side of the rule, needed for applying the rule.
-	 * 
+	 *
 	 * @return symbol of the rule
 	 */
 	public F getSymbol() {
@@ -233,5 +233,5 @@ public class TTRule<F extends RankedSymbol, G extends RankedSymbol, Q extends St
 			return false;
 		return true;
 	}
-	
+
 }

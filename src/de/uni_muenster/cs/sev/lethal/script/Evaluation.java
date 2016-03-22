@@ -33,7 +33,7 @@ public class Evaluation extends Expression {
 
 	protected Expression sourceExp;
 	protected String name;
-	
+
 	/**
 	 * Create a Evaluation expression.
 	 * @param name name of the expression to execute
@@ -46,26 +46,26 @@ public class Evaluation extends Expression {
 
 	protected Environment getSourceEnv(Environment currentEnv){
 		Environment sourceEnv;
-		if (this.sourceExp != null){ 
+		if (this.sourceExp != null){
 			sourceEnv = this.sourceExp.execute(currentEnv).getEnvironment(); //source expression is given, name lookup and eval will happen in the env of the object the source exp evaluates to.
 		} else {
 			sourceEnv = currentEnv;
-		}		
+		}
 		return sourceEnv;
 	}
-	
+
 	@Override
 	public ScriptObject execute(Environment env) {
 		Environment sourceEnv = getSourceEnv(env);
 		ScriptObject objToExecute = sourceEnv.get(this.name);
-		
+
 		//We run the method in an frame above the object it is defined in.
 		//Not a frame above the calling frame, otherwise env's for recursive calls would stack above each other and influence each others values.
 		Environment execEnv = sourceEnv.getThis().newLocalEnvironment();
-		
+
 		return objToExecute.execute(execEnv.newFrame());
 	}
-	
+
 	/**
 	 * Update the value for the name references by this Evaluation
 	 * Used when this Evaluation expression turns out to be actually on the left side of an assignment.
@@ -93,39 +93,39 @@ class Call extends Evaluation {
 
 	private List<Expression> args;
 	private MethodDefinition blockDefinition; //block to be passed to the called method
-	
+
 	public Call(Expression sourceExp, String name, List<Expression> args, MethodDefinition blockDefinition){
 		super(sourceExp,name);
 		this.args = args;
 		this.blockDefinition = blockDefinition;
-		
+
 	}
-	
+
 	@Override
 	public ScriptObject execute(Environment env) {
-		
+
 		ScriptObject methodValue;
 		Method method;
-		
+
 		Environment sourceEnv = getSourceEnv(env);
-		
+
 		methodValue = sourceEnv.get(this.name);
 		if (!(methodValue instanceof Method)) throw new ScriptRuntimeError("Method or Block expected");
 		method = (Method)methodValue;
-		
+
 		if (! method.checkArity(this.args.size())) throw new ScriptRuntimeError("Call " + this.name + " exptected arity " + method.getArityString() + " got " + this.args.size());
-		
+
 		//Evaluate Parameters in the current environment
 		List<ScriptObject> argValues = new ArrayList<ScriptObject>(this.args.size());
 		for (Expression arg : this.args){
 			argValues.add(arg.execute(env));
 		}
-		
-		
+
+
 		//We run the method in an frame above the object it is defined in.
 		//Not a frame above the calling frame, otherwise env's for recursive calls would stack above each other and influence each others values.
 		Environment execEnv = sourceEnv.getThis().newLocalEnvironment();
-		
+
 		//Invoke method in the exec object environment.
 		return method.execute(execEnv, argValues, (this.blockDefinition != null ? (MethodObject)this.blockDefinition.execute(env) : null) );
 	}

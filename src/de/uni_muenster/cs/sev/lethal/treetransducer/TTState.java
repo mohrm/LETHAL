@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treetransducer;
 
@@ -30,9 +30,9 @@ import de.uni_muenster.cs.sev.lethal.tree.common.Tree;
 /**
  * Encapsulates a state of a certain type and a variable tree used for the right
  * side of the rules of a tree transducer. <br>
- * Helper class for {@link GenTT tree transducers} implementing {@link de.uni_muenster.cs.sev.lethal.treeautomata.common.FTA finite tree 
+ * Helper class for {@link GenTT tree transducers} implementing {@link de.uni_muenster.cs.sev.lethal.treeautomata.common.FTA finite tree
  * automata}.
- * 
+ *
  * @author Irene
  *
  * @param <Q> original state type
@@ -49,7 +49,7 @@ public class TTState<Q extends State, G extends RankedSymbol> implements State{
 
 	/**
 	 * Creates a new state with the given state and an empty variable tree.
-	 * 
+	 *
 	 * @param q state that shall be encapsulated
 	 */
 	public TTState(Q q){
@@ -61,7 +61,7 @@ public class TTState<Q extends State, G extends RankedSymbol> implements State{
 
 	/**
 	 * Returns the contained variable tree.
-	 * 
+	 *
 	 * @return the contained variable tree
 	 */
 	public Tree<BiSymbol<G,Variable>> getVarTree() {
@@ -71,7 +71,7 @@ public class TTState<Q extends State, G extends RankedSymbol> implements State{
 
 	/**
 	 * Sets the variable tree in this state.
-	 * 
+	 *
 	 * @param varTree the value the contained variable tree is to be set to
 	 */
 	public void setVarTree(Tree<BiSymbol<G,Variable>> varTree) {
@@ -81,7 +81,7 @@ public class TTState<Q extends State, G extends RankedSymbol> implements State{
 
 	/**
 	 * Returns the contained state.
-	 * 
+	 *
 	 * @return the contained state
 	 */
 	public Q getState() {
@@ -92,7 +92,7 @@ public class TTState<Q extends State, G extends RankedSymbol> implements State{
 
 	/**
 	 * Creates a new state with the given state and the given variable tree as content.
-	 * 
+	 *
 	 * @param q state that is to be encapsulated
 	 * @param tree tree with variables
 	 */
@@ -112,7 +112,7 @@ public class TTState<Q extends State, G extends RankedSymbol> implements State{
 
 	/**
 	 * Two TTStates are equal, if they contain the same state.
-	 * 
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

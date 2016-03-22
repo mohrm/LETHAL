@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.symbol.standard;
 
@@ -27,12 +27,12 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.Symbol;
 /**
  * Wraps a symbol as leaf symbol of a BiTree (that is a tree containing BiSymbols).<br>
  * In such a tree, an inner symbol can only be a leaf node.
- * 
+ *
  * @param <I> inner type of wrapping BiSymbol
  * @param <L> leaf type of wrapping BiSymbol
- * 
+ *
  * @author Dorothea, Irene, Martin
- * 
+ *
  * @see BiSymbol
  * @see InnerSymbol
  */
@@ -46,7 +46,7 @@ public class LeafSymbol<I extends Symbol, L> implements BiSymbol<I,L> {
 
 	/**
 	 * Constructs a new leaf symbol out of some given symbol.
-	 * 
+	 *
 	 * @param symbol symbol to be wrapped
 	 */
 	public LeafSymbol(L symbol) {

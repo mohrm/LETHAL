@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treeautomata.common;
 
@@ -32,16 +32,16 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.RankedSymbol;
  * a term t have to be annotated with, such that the rule can be applied to
  * t, and the state q which t can be annotated with if it satisfies the
  * precondition. <br>
- * 
+ *
  * Invariants: <br>
  * <ul>
  * <li> Symbol is not null. </li>
  * <li> Length of srcStates must be the arity of the symbol. </li>
  * </ul>
- * 
+ *
  * @param <Q> state type occurring in this rule
  * @param <F> symbol type occurring in this rule
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public interface FTARule<F extends RankedSymbol, Q extends State> {

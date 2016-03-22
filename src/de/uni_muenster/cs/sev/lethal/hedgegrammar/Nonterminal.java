@@ -31,7 +31,7 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.UnrankedSymbol;
 
 /**
  * represents a nonterminal symbol needed to describe expressions for a schema
- * 
+ *
  * @author Anton, Maria
  * @param <G_Symbol> symbol type of the hedge grammar
  */

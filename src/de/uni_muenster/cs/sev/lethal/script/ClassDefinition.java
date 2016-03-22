@@ -29,7 +29,7 @@ public class ClassDefinition extends Statement {
 
 	List<Statement> statements;
 	String name;
-	
+
 	/**
 	 * New class definition instance
 //	 * @param parentEnvironment enclosing environment
@@ -41,7 +41,7 @@ public class ClassDefinition extends Statement {
 		this.statements = statements;
 		this.name = name;
 	}
-	
+
 	@Override
 	public ScriptObject execute(Environment env) {
 		Environment classEnvironment = env.newFrame();

@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.tree.common;
 
@@ -33,14 +33,14 @@ import de.uni_muenster.cs.sev.lethal.utils.Converter;
 
 /**
  * Some standard operations on trees, like calculating the height or the contained symbols.
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public class TreeOps {
 
 	/**
 	 * Calculates the height of a tree, that is the maximal depth.
-	 * 
+	 *
 	 * @param <S> type of symbols occurring in given tree
 	 * @param tree tree of which the height shall be computed
 	 * @return height of the tree
@@ -57,7 +57,7 @@ public class TreeOps {
 
 	/**
 	 * Collects all contained symbols in the tree.
-	 * 
+	 *
 	 * @param <S> type of symbols occurring in given tree
 	 * @param tree if which the set of all symbols shall be computed
 	 * @return set of all symbols contained in the specified tree
@@ -77,7 +77,7 @@ public class TreeOps {
 
 	/**
 	 * Checks whether there is a subtree whose root is annotated with the specified symbol.
-	 * 
+	 *
 	 * @param symbol symbol to be looked for
 	 * @param tree tree in which the symbol shall be looked for
 	 * @param <S> type of symbols occurring in given tree
@@ -102,7 +102,7 @@ public class TreeOps {
 	/**
 	 * Converts a tree with symbols of a certain type into a tree with symbols of another type
 	 * using a given symbol converter.
-	 * 
+	 *
 	 * @param <S1> type of symbols occurring in the given tree
 	 * @param <S2> type of symbols occurring in the converted tree
 	 * @param <T2> type of the converted tree
@@ -111,8 +111,8 @@ public class TreeOps {
 	 * @param tc tree creator object for creating the converted tree
 	 * @return converted version of the given tree
 	 */
-	public static <S1 extends Symbol, 
-	S2 extends Symbol, 
+	public static <S1 extends Symbol,
+	S2 extends Symbol,
 	T2 extends Tree<S2>> T2 convert(Tree<S1> tree, Converter<S1,S2> c, TreeCreator<S2,T2> tc) {
 		S2 newSymbol = c.convert(tree.getSymbol());
 		List<T2> newSubs = new LinkedList<T2>();

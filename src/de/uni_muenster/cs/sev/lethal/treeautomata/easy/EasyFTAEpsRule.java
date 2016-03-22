@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treeautomata.easy;
 
@@ -28,9 +28,9 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.generic.GenFTAEpsRule;
 /**
  * An easy implementation without generic types of the FTAEpsRule-Interface. <br>
  * The used type parameter is State.
- * 
+ *
  * @see de.uni_muenster.cs.sev.lethal.treeautomata.common.FTAEpsRule
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public class EasyFTAEpsRule extends GenFTAEpsRule<State> {
@@ -38,7 +38,7 @@ public class EasyFTAEpsRule extends GenFTAEpsRule<State> {
 	/**
 	 * Generates a new epsilon rule for a finite tree automaton with epsilon rules
 	 * without generic type parameters.
-	 * 
+	 *
 	 * @param src source state of the epsilon rule
 	 * @param dest destination state of the epsilon rule
 	 */

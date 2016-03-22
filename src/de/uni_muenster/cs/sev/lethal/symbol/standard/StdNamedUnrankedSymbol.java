@@ -24,12 +24,12 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.UnrankedSymbol;
  * Standard implementation of unranked symbols with names.
  *
  * @param <N> type of name
- * 
+ *
  * @see de.uni_muenster.cs.sev.lethal.symbol.common.NamedSymbol
  * @see UnrankedSymbol
- * 
+ *
  * @author Anton, Dorothea, Irene, Maria, Martin, Sezar
- * 
+ *
  */
 public class StdNamedUnrankedSymbol<N> extends AbstractNamedSymbol<N> implements UnrankedSymbol {
 

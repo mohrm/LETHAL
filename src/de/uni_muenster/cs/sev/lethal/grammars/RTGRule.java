@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.grammars;
 
@@ -30,24 +30,24 @@ import de.uni_muenster.cs.sev.lethal.tree.common.Tree;
  * Represents a regular tree grammar rule, which is of the form
  * A -> t, where A is a non-terminal symbol and t is a tree consisting of
  * non-terminal and terminal symbols.
- * 
+ *
  * @author Martin, Sezar
  *
- * @param <Q> type of non-terminal occurring on the left side and in the tree 
+ * @param <Q> type of non-terminal occurring on the left side and in the tree
  * on the right side of the rule
  * @param <F> type of terminals which can occur on the right side of the rule
  */
 public interface RTGRule<F extends RankedSymbol, Q extends State> {
 	/**
 	 * Returns the non-terminal symbol on the left side of the rule.
-	 * 
+	 *
 	 * @return the non-terminal symbol on the left side of the rule
 	 */
 	Q getLeftSide();
 
 	/**
 	 * Returns the tree on the right side of the rule.
-	 * 
+	 *
 	 * @return the tree on the right side of the rule
 	 */
 	Tree<BiSymbol<F,Q>> getRightSide();

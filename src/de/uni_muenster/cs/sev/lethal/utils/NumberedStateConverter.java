@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.utils;
 
@@ -18,13 +18,13 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.generic.GenFTA;
 import de.uni_muenster.cs.sev.lethal.treeautomata.generic.GenFTACreator;
 
 /**
- * Converter from arbitrary objects to NamedStates. The names of the states are integer numbers, 
- * that are counted upwards. 
- * 
+ * Converter from arbitrary objects to NamedStates. The names of the states are integer numbers,
+ * that are counted upwards.
+ *
  * If not reset between the two conversions, the same object will always be converted to the same state.
  *
  * @param <T> type of objects to be converted
- * 
+ *
  * @author Peter Lammich (copied from NumberedStateConctructor, written by Martin)
  */
 public class NumberedStateConverter<T> implements Converter<T,NamedState<Integer>> {
@@ -86,9 +86,9 @@ public class NumberedStateConverter<T> implements Converter<T,NamedState<Integer
 	public static <F extends RankedSymbol,Q extends State, R extends FTARule<F,Q>>
 	GenFTA<F,NamedState<Integer>> convert2numberedStates(FTA<F,Q, R> fta) {
 		GenFTACreator<F, NamedState<Integer>> cr = new GenFTACreator<F, NamedState<Integer>>();
-		return 
-		FTAOps.ftaConverter(fta, NumberedStateConverter.<Q>newInstance(), 
-				IdentityConverter.<F>getInstance(), 
+		return
+		FTAOps.ftaConverter(fta, NumberedStateConverter.<Q>newInstance(),
+				IdentityConverter.<F>getInstance(),
 				cr);
 	}
 
@@ -104,15 +104,15 @@ public class NumberedStateConverter<T> implements Converter<T,NamedState<Integer
 	public static <F extends RankedSymbol,Q extends State, R extends FTARule<F,Q>>
 	EasyFTA convert2numberedStatesEasy(FTA<F,Q, R> fta) {
 		EasyFTACreator cr = new EasyFTACreator();
-		return 
-		FTAOps.ftaConverter(fta, NumberedStateConverter.<Q>newInstance(), 
-				IdentityConverter.<F>getInstance(), 
+		return
+		FTAOps.ftaConverter(fta, NumberedStateConverter.<Q>newInstance(),
+				IdentityConverter.<F>getInstance(),
 				cr);
 	}
 
 
 	/**
-	 * Static method to create a new instance. 
+	 * Static method to create a new instance.
 	 * This method saves you from typing generic type parameters.
 	 * @param <T> Object type to be converted
 	 * @return Fresh NumberedStateConvertor instance

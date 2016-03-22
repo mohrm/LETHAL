@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
  * @author Philipp
  */
 public abstract class Item {
-	
+
 	/**
 	 * Returns the user visible name for the given item class by calling the static getItemClassName method of the item class.<br>
 	 * Using getMethod seems to be the only way to do this. :(<br>
@@ -41,7 +41,7 @@ public abstract class Item {
 			return itemClass.getSimpleName();
 		}
 	}
-	
+
 	/**
 	 * Name of this item.
 	 */
@@ -50,7 +50,7 @@ public abstract class Item {
 	 * Project this item belongs to.
 	 */
 	private Project project;
-	
+
 	/**
 	 * Create a new item.
 	 * @param name name of the new item
@@ -60,7 +60,7 @@ public abstract class Item {
 		this.name = name;
 		this.project = project;
 	}
-	
+
 	/**
 	 * Returns an editor widget for this item.
 	 * @return editor widget for this item
@@ -74,7 +74,7 @@ public abstract class Item {
 	public String getName(){
 		return this.name;
 	}
-	
+
 	/**
 	 * Sets a new User visible name for this Item.
 	 * @param newName User visible name for this Item.
@@ -85,16 +85,16 @@ public abstract class Item {
 			project.fireItemRenamed(this);
 		}
 	}
-	
+
 	/**
-	 * Passes content set event to the project. <br> 
+	 * Passes content set event to the project. <br>
 	 * To be called by subclasses after an item has been edited by the user and apply is pressed.
 	 */
 	protected void fireItemContentSet(){
 		this.project.fireItemContentSet(this);
 	}
-	
-	
+
+
 	/**
 	 * Returns the project, this item belongs to.
 	 * @return the project, this item belongs to.
@@ -102,13 +102,13 @@ public abstract class Item {
 	public Project getProject(){
 		return this.project;
 	}
-	
+
 	/**
 	 * Store the item content in a serialized form into the given XML Element.
 	 * @param parentElement XML Element to serialize to.
 	 */
 	public abstract void toXML(Element parentElement);
-	
+
 	@Override
 	public String toString(){
 		return this.name;

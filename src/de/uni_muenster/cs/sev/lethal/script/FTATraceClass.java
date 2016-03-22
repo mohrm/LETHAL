@@ -35,7 +35,7 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.common.FTARule;
  * Class for FTATraces.
  * A FTATrace packages the result of AbstractModeFTA.annotateWithStates(tree) together with the FTA and Tree it was run on.
  * This allows to display the result of annotateWithStates with the show() command
- * 
+ *
  * @author Philipp
  *
  */
@@ -43,7 +43,7 @@ public class FTATraceClass extends ScriptClass {
 
 	/** Singleton FTATraceClass class instance */
 	public static final FTATraceClass ftaTraceClass = new FTATraceClass();
-	
+
 	private FTATraceClass() {
 		super("FTATrace", null, RootClass.newStaticClassEnvironment(), false);
 	}
@@ -68,15 +68,15 @@ class FTATraceObject extends ScriptObject{
 	private TreeObject tree;
 	private FTAObject fta;
 	private Map<Tree<RankedSymbol>,Set<FTARule<RankedSymbol,State>>> tracemap;
-	
+
 	public FTATraceObject(TreeObject tree, FTAObject fta, Map<Tree<RankedSymbol>, Set<FTARule<RankedSymbol,State>>> tracemap) {
 		super(FTATraceClass.ftaTraceClass);
 		this.tree = tree;
 		this.fta = fta;
 		this.tracemap = tracemap;
-		
+
 		HashMap<ScriptObject,ScriptObject> stracemap = new HashMap<ScriptObject,ScriptObject>();
-		
+
 		for (Tree<RankedSymbol> key : tracemap.keySet()){
 			TreeObject skey = new TreeObject(key);
 			List<ScriptObject> value = new ArrayList<ScriptObject>();
@@ -86,36 +86,36 @@ class FTATraceObject extends ScriptObject{
 			ArrayObject svalue = new ArrayObject(value);
 			stracemap.put(skey,svalue);
 		}
-		
+
 		this.setMember("tree", tree);
 		this.setMember("fta",  fta);
 		this.setMember("tracemap", new HashObject(stracemap));
 	}
-	
+
 	public Tree<RankedSymbol> getTree(){
 		return this.tree.getTree();
 	}
-	
+
 	public FTA<RankedSymbol, State, ? extends FTARule<RankedSymbol,State>> getFTA(){
 		return this.fta.getAutomaton();
 	}
-	
+
 	public Map<Tree<RankedSymbol>,Set<FTARule<RankedSymbol,State>>> getTracemap(){
 		return this.tracemap;
 	}
-	
-	
+
+
 	@Override
 	public String toString(){
 		return "Trace(" + this.tree.toString() + ", " + this.tracemap.toString() + ")";
 	}
-	
+
 	@Override
 	public boolean equals(Object o){
 		if (!(o instanceof FTATraceObject)) return false;
 		return ((FTATraceObject)o).tree.equals(this.tree) && ((FTATraceObject)o).tracemap.equals(this.tracemap);
 	}
-	
+
 	@Override
 	public int hashCode(){
 		return this.tree.hashCode() + 31*this.tracemap.hashCode();

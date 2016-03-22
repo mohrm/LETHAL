@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.tests;
 
@@ -36,7 +36,7 @@ import de.uni_muenster.cs.sev.lethal.tree.standard.StdBiTree;
  * caused by (implicit) generic array creations.
  */
 public class Util {
-    
+
     /**
      * Creates a list out of one element.
      * @param <T> type of element
@@ -48,7 +48,7 @@ public class Util {
 	ret.add(el1);
 	return ret;
     }
-    
+
     /**
      * Creates a list out of two elements.
      * @param <T> type of elements
@@ -62,7 +62,7 @@ public class Util {
 	ret.add(el2);
 	return ret;
     }
-    
+
     /**
      * Creates a list out of three elements.
      * @param <T> type of elements
@@ -78,7 +78,7 @@ public class Util {
 	ret.add(el3);
 	return ret;
     }
-    
+
     /**
      * Creates a tree out of a ranked symbol. Just to save typing.
      * @param leaf root symbol of the new tree

@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.treeautomata.generic;
 
@@ -44,10 +44,10 @@ import de.uni_muenster.cs.sev.lethal.utils.Pair;
 
 /**
  * The standard implementation for operations on finite tree automata using generic types.
- * 
- * 
+ *
+ *
  * @see FTAOps
- * 
+ *
  * @author Dorothea, Martin, Irene
  */
 public class GenFTAOps {
@@ -55,10 +55,10 @@ public class GenFTAOps {
 	/**
 	 * Builds a state out of an arbitrary object. The object is taken as name of the new state and
 	 * identifies it.
-	 * 
+	 *
 	 * @param <T> type of the object to identify the new state
-	 * 
-	 * @see NamedState 
+	 *
+	 * @see NamedState
 	 */
 	protected static class StdStateBuilder<T> implements Converter<T,NamedState<T>> {
 		/**
@@ -76,10 +76,10 @@ public class GenFTAOps {
 	/**
 	 * Implementation of BiState. Specification is realized by having references to two possible
 	 * state kinds. Exactly one of them is null, the other is used as the represented state.
-	 * 
+	 *
 	 * @param <Q1> type of first state kind
 	 * @param <Q2> type of second state kind
-	 * 
+	 *
 	 * @see BiState
 	 */
 	protected static final class StdBiState<Q1 extends State,Q2 extends State> implements BiState<Q1,Q2> {
@@ -98,7 +98,7 @@ public class GenFTAOps {
 		/**
 		 * Constructs a new BiState out of two states. Exactly one of the supplied states must be
 		 * null, the other one acts as the represented state.
-		 * 
+		 *
 		 * @param q1 first state - not null if it is to be represented
 		 * @param q2 second state - not null if it is to be represented
 		 */
@@ -199,14 +199,14 @@ public class GenFTAOps {
 
 	/**
 	 * Given a finite tree automaton, constructs an equivalent complete finite tree automaton.
-	 * 
+	 *
 	 * @param <Q> state type of the finite tree automaton to be completed
 	 * @param <F> symbol type of the finite tree automaton to be completed
 	 * @param fta finite tree automaton to be completed
 	 * @param qbot fresh state for rules to be added
-	 * 
+	 *
 	 * @return complete finite tree automaton equivalent to the given finite tree automaton
-	 * 
+	 *
 	 * @see FTAOps#complete(FTA, State, de.uni_muenster.cs.sev.lethal.treeautomata.common.FTACreator)
 	 */
 	public static <F extends RankedSymbol, Q extends State> GenFTA<F,Q> complete(FTA<F,Q,? extends FTARule<F,Q>> fta, Q qbot) {
@@ -217,33 +217,33 @@ public class GenFTAOps {
 	/**
 	 * Given a finite tree automaton A, constructs a tree automaton which accepts a tree if and only if
 	 * A denies it with respect to the union of its alphabet and some given alphabet. <br>
-	 * 
+	 *
 	 * @param <Q> state type of finite tree automaton to be completed
 	 * @param <F> symbol type of finite tree automaton to be completed
 	 * @param fta finite tree automaton to be completed
 	 * @param alphabet alphabet with respect to which the automaton shall be completed
 	 * @param qbot fresh state for rules to be added
-	 * 
-	 * @return complete finite tree automaton equivalent to the given finite tree automaton w.r.t. the given alphabet 
-	 * 
+	 *
+	 * @return complete finite tree automaton equivalent to the given finite tree automaton w.r.t. the given alphabet
+	 *
 	 * @see FTAOps#completeAlphabet(FTA, Collection, State, FTACreator)
 	 */
-	public static <F extends RankedSymbol, Q extends State> GenFTA<F,Q> 
+	public static <F extends RankedSymbol, Q extends State> GenFTA<F,Q>
 	completeAlphabet (FTA<F,Q, ? extends FTARule<F,Q>> fta, Q qbot, Collection<F> alphabet) {
 		return FTAOps.completeAlphabet(fta, alphabet, qbot, new GenFTACreator<F,Q>());
 	}
 
 
 	/**
-	 * Given a given finite tree automaton A, computes an equivalent deterministic 
+	 * Given a given finite tree automaton A, computes an equivalent deterministic
 	 * finite tree automaton.
-	 * 
+	 *
 	 * @param <Q> state type of the finite tree automaton to be determinized
 	 * @param <F> symbol type of the finite tree automaton to be determinized
 	 * @param fta automaton to be determinized
-	 * 
+	 *
 	 * @return deterministic finite tree automaton equivalent to the given one
-	 * 
+	 *
 	 * @see FTAOps#determinize
 	 */
 	public static <F extends RankedSymbol,Q extends State> GenFTA<F,NamedState<Set<Q>>> determinize(FTA<F,Q,? extends FTARule<F,Q>> fta) {
@@ -253,13 +253,13 @@ public class GenFTAOps {
 
 	/**
 	 * Given a finite tree automaton A, constructs an equivalent reduced finite tree automaton.
-	 * 
+	 *
 	 * @param <Q> state type of finite tree automaton to be reduced
 	 * @param <F> symbol type of finite tree automaton to be reduced
 	 * @param fta finite tree automaton to be reduced
-	 * 
+	 *
 	 * @return reduced version of supplied finite tree automaton
-	 * 
+	 *
 	 * @see FTAOps#reduceBottomUp
 	 */
 	public static <F extends RankedSymbol, Q extends State> GenFTA<F,Q> reduceBottomUp(FTA<F,Q,? extends FTARule<F,Q>> fta) {
@@ -268,16 +268,16 @@ public class GenFTAOps {
 
 
 	/**
-	 * Given a finite tree automaton A, constructs an equivalent finite tree automaton A', 
+	 * Given a finite tree automaton A, constructs an equivalent finite tree automaton A',
 	 * which is top-down reduced.
-	 * 
+	 *
 	 * @param <Q> state type of the finite tree automaton to be reduced
 	 * @param <F> symbol type of the finite tree automaton to be reduced
 	 * @param fta finite tree automaton to be reduced
-	 * 
-	 * @return equivalent finite tree automaton which only contains states from which a 
+	 *
+	 * @return equivalent finite tree automaton which only contains states from which a
 	 * final state is reachable and contains only the rules in which merely these states occur.
-	 * 
+	 *
 	 * @see FTAOps#reduceTopDown
 	 */
 	public static <F extends RankedSymbol, Q extends State> GenFTA<F,Q> reduceTopDown(FTA<F,Q, ? extends FTARule<F,Q>> fta) {
@@ -287,16 +287,16 @@ public class GenFTAOps {
 
 	/**
 	 * Given a finite tree automaton, constructs a finite tree automaton which is both top-down and
-	 * bottom-up reduced. 
-	 * 
+	 * bottom-up reduced.
+	 *
 	 * @param <Q> state type of the finite tree automaton to be reduced
 	 * @param <F> symbol type of the finite tree automaton to be reduced
 	 * @param fta finite tree automaton to be reduced
-	 * 
+	 *
 	 * @return fully reduced version of the given finite tree automaton, that means for every rule f(q1,...qn) - q there is a
 	 * tree t, a configuration tree tc and a final state qf such that f(q1,...qn) is a subtree of tc, t can
 	 * be reduced to tc and tc can be reduced to qf.
-	 * 
+	 *
 	 * @see FTAOps#reduceFull
 	 */
 	public static  <F extends RankedSymbol, Q extends State> GenFTA<F,Q>  reduceFull(FTA<F,Q,? extends FTARule<F,Q>> fta) {
@@ -306,34 +306,34 @@ public class GenFTAOps {
 
 
 	/**
-	 * Given a deterministic finite tree automaton, constructs an equivalent finite tree automaton 
-	 * with an almost minimal number of states. 
-	 * 
+	 * Given a deterministic finite tree automaton, constructs an equivalent finite tree automaton
+	 * with an almost minimal number of states.
+	 *
 	 * @param fta  finite tree automaton to be minimized
 	 * @param qbot state to be added by completion
 	 * @param <Q> state type of the given finite tree automaton
 	 * @param <F> symbol type of the given finite tree automaton
-	 * 
+	 *
 	 * @return finite tree automaton with a minimal number of states which has the same
 	 * language as the given one
-	 * 
+	 *
 	 * @see FTAOps#minimize
 	 */
-	public static <F extends RankedSymbol, Q extends State> 
+	public static <F extends RankedSymbol, Q extends State>
 	GenFTA<F, NamedState<Set<Q>>> minimize(FTA<F,Q,? extends FTARule<F,Q>> fta, Q qbot) {
 		return FTAOps.minimize(fta, qbot, new GenFTACreator<F,Q>(), new StdStateBuilder<Set<Q>>(), new GenFTACreator<F,NamedState<Set<Q>>>());
 	}
 
 
 	/**
-	 * Given a finite tree automaton A, constructs a finite tree automaton 
+	 * Given a finite tree automaton A, constructs a finite tree automaton
 	 * which accepts a tree over the alphabet of A if and only if A denies it.
-	 * 
+	 *
 	 * @param <Q> state type of the finite tree automaton to be complemented
 	 * @param <F> symbol type of the finite tree automaton to be complemented
 	 * @param fta finite tree automaton to be complemented
 	 * @return complemented finite tree automaton
-	 * 
+	 *
 	 * @see FTAOps#complement
 	 */
 	public static <F extends RankedSymbol,Q extends State> GenFTA<F,NamedState<Set<Q>>> complement (FTA<F,Q,? extends FTARule<F,Q>> fta) {
@@ -344,14 +344,14 @@ public class GenFTAOps {
 	/**
 	 * Given a finite tree automaton A, constructs a finite tree automaton which accepts a tree if and only if
 	 * A denies it with respect to the union of its alphabet and some given alphabet.
-	 * 
+	 *
 	 * @param <Q> state type of automaton to be complemented
 	 * @param <F> symbol type of automaton to be complemented
 	 * @param fta automaton to be complemented
 	 * @param alphabet alphabet to which the automaton is to be complemented
-	 * 
+	 *
 	 * @return complemented finite tree automaton
-	 * 
+	 *
 	 * @see FTAOps#complementAlphabet
 	 */
 	public static <F extends RankedSymbol, Q extends State> GenFTA<F,NamedState<Set<Q>>> complementAlphabet (FTA<F,Q, ? extends FTARule<F,Q>> fta, Collection<F> alphabet) {
@@ -361,28 +361,28 @@ public class GenFTAOps {
 
 
 	/**
-	 * Returns a finite tree automaton that recognizes exactly the union of the languages of the given finite 
+	 * Returns a finite tree automaton that recognizes exactly the union of the languages of the given finite
 	 * tree automata.<br>
 	 * The resulting finite tree automaton is in general non-deterministic.<br>
 	 * <br>
 	 * This is realized by guaranteeing that the states of the finite tree automata are disjoint.
-	 * (Embed them disjointly in new states.) Then construct a new finite tree automaton with 
-	 * the union of states, union of final states and union of rules. 
-	 * 
+	 * (Embed them disjointly in new states.) Then construct a new finite tree automaton with
+	 * the union of states, union of final states and union of rules.
+	 *
 	 * @param <F> symbol type of the finite tree automata
 	 * @param <Q1> state type of the first finite tree automaton
 	 * @param <Q2> state type of the second finite tree automaton
 	 * @param fta1 the first finite tree automaton for the union
 	 * @param fta2 the second finite tree automaton for the union
-	 * 
-	 * @return a finite tree automaton that recognizes exactly the union of the 
+	 *
+	 * @return a finite tree automaton that recognizes exactly the union of the
 	 * languages of the given finite tree tree automata
-	 * 
+	 *
 	 * @see FTAOps#union
 	 */
 	public static <F extends RankedSymbol,
-	Q1 extends State, 
-	Q2 extends State> 
+	Q1 extends State,
+	Q2 extends State>
 	GenFTA<F,BiState<Q1,Q2>> union (FTA<F,Q1, ? extends FTARule<F,Q1>> fta1, FTA<F,Q2, ? extends FTARule<F,Q2>> fta2) {
 
 		Converter<Q1,BiState<Q1,Q2>> stateconv1 = new Converter<Q1, BiState<Q1,Q2>>() {
@@ -407,11 +407,11 @@ public class GenFTAOps {
 
 
 	/**
-	 * Given two finite tree automata, constructs a finite tree automaton which accepts a tree 
+	 * Given two finite tree automata, constructs a finite tree automaton which accepts a tree
 	 * if and only if both automata accept it. The suffix "BU" stands for bottom-up reduction.<br>
 	 * That means, the algorithm consists of a {@link FTAOps#intersectionWR product construction}  with additional reduction, such
-	 * that in the resulting automaton every state is reachable. 
-	 * 
+	 * that in the resulting automaton every state is reachable.
+	 *
 	 * @param <F> symbol type of incoming automata
 	 * @param <Q1> state type of first incoming automaton
 	 * @param <Q2> state type of second incoming automaton
@@ -422,7 +422,7 @@ public class GenFTAOps {
 	 */
 	public static <F extends RankedSymbol,
 	Q1 extends State,
-	Q2 extends State> 
+	Q2 extends State>
 	GenFTA<F,NamedState<Pair<Q1,Q2>>> intersectionBU(FTA<F,Q1,? extends FTARule<F,Q1>> fta1, FTA<F,Q2, ? extends FTARule<F,Q2>> fta2) {
 		StdStateBuilder<Pair<Q1,Q2>> pc = new StdStateBuilder<Pair<Q1,Q2>>();
 		GenFTACreator<F,NamedState<Pair<Q1,Q2>>> fc = new GenFTACreator<F,NamedState<Pair<Q1,Q2>>>();
@@ -432,23 +432,23 @@ public class GenFTAOps {
 
 
 	/**
-	 * Given two finite tree automata, constructs a finite tree automaton which accepts a tree 
+	 * Given two finite tree automata, constructs a finite tree automaton which accepts a tree
 	 * if and only if both automata accept it.
-	 * 
+	 *
 	 * @param <F> symbol type of all three finite tree automata. Since the result recognizes the intersection of
 	 * the two operands' languages, all three finite tree automata must have the same symbol type.
 	 * @param <Q1> state type of the first finite tree automaton
 	 * @param <Q2> state type of the first finite tree automaton
 	 * @param fta1 first finite tree automaton for the intersection
 	 * @param fta2 second finite tree automaton for the intersection
-	 * 
+	 *
 	 * @return finite tree automaton which accepts a tree if and only if both finite tree automata accept it
-	 * 
+	 *
 	 * @see FTAOps#intersectionTD
 	 */
-	public static <F extends RankedSymbol, 
-	Q1 extends State, 
-	Q2 extends State> 
+	public static <F extends RankedSymbol,
+	Q1 extends State,
+	Q2 extends State>
 	GenFTA<F,NamedState<Pair<Q1,Q2>>> intersectionTD(FTA<F,Q1, ? extends FTARule<F,Q1>> fta1, FTA<F,Q2, ? extends FTARule<F,Q2>> fta2) {
 		StdStateBuilder<Pair<Q1,Q2>> pc = new StdStateBuilder<Pair<Q1,Q2>>();
 		GenFTACreator<F,NamedState<Pair<Q1,Q2>>> fc = new GenFTACreator<F,NamedState<Pair<Q1,Q2>>>();
@@ -458,7 +458,7 @@ public class GenFTAOps {
 
 
 	/**
-	 * Given two finite tree automata, constructs a finite tree automaton which accepts a tree 
+	 * Given two finite tree automata, constructs a finite tree automaton which accepts a tree
 	 * if and only if both automata accept it.
 	 * @param <F> symbol type of all three automata. Since the result recognizes the intersection of
 	 * the two operands' languages, all three automata must have the same symbol type.
@@ -466,14 +466,14 @@ public class GenFTAOps {
 	 * @param <Q2> state type of the first finite tree automaton
 	 * @param fta1 first finite tree automaton for the intersection
 	 * @param fta2 second finite tree automaton for the intersection
-	 * 
+	 *
 	 * @return finite tree automaton which accepts a tree if and only if both finite tree automata accept it
-	 * 
+	 *
 	 * @see FTAOps#intersectionWR
 	 */
 	public static <F extends RankedSymbol,
-	Q1 extends State, 
-	Q2 extends State> 
+	Q1 extends State,
+	Q2 extends State>
 	GenFTA<F,NamedState<Pair<Q1,Q2>>> intersectionWR(FTA<F,Q1, ? extends FTARule<F,Q1>> fta1, FTA<F,Q2, ? extends FTARule<F,Q2>> fta2) {
 		StdStateBuilder<Pair<Q1,Q2>> pc = new StdStateBuilder<Pair<Q1,Q2>>();
 		GenFTACreator<F,NamedState<Pair<Q1,Q2>>> fc = new GenFTACreator<F,NamedState<Pair<Q1,Q2>>>();
@@ -484,19 +484,19 @@ public class GenFTAOps {
 
 
 	/**
-	 *  Given two finite tree automata, constructs a finite tree automaton which 
+	 *  Given two finite tree automata, constructs a finite tree automaton which
 	 * recognizes a tree if and only if it is recognized by the first but not by the second
 	 * finite tree automaton.
-	 * 
+	 *
 	 * @param <F> type of the symbols
 	 * @param <Q1> type of the states of the first finite tree automaton
 	 * @param <Q2> type of the states of the second finite tree automaton
-	 * @param fta1 first finite tree automaton for the basic language 
+	 * @param fta1 first finite tree automaton for the basic language
 	 * @param fta2 second finite tree automaton for the language which shall be subtracted
-	 * 
+	 *
 	 * @return a finite tree automaton which recognizes a tree
-	 * if and only if it is recognized by the first but not by the second finite tree automaton. 
-	 * 
+	 * if and only if it is recognized by the first but not by the second finite tree automaton.
+	 *
 	 * @see FTAOps#difference
 	 */
 	public static <F extends RankedSymbol, Q1 extends State, Q2 extends State>
@@ -511,25 +511,25 @@ public class GenFTAOps {
 
 
 	/**
-	 * Given a tree containing some constants (symbols with arity 0) that are to be replaced 
-	 * and a map mapping exactly these symbols to regular tree languages represented by finite 
+	 * Given a tree containing some constants (symbols with arity 0) that are to be replaced
+	 * and a map mapping exactly these symbols to regular tree languages represented by finite
 	 * tree automata, constructs a finite tree automaton which recognizes exactly
 	 * the trees which are obtained by substituting the specified constants by trees of the
 	 * corresponding languages.
-	 * 
+	 *
 	 * @param <F> type of the symbols of the given finite tree automata and trees
 	 * @param <Q> type of the states of the given finite tree automata representing languages
 	 * @param tree tree with variables, which shall be replaced by the given regular languages
 	 * @param languages given regular languages, given by a map which maps each constant
 	 * (symbol with arity 0) which shall be replaced, to a finite tree automaton.
-	 * 
+	 *
 	 * @return finite tree automaton which recognizes exactly
 	 * the trees which are obtained by substituting each variable by a tree of the
 	 * corresponding language.
-	 * 
+	 *
 	 * @see FTAOps#substitute(Tree, Map, Converter, Converter, Converter, FTACreator)
 	 */
-	public static <F extends RankedSymbol,Q extends State> GenFTA<F,NamedState<?>> 
+	public static <F extends RankedSymbol,Q extends State> GenFTA<F,NamedState<?>>
 	substitute(Tree<F> tree, Map<? extends F,? extends FTA<F,Q, ? extends FTARule<F,Q>>> languages) {
 
 		Converter<Pair<Q,Integer>,NamedState<?>> cPair = new Converter<Pair<Q,Integer>, NamedState<?>>() {
@@ -567,12 +567,12 @@ public class GenFTAOps {
 
 	/**
 	 * Computes a finite tree automaton, which accepts exactly the specified tree.
-	 * 
+	 *
 	 * @param <F> type of symbols occurring in the resulting finite tree automaton
 	 * @param tree tree to be accepted by the returned finite tree automaton
-	 * 
+	 *
 	 * @return finite tree automaton which recognizes a tree if and only if it is equal to the given one
-	 * 
+	 *
 	 * @see FTAOps#computeSingletonFTA
 	 */
 	public static <F extends RankedSymbol> GenFTA<F,NamedState<Object>> computeSingletonFTA(Tree<F> tree) {
@@ -582,12 +582,12 @@ public class GenFTAOps {
 
 	/**
 	 * Constructs a finite tree automaton which accepts every tree over a given alphabet.
-	 * 
+	 *
 	 * @param <F> type of the ranked symbols in the alphabet
 	 * @param alphabet alphabet for trees which are to be accepted
 	 * tree automaton and the new tree automaton
 	 * @return a finite tree automaton which accepts every tree over the given alphabet
-	 * 
+	 *
 	 * @see FTAOps#computeAlphabetFTA(Collection, State, FTACreator)
 	 */
 	public static <F extends RankedSymbol>
@@ -595,20 +595,20 @@ public class GenFTAOps {
 		return FTAOps.computeAlphabetFTA(alphabet,StateFactory.getStateFactory().makeState(),new GenFTACreator<F,State>());
 	}
 
-	
+
 	/**
-	 * Constructs the regular tree language containing all trees of this regular tree language 
+	 * Constructs the regular tree language containing all trees of this regular tree language
 	 * which are not higher than specified.
-	 * 
+	 *
 	 * @param <F> symbol type of the finite tree automaton to be restricted
 	 * @param <Q> state type of the finite tree automaton to be restricted
-	 * @param fta finite tree automaton whose language is to be restricted 
+	 * @param fta finite tree automaton whose language is to be restricted
 	 * @param maxHeight maximum height of the trees contained in the language to be returned
-	 * 
-	 * @return a finite tree automaton representing the regular tree language containing 
+	 *
+	 * @return a finite tree automaton representing the regular tree language containing
 	 * all trees of the given language which are not higher than specified
 	 */
-	public static <F extends RankedSymbol, Q extends State> 
+	public static <F extends RankedSymbol, Q extends State>
 	GenFTA<F,NamedState<Pair<Q,Integer>>> restrictToMaxHeight(
 			GenFTA<F,Q> fta,
 			int maxHeight) {
@@ -617,10 +617,10 @@ public class GenFTAOps {
 		return FTAOps.restrictToMaxHeight(fta, maxHeight, fc, sb);
 	}
 
-	
+
 	/**
 	 * Constructs a tree which can be annotated by the given finite tree automaton
-	 * with the given state and is at least as high as specified, if there is such a tree. 
+	 * with the given state and is at least as high as specified, if there is such a tree.
 	 * Otherwise, null is returned.<br>
 	 * @param <F> symbol type of the finite tree automaton to be examined
 	 * @param <Q> state type of the finite tree automaton to be examined
@@ -630,7 +630,7 @@ public class GenFTAOps {
 	 * @param depthFirst indicates whether the worklist is to be organized as a stack or a queue -
 	 * in the first case, the resulting tree has minimal height, if the specified height is 0.
 	 * @return if the given state is not null: a tree which can be annotated with that state, or
-	 * null if there is no such tree <br> 
+	 * null if there is no such tree <br>
 	 * If the given state is null: a tree of minimum which is accepted by the given finite tree automaton
 	 * and has minimum height, or null if there is no such tree
 	 * @see FTAOps#constructTreeAcceptedInState
@@ -639,7 +639,7 @@ public class GenFTAOps {
 			FTA<F, Q, ? extends FTARule<F, Q>> fta, Q accState, final int minHeight, boolean depthFirst) {
 		return FTAOps.constructTreeAcceptedInState(fta, new StdTreeCreator<F>(), accState, minHeight, depthFirst);
 	}
-	
+
 	/**
 	 * Given a finite tree automaton, constructs a tree of minimal height accepted by it. <br>
 	 * @param <F> symbol type of the finite tree automaton to be examined
@@ -653,8 +653,8 @@ public class GenFTAOps {
 			FTA<F, Q, ? extends FTARule<F, Q>> fta) {
 		return FTAOps.constructTreeAcceptedInState(fta, new StdTreeCreator<F>(), null, 0, true);
 	}
-	
-	
+
+
 	/**
 	 * Given a finite tree automaton, constructs a tree accepted by it, which has
 	 * at least the specified height. <br>

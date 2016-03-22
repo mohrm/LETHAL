@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.tests;
 
@@ -60,11 +60,11 @@ import de.uni_muenster.cs.sev.lethal.treetransducer.TTOps;
 import de.uni_muenster.cs.sev.lethal.utils.RandomFTAGenerator;
 
 /**
- * Tests the functionality of tree transducers 
+ * Tests the functionality of tree transducers
  * with some special hand-made tests and some automatically generated tests.<br>
  * In particular, we test with one tree transducer which sorts the subtrees of a tree alphabetically
- * and with one which deforms the trees. 
- * 
+ * and with one which deforms the trees.
+ *
  * @author Irene
  */
 public class TTTest {
@@ -74,7 +74,7 @@ public class TTTest {
 	 * Count of different randomize test cases.
 	 */
 	private static final int count = 10;
-	
+
 	/** Used self-created symbols. */
 	private static Map<String, RankedSymbol>  alphabet = new HashMap<String, RankedSymbol>();
 
@@ -95,25 +95,25 @@ public class TTTest {
 
 	/** Test input trees for random tests. */
 	private static Tree<RankedSymbol>[] randomTree = new Tree[count];
-	
+
 	/** Test random easy tree transducer. */
 	private static EasyTT[] randomTT = new EasyTT[count];
-	
+
 	/** Test random easy finite tree automata. */
 	private static GenFTA<RankedSymbol,State>[] randomFTA = new GenFTA[count/2];
-	
+
 	/** Random destination alphabet.*/
 	private RankedSymbol[] destAlph;
 
-	
-	
+
+
 	/**
 	 * Sets up the alphabet for the sorting test:
 	 * {a,b,c,d(),e(),f(,,)}<br>
-	 * 
+	 *
 	 * Other start alphabet:  {O,+,*,x,y}<br>
 	 * Other destination alphabet:  {+,*,x,y}
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	static void setUpAlphabet() throws Exception {
@@ -162,40 +162,40 @@ public class TTTest {
 
 
 		variableTrees.put("tree_e_0_1",
-				new StdBiTree<RankedSymbol,Variable>(alphabet.get("e"), 
+				new StdBiTree<RankedSymbol,Variable>(alphabet.get("e"),
 						Util.makeList(new StdBiTree<RankedSymbol,Variable>(var0),
 								new StdBiTree<RankedSymbol,Variable>(var1))));
 		variableTrees.put("tree_e_1_0",
-				new StdBiTree<RankedSymbol,Variable>(alphabet.get("e"), 
-						Util.makeList(new StdBiTree<RankedSymbol,Variable>(var1), 
+				new StdBiTree<RankedSymbol,Variable>(alphabet.get("e"),
+						Util.makeList(new StdBiTree<RankedSymbol,Variable>(var1),
 								new StdBiTree<RankedSymbol,Variable>(var0))));
 		variableTrees.put("tree_f_0_1_2",
-				new StdBiTree<RankedSymbol,Variable>(alphabet.get("f"), 
+				new StdBiTree<RankedSymbol,Variable>(alphabet.get("f"),
 						Util.makeList(new StdBiTree<RankedSymbol,Variable>(var0),
 								new StdBiTree<RankedSymbol,Variable>(var1),
 								new StdBiTree<RankedSymbol,Variable>(var2))));
 		variableTrees.put("tree_f_0_2_1",
-				new StdBiTree<RankedSymbol,Variable>(alphabet.get("f"), 
+				new StdBiTree<RankedSymbol,Variable>(alphabet.get("f"),
 						Util.makeList(new StdBiTree<RankedSymbol,Variable>(var0),
 								new StdBiTree<RankedSymbol,Variable>(var2),
 								new StdBiTree<RankedSymbol,Variable>(var1))));
 		variableTrees.put("tree_f_1_0_2",
-				new StdBiTree<RankedSymbol,Variable>(alphabet.get("f"), 
+				new StdBiTree<RankedSymbol,Variable>(alphabet.get("f"),
 						Util.makeList(new StdBiTree<RankedSymbol,Variable>(var1),
 								new StdBiTree<RankedSymbol,Variable>(var0),
 								new StdBiTree<RankedSymbol,Variable>(var2))));
 		variableTrees.put("tree_f_1_2_0",
-				new StdBiTree<RankedSymbol,Variable>(alphabet.get("f"), 
+				new StdBiTree<RankedSymbol,Variable>(alphabet.get("f"),
 						Util.makeList(new StdBiTree<RankedSymbol,Variable>(var1),
 								new StdBiTree<RankedSymbol,Variable>(var2),
 								new StdBiTree<RankedSymbol,Variable>(var0))));
 		variableTrees.put("tree_f_2_0_1",
-				new StdBiTree<RankedSymbol,Variable>(alphabet.get("f"), 
+				new StdBiTree<RankedSymbol,Variable>(alphabet.get("f"),
 						Util.makeList(new StdBiTree<RankedSymbol,Variable>(var2),
 								new StdBiTree<RankedSymbol,Variable>(var0),
 								new StdBiTree<RankedSymbol,Variable>(var1))));
 		variableTrees.put("tree_f_2_1_0",
-				new StdBiTree<RankedSymbol,Variable>(alphabet.get("f"), 
+				new StdBiTree<RankedSymbol,Variable>(alphabet.get("f"),
 						Util.makeList(new StdBiTree<RankedSymbol,Variable>(var2),
 								new StdBiTree<RankedSymbol,Variable>(var1),
 								new StdBiTree<RankedSymbol,Variable>(var0))));
@@ -224,7 +224,7 @@ public class TTTest {
 		testTreesDeform.put("tree_plus", new StdTree<RankedSymbol>(alphabet.get("plus_1")));
 		testTreesDeform.put("plus_x_y", new StdTree<RankedSymbol>(alphabet.get("op"),
 				Util.makeList(testTreesDeform.get("tree_x"), testTreesDeform.get("tree_plus"), testTreesDeform.get("tree_y"))));
-		testTreesDeform.put("plus2_x_y", new StdTree<RankedSymbol>(alphabet.get("plus_2"), 
+		testTreesDeform.put("plus2_x_y", new StdTree<RankedSymbol>(alphabet.get("plus_2"),
 				Util.makeList(testTreesDeform.get("tree_x"), testTreesDeform.get("tree_y"))));
 
 
@@ -240,17 +240,17 @@ public class TTTest {
 	 * <li>b	  -> q_b,b</li>
 	 * <li>c	  -> q_c,c</li>
 	 * <li>d(q_i)	  -> q_d,d(x_0)</li>
-	 * <li>e(q_i,q_j) -> q_e,e(q_i,q_j) if i<=j 
+	 * <li>e(q_i,q_j) -> q_e,e(q_i,q_j) if i<=j
 	 * 		  -> q_e,e(q_j,q_i) otherwise </li>
 	 * <li>f : like e ...</li>
 	 * </ul>
 	 * This tree transducer sorts the subtrees by alphabetical order.
-	 * 
+	 *
 	 * @throws java.lang.Exception is hopefully never thrown
 	 */
 	static void setUpTtSorting() throws Exception{
-		Set<EasyTTRule> rules = new HashSet<EasyTTRule>(); 
-		rules.add(new EasyTTRule(alphabet.get("a"),states.get(1),variableTrees.get("tree_a")));	
+		Set<EasyTTRule> rules = new HashSet<EasyTTRule>();
+		rules.add(new EasyTTRule(alphabet.get("a"),states.get(1),variableTrees.get("tree_a")));
 		rules.add(new EasyTTRule(alphabet.get("b"),states.get(2),variableTrees.get("tree_b")));
 		rules.add(new EasyTTRule(alphabet.get("c"),states.get(3),variableTrees.get("tree_c")));
 		for (int i = 1; i<= 6; i++){
@@ -259,17 +259,17 @@ public class TTTest {
 		// e-rules, case i <= j : e(q_i,q_j) -> q_e,e(q_i,q_j)
 		for (int i = 1; i <= 6; i++){
 			for (int j = i; j <= 6 ; j++) {
-				rules.add(new EasyTTRule(alphabet.get("e"),states.get(5),variableTrees.get("tree_e_0_1"),states.get(i), states.get(j)));		
+				rules.add(new EasyTTRule(alphabet.get("e"),states.get(5),variableTrees.get("tree_e_0_1"),states.get(i), states.get(j)));
 			}
 		}
 		// e-rules, case i > j : e(q_i,q_j) -> q_e,e(q_j,q_i)
 		for (int i = 1; i <= 6; i++){
 			for (int j = 1; j < i ; j++) {
-				rules.add(new EasyTTRule(alphabet.get("e"),states.get(5),variableTrees.get("tree_e_1_0"),states.get(i), states.get(j)));		
+				rules.add(new EasyTTRule(alphabet.get("e"),states.get(5),variableTrees.get("tree_e_1_0"),states.get(i), states.get(j)));
 			}
 		}
 		// n = 6
-		// f-rules, case i <= j & j <= k ~~> i <= j <= n, j <= k <= n  
+		// f-rules, case i <= j & j <= k ~~> i <= j <= n, j <= k <= n
 		for (int i = 1; i <= 6; i++){
 			for (int j = i; j <= 6; j++){
 				for (int k = j; k <= 6; k++){
@@ -285,7 +285,7 @@ public class TTTest {
 				}
 			}
 		}
-		// f-rules, case j < i & i <= k ~~> 1 <= j < i, i <= k <= n	
+		// f-rules, case j < i & i <= k ~~> 1 <= j < i, i <= k <= n
 		for (int i = 1; i <= 6; i++){
 			for (int j = 1; j < i; j++){
 				for (int k = i; k <= 6; k++){
@@ -327,7 +327,7 @@ public class TTTest {
 	}
 
 	/**
-	 * Sets up a tree transducer tt_deformer which calculates the term 
+	 * Sets up a tree transducer tt_deformer which calculates the term
 	 * which is represented by the tree:<br>
 	 * <ul>
 	 * <li> x        -> (q,x)</li>
@@ -412,14 +412,14 @@ public class TTTest {
 				alphabet.values(),ruleSet,epsSet));
 
 	}
-	
+
 	/**
 	 * Sets up {@link TTTest#count} many random generated test cases.
 	 */
 	void setUpRandom(){
 		RandomTestCases generator = new RandomTestCases();
 		//int numStates,int numSymbols,int maxArity,int numRules,int numFinal
-		
+
 		//generate alphabets
 		RandomFTAGenerator ftaGeneratorStart = new RandomFTAGenerator(6,6,2,20,1);
 		ftaGeneratorStart.generateAlphabet();
@@ -427,7 +427,7 @@ public class TTTest {
 		ftaGeneratorDest.generateAlphabet();
 		RankedSymbol[] startAlph = ftaGeneratorStart.getSymbols();
 		destAlph = ftaGeneratorDest.getSymbols();
-		
+
 		//generate tree transducer and trees
 		int numRules = 30; // number of rules per tree transducer
 		int numStates = 7; // number of states per tree transducer
@@ -443,7 +443,7 @@ public class TTTest {
 		for (int i=0; i<count;i++){
 			randomTree[i] = generator.randomTree(startAlph, 6);
 		}
-		
+
 		//generate FTA
 		for (int i=0; i< count/2; i++){
 			EasyFTA easy = ftaGeneratorStart.generateReduced();
@@ -453,7 +453,7 @@ public class TTTest {
 
 	/**
 	 * Sets up all the needed things.
-	 * 
+	 *
 	 * @throws java.lang.Exception if something goes wrong
 	 */
 	@Before
@@ -473,7 +473,7 @@ public class TTTest {
 
 	/**
 	 * Tries to apply several tree transducers, test method for {@link GenTT#doARun}.<br>
-	 * Some defined examples are tested, furthermore some automatically generated 
+	 * Some defined examples are tested, furthermore some automatically generated
 	 * tree transducers are tried to run on some generated trees.
 	 */
 	@Test
@@ -503,7 +503,7 @@ public class TTTest {
 		Assert.assertEquals(subtrees1.get(0).getSymbol(),subTrees2.get(0).getSymbol());
 		Assert.assertEquals(subtrees1.get(0),subTrees2.get(0));
 		Assert.assertEquals(plxy,testTreesDeform.get("plus2_x_y"));
-		
+
 		//random cases
 		EasyFTA all = EasyFTAOps.computeAlphabetFTA(Arrays.asList(destAlph));
 		for (int i=0; i< count; i++){
@@ -522,10 +522,10 @@ public class TTTest {
 
 
 
-	/** 
+	/**
 	 * A test for the decide-method of a tree transducer. <br>
-	 * It is checked whether the method based on doARun gives the same result 
-	 * as the method in {@link FTAProperties}. 
+	 * It is checked whether the method based on doARun gives the same result
+	 * as the method in {@link FTAProperties}.
 	 * Furthermore, some constructed examples are checked.
 	 */
 	@Test
@@ -563,7 +563,7 @@ public class TTTest {
 			Assert.assertTrue("All trees are accepted by the sorter, not "+testTreesSort.get(t),
 					testTrans.get("tt").decide(testTreesSort.get(t)));
 		}
-		
+
 		for (int i=0; i<count; i++){
 			for (int j= 0; j<count;j++){
 				Assert.assertTrue(randomTT[i].decide(randomTree[j]) == FTAProperties.decide(randomTT[i],randomTree[j]));
@@ -573,14 +573,14 @@ public class TTTest {
 	}
 
 	/**
-	 * Checks complete and deterministic-checks in {@link FTAProperties} used 
+	 * Checks complete and deterministic-checks in {@link FTAProperties} used
 	 * with tree transducers.<br>
 	 * Checks linearity of automatically generated tree transducers.
 	 */
 	@Test
 	public void testCheckProperties(){
 		EasyTT sort = testTrans.get("tt");
-		
+
 		// the sorting tree transducer is complete
 		Assert.assertTrue(FTAProperties.checkComplete(testTrans.get("tt").getFTAPart()));
 		Assert.assertTrue("The sorting tree transducer is complete.",
@@ -591,21 +591,21 @@ public class TTTest {
 				FTAProperties.checkDeterministic(testTrans.get("tt_deformer")));
 		Assert.assertFalse("The deformer tree transducer is not complete.",
 				FTAProperties.checkComplete(testTrans.get("tt_deformer")));
-		
+
 		//random test cases, check linearity
 		for (int i=0; i<count/2;i++){
 			Assert.assertTrue("Tree transducer is not linear: \n"+randomTT[i],randomTT[i].isLinear());
 		}
-		
+
 	}
-	
-	
+
+
 	/**
 	 * Checks the method {@link TTOps#union} with automatically generated tree transducers.<br>
 	 * Test method: If one tree is accepted by both tree transducers, the union tree transducer
 	 * must accept the tree, too. If one tree is generated by one tree transducer, the union
 	 * tree transducer must generate it, too. The union of the finite tree automata parts
-	 * must be accept the same language as the union of the tree transducers. 
+	 * must be accept the same language as the union of the tree transducers.
 	 */
 	@Test
 	public void testUnion(){
@@ -614,11 +614,11 @@ public class TTTest {
 				System.out.println("Testing union tree transducer: "+i + " union " +j);
 				EasyTT union = TTOps.convertToEasyTT(TTOps.union(randomTT[i],randomTT[j]));
 				EasyFTA unionFTA = EasyFTAOps.union(randomTT[i].getFTAPart(), randomTT[j].getFTAPart());
-				
+
 				for (int k=0; k<count;k++){
 					if ((FTAProperties.decide(randomTT[i], randomTree[k])) ||
 							(FTAProperties.decide(randomTT[j], randomTree[k]))){
-						Assert.assertTrue(unionFTA.decide(randomTree[k]));	
+						Assert.assertTrue(unionFTA.decide(randomTree[k]));
 						Assert.assertTrue("Problem to union tree transducer \n"+ randomTT[i] + "\n with tree transducer \n"
 								+ randomTT[j],FTAProperties.decide(union, randomTree[k]));
 					}
@@ -632,7 +632,7 @@ public class TTTest {
 			}
 		}
 	}
-	
+
 	/**
 	 * Tests the method {@link TTOps#runOnAutomaton(GenTT, GenFTA)}.<br>
 	 * Therefore apply random generated linear tree transducers on finite tree automata.
@@ -644,7 +644,7 @@ public class TTTest {
 		for (int i=0; i<count/2;i++){
 			for (int j=0;j<count/2;j++){
 				System.out.println("Testing tt "+i + " with fta " +j);
-				GenFTA<RankedSymbol, State> run = TTOps.runOnAutomaton(randomTT[i], randomFTA[j]);	
+				GenFTA<RankedSymbol, State> run = TTOps.runOnAutomaton(randomTT[i], randomFTA[j]);
 				for (int k=0; k<count; k++){
 					if (randomFTA[j].decide(randomTree[k]) && randomTT[i].decide(randomTree[k])){
 						for (Tree<RankedSymbol> t: randomTT[i].doARun(randomTree[k]))
@@ -653,7 +653,7 @@ public class TTTest {
 				}
 			}
 		}
-		
+
 	}
 
 

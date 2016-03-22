@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.utils;
 
@@ -18,7 +18,7 @@ import de.uni_muenster.cs.sev.lethal.treeautomata.generic.GenFTA;
 
 /**
  * Class to generate random finite tree automata.
- * 
+ *
  * @author Peter Lammich
  */
 public class RandomFTAGenerator {
@@ -30,7 +30,7 @@ public class RandomFTAGenerator {
 	private int numFinal;
 
 	boolean langGen=false;
-	private int [] arities; 
+	private int [] arities;
 	private State [] states;
 	private RankedSymbol [] symbols;
 	private Random rg = null;
@@ -51,11 +51,11 @@ public class RandomFTAGenerator {
 
 	/**
 	 * Initializes the generator with the specified values.
-	 * 
-	 * @param numStates Number of states of the generated automata. 
+	 *
+	 * @param numStates Number of states of the generated automata.
 	 * @param numSymbols Number of symbols. Must be greater than 0.
-	 * @param maxArity Maximum arity. The generated function symbols' arities will be spread equally between [0..maxArity]. However, 
-	 * 	  there will be at least one symbol with arity 0. 
+	 * @param maxArity Maximum arity. The generated function symbols' arities will be spread equally between [0..maxArity]. However,
+	 * 	  there will be at least one symbol with arity 0.
 	 * @param numRules Number of rules.
 	 * @param numFinal Number of final states.
 	 * @param seed Seed for the random number generator
@@ -70,16 +70,16 @@ public class RandomFTAGenerator {
 		this.maxArity = maxArity;
 		this.numRules = numRules;
 		this.numFinal = numFinal;
-		rg = new Random(seed);		
+		rg = new Random(seed);
 	}
-	
+
 	/**
 	 * Initializes the generator with the specified values.
-	 * 
-	 * @param numStates Number of states of the generated automata. 
+	 *
+	 * @param numStates Number of states of the generated automata.
 	 * @param numSymbols Number of symbols. Must be greater than 0.
-	 * @param maxArity Maximum arity. The generated function symbols' arities will be spread equally between [0..maxArity]. However, 
-	 * 	  there will be at least one symbol with arity 0. 
+	 * @param maxArity Maximum arity. The generated function symbols' arities will be spread equally between [0..maxArity]. However,
+	 * 	  there will be at least one symbol with arity 0.
 	 * @param numRules Number of rules.
 	 * @param numFinal Number of final states.
 	 */
@@ -97,7 +97,7 @@ public class RandomFTAGenerator {
 
 	/**
 	 * Set the random number generator. Subsequent operations will be based on the new random number generator.
-	 * 
+	 *
 	 * Note that setting the random number generator immediately after constructing this class is sufficient to have all
 	 * randomness based on the new generator, as the default generator will not be used before the first call to a <code>generateXXX</code>-method.
 	 * @param rg New Random number generator. Must not be null.
@@ -107,11 +107,11 @@ public class RandomFTAGenerator {
 		this.rg = rg;
 	}
 
-	
-	
+
+
 	/**
 	 * Returns all generated symbols.
-	 * 
+	 *
 	 * @return all generated Symbols
 	 */
 	public RankedSymbol[] getSymbols() {
@@ -124,7 +124,7 @@ public class RandomFTAGenerator {
 	/**
 	 * (Re)Generates the current alphabet.
 	 * This method generates an alphabet by choosing the arities of the function symbols.
-	 * The generated alphabet will be used for all subsequently generated automata. 
+	 * The generated alphabet will be used for all subsequently generated automata.
 	 */
 	public void generateAlphabet() {
 		// Fill arities
@@ -165,7 +165,7 @@ public class RandomFTAGenerator {
 
 		// Rules
 		for (int i=0;i<numRules;++i) {
-			// Create rule 
+			// Create rule
 			RankedSymbol f = symbols[rg.nextInt(numSymbols)];
 			State dest = states[rg.nextInt(numStates)];
 			List<State> source = new ArrayList<State>(f.getArity());
@@ -183,7 +183,7 @@ public class RandomFTAGenerator {
 	/**
 	 * Generates a random, reduced automaton.
 	 * The result is obtained by generating a random automaton and then reducing it.
-	 * Note that the result is <em>not</em> equally distributed over the space of <em>reduced</em> automata. 
+	 * Note that the result is <em>not</em> equally distributed over the space of <em>reduced</em> automata.
 	 * @return Reduced, random automaton
 	 */
 	public EasyFTA generateReduced() {
@@ -192,7 +192,7 @@ public class RandomFTAGenerator {
 
 	/**
 	 * Generates an automaton that accepts no trees with a depth smaller than or equal to minDepth.
-	 * Note that this function may need exponential space and time in minDepth. 
+	 * Note that this function may need exponential space and time in minDepth.
 	 * @param minDepth Only trees with a higher depth will be accepted
 	 * @return Random automaton.
 	 */

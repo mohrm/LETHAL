@@ -23,20 +23,20 @@ package de.uni_muenster.cs.sev.lethal.gui;
  * @author Philipp
  */
 public abstract class AbstractTreeAutomatonItem extends Item {
-	
-	
+
+
 	/** Rules parser */
-	public static final int INPUT_MODE_RULES = 0;	
+	public static final int INPUT_MODE_RULES = 0;
 	/** Grammar parser */
 	public static final int INPUT_MODE_GRAMMAR = 1;
-	
+
 	protected String automatonString;
 	protected int inputMode;
-	
+
 	protected AbstractTreeAutomatonItem(String name, Project project) {
 		super(name, project);
 	}
-	
+
 	/**
 	 * Returns the input mode used for the tree automaton represented by this item.<br>
 	 * Supported values are INPUT_MODE_RULES and INPUT_MODE_GRAMMAR.

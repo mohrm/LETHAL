@@ -29,7 +29,7 @@ public class While extends Statement {
 
 	private Expression condition;
 	private List<Statement> statements;
-	
+
 	/**
 	 * Creates a new While statement
 	 * @param condition condition to check before every loop iteration.

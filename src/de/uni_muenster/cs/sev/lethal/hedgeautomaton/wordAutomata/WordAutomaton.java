@@ -76,7 +76,7 @@ public class WordAutomaton<G_Symbol extends UnrankedSymbol, G_State extends Stat
 
 	/**
 	 * Returns the set of states of this word automaton.
-	 * 
+	 *
 	 * @return the set of states of the word automaton
 	 */
 	public Set<G_State> getStates() {
@@ -85,7 +85,7 @@ public class WordAutomaton<G_Symbol extends UnrankedSymbol, G_State extends Stat
 
 	/**
 	 * Returns the set of rules of this word automaton.
-	 * 
+	 *
 	 * @return the set of rules of the word automaton
 	 */
 	public Set<WordRule<G_State>> getRules() {
@@ -101,7 +101,7 @@ public class WordAutomaton<G_Symbol extends UnrankedSymbol, G_State extends Stat
 
 	/**
 	 * Returns the set of final states of this word automaton.
-	 * 
+	 *
 	 * @return the set of the final states of the word automaton
 	 */
 	public Set<G_State> getFinalStates() {

@@ -33,7 +33,7 @@ import javax.swing.*;
  *
  */
 public abstract class AbstractTreeAutomatonEditor extends Editor {
-	
+
 	/** Last hope for despaired users. */
 	protected JButton helpButton = new JButton("Help",Resources.loadIcon("help.png"));
 	/** Button to apply some operations. */
@@ -47,13 +47,13 @@ public abstract class AbstractTreeAutomatonEditor extends Editor {
 
 	/** Button to select how the Automaton will be given. */
 	protected JButton selectInputButton = new JButton("Input mode", Resources.loadIcon("input-mode.png"));
-	
+
 	/** Names for the two input modes: Rules and Grammar.*/
 	protected final List<String> inputModeNames = Arrays.asList("Rules", "Grammar");
-	
+
 	/** Event listener for project events, used to monitor if the item has been changed while opened in the editor */
 	protected ProjectEventListener projectListener;
-	
+
 	/**
 	 * Constructs editor window from given AbstractTreeAutomatonItem.
 	 * @param item @see("AbstractTreeAutomatonItem#.")
@@ -61,10 +61,10 @@ public abstract class AbstractTreeAutomatonEditor extends Editor {
 	public AbstractTreeAutomatonEditor(final AbstractTreeAutomatonItem item){
 		super(item);
 		setInputMode(item.inputMode);
-		
+
 		this.setLayout(new BorderLayout());
 		this.add(toolbar, BorderLayout.NORTH);
-		
+
 		this.toolbar.add(this.selectInputButton,2);
 		this.selectInputButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -73,7 +73,7 @@ public abstract class AbstractTreeAutomatonEditor extends Editor {
 						AbstractTreeAutomatonEditor.this.setInputMode(inputModeNames.indexOf( ((JMenuItem)e.getSource()).getText() ));
 					}
 				};
-				
+
 				JPopupMenu menu = new JPopupMenu();
 				for (int i = 0; i < inputModeNames.size(); i++){
 					JMenuItem item = new JRadioButtonMenuItem(inputModeNames.get(i), AbstractTreeAutomatonEditor.this.inputMode == i);
@@ -81,26 +81,26 @@ public abstract class AbstractTreeAutomatonEditor extends Editor {
 					menu.add(item);
 				}
 				menu.show(AbstractTreeAutomatonEditor.this.selectInputButton, 0, AbstractTreeAutomatonEditor.this.selectInputButton.getHeight());
-			} 
+			}
 		});
-		
+
 		this.toolbar.add(this.quickApplyButton);
 		this.toolbar.add(new JToolBar.Separator());
 		this.toolbar.add(this.helpButton);
 
 		this.add(new JScrollPane(editorTextField), BorderLayout.CENTER);
 	}
-	
+
 	/**
 	 * Sets the input mode.
-	 * 
+	 *
 	 * @param mode new input mode.
 	 */
 	protected void setInputMode(int mode){
 		this.inputMode = mode;
 		this.selectInputButton.setText(inputModeNames.get(mode) + " input mode");
 	}
-	
+
 	/**
 	 * Action on close of the editor window, unregister the project event listener if any.
 	 */

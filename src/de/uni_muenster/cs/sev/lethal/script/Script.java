@@ -32,20 +32,20 @@ import de.uni_muenster.cs.sev.lethal.script.exceptions.ScriptRuntimeError;
  *
  */
 public class Script {
-	
+
 	private List<Statement> statements;
-	
+
 	protected Script(List<Statement> statements) {
 		this.statements = statements;
 	}
-	
+
 	/**
 	 * Run the script without project workspace and with output directed to STDOUT
 	 */
 	public void execute() {
 		execute(System.out, null);
 	}
-	
+
 	/**
 	 * Run the script with output written to the given stream, but without a project attached.
 	 * @param out output stream
@@ -53,7 +53,7 @@ public class Script {
 	public void execute(PrintStream out) {
 		execute(out, null);
 	}
-	
+
 	/**
 	 * Run the script with given project workspace and output written to the given stream
 	 * @param out stream to write the output to
@@ -62,11 +62,11 @@ public class Script {
 	public void execute(PrintStream out, Project project) {
 		RootObject rootObject = new RootObject(out, project);
 		Environment rootEnv = rootObject.getEnvironment();
-		
-		
+
+
 		if (project != null) {
 			HashMap<String,ScriptObject> scriptObjects = new HashMap<String,ScriptObject>();
-			
+
 			for (Item item : project.getItems(FTAItem.class)){
 				scriptObjects.put(item.getName(), new FTAObject(((FTAItem)item).getAutomaton()));
 			}
@@ -89,7 +89,7 @@ public class Script {
 			ProjectClass projectClass = new ProjectClass(scriptObjects);
 			rootObject.getEnvironment().bindLocal("Project", projectClass);
 		}
-		
+
 		try{
 			for (Statement statement : this.statements){
 				statement.execute(rootEnv);

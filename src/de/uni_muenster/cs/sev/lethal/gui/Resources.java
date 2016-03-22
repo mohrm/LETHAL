@@ -41,7 +41,7 @@ public class Resources {
 		if (url != null) return new ImageIcon(url);
 		return null;
 	}
-	
+
 	/**
 	 * Loads an image from the system resources.
 	 * @param name filename of the icon to load
@@ -52,5 +52,5 @@ public class Resources {
 		if (url != null) return Toolkit.getDefaultToolkit().getImage(url);
 		return null;
 	}
-	
+
 }

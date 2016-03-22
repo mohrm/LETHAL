@@ -26,7 +26,7 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.UnrankedSymbol;
  * Needed to contain both the user and the Nil/Cons symbols.
  *
  * @param <G_Symbol> type of the unranked symbols
- * 
+ *
  * @author Anton, Maria
  */
 public class HedgeSymbol<G_Symbol extends UnrankedSymbol> implements RankedSymbol {

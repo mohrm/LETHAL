@@ -21,13 +21,13 @@ package de.uni_muenster.cs.sev.lethal.symbol.standard;
 import de.uni_muenster.cs.sev.lethal.symbol.common.NamedSymbol;
 
 /**
- * Standard implementation of symbols with a name. <br> 
- * A name is some additional information which characterizes the symbol, 
+ * Standard implementation of symbols with a name. <br>
+ * A name is some additional information which characterizes the symbol,
  * i.e. two named symbols are equal if and only if their names are equal.<br>
  * Do not change the name after initalizing!
  *
  * @param <N> type of name
- * 
+ *
  * @author Anton, Dorothea, Irene, Maria, Martin, Sezar
  */
 public abstract class AbstractNamedSymbol<N> implements NamedSymbol<N> {
@@ -57,7 +57,7 @@ public abstract class AbstractNamedSymbol<N> implements NamedSymbol<N> {
 
 	/**
 	 * Calculates the hash code.
-	 * 
+	 *
 	 * @return newly calculated hash code
 	 */
 	private int calculateHashCode() {

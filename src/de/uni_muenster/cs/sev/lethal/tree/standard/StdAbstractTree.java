@@ -23,9 +23,9 @@ import de.uni_muenster.cs.sev.lethal.tree.common.Tree;
 
 /**
  * Base class of the standard tree implementation which provides some common functionality.
- * 
+ *
  * @param <S> tree node symbol type
- * 
+ *
  * @author Anton, Dorothea, Irene, Maria, Martin, Philipp, Sezar
  */
 public abstract class StdAbstractTree<S extends Symbol> implements Tree<S> {

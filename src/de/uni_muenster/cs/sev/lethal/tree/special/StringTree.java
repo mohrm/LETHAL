@@ -32,11 +32,11 @@ import de.uni_muenster.cs.sev.lethal.factories.TreeFactory;
 /**
  * Specialized tree class for representing a String as a Tree where each character of the string is a leaf node.
  * The tree has height 1 and the root node is labeled _string_.
- * This class allows for easy inclusion of string data into trees/hedges in a way 
+ * This class allows for easy inclusion of string data into trees/hedges in a way
  * that can be processed by tree/hedge automata.
- * 
- * @param <S> symbol type 
- * 
+ *
+ * @param <S> symbol type
+ *
  * @see #StringTree
  *
  * @author Philipp
@@ -46,7 +46,7 @@ public class StringTree<S extends Symbol> extends StdAbstractTree<S> implements 
 	private Class<? extends S> symClass;
 	private final S rootSymbol;
 	private String string;
-	private List<? extends Tree<S>> subtrees = null; 
+	private List<? extends Tree<S>> subtrees = null;
 
 	/**
 	 * Creates a new StringTree instance.

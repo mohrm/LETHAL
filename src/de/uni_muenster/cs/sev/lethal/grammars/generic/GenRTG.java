@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.grammars.generic;
 
@@ -43,10 +43,10 @@ import de.uni_muenster.cs.sev.lethal.utils.Pair;
 
 /**
  * Standard implementation of {@link de.uni_muenster.cs.sev.lethal.grammars.RTG}.<br>
- * 
+ *
  * @param <F> type of symbols occurring in the rules
  * @param <Q> type of non-terminals occurring in the rules
- * 
+ *
  * @author Dorothea, Martin, Sezar , Philipp
  */
 public class GenRTG<F extends RankedSymbol, Q extends State> implements RTG<F,Q>, FTA<F,NamedState<Object>, GenFTARule<F,NamedState<Object>>> {
@@ -58,7 +58,7 @@ public class GenRTG<F extends RankedSymbol, Q extends State> implements RTG<F,Q>
 
 
 	/**
-	 * Start symbols that have been added since the last time 
+	 * Start symbols that have been added since the last time
 	 * the underlying finite tree automaton has been computed.
 	 */
 	protected LinkedList<Q> unprocessedStartSymbols;
@@ -71,7 +71,7 @@ public class GenRTG<F extends RankedSymbol, Q extends State> implements RTG<F,Q>
 
 
 	/**
-	 * Rules that have been added since the last time 
+	 * Rules that have been added since the last time
 	 * the underlying finite tree automaton has been computed.
 	 */
 	protected LinkedList<RTGRule<F, Q>> unprocessedRules = null;
@@ -84,11 +84,11 @@ public class GenRTG<F extends RankedSymbol, Q extends State> implements RTG<F,Q>
 
 
 	/**
-	 * Indicates whether the grammar has been changed since the last time 
+	 * Indicates whether the grammar has been changed since the last time
 	 * the underlying finite tree automaton has been computed.
 	 */
 	protected boolean dirtyFTA = true;
-	
+
 	/**
 	 * Creates a new regular tree grammar with the specified start symbols and rules.
 	 * @param start start symbols of the regular tree grammar to be created
@@ -115,7 +115,7 @@ public class GenRTG<F extends RankedSymbol, Q extends State> implements RTG<F,Q>
 
 
 	/**
-	 * Updates the grammar if it has not been initialized before 
+	 * Updates the grammar if it has not been initialized before
 	 * or if some start symbols or rules have been added.
 	 */
 	protected void updateGrammar() {
@@ -124,16 +124,16 @@ public class GenRTG<F extends RankedSymbol, Q extends State> implements RTG<F,Q>
 
 
 	/**
-	 * Updates the underlying finite tree automaton if it has not been initialized before 
+	 * Updates the underlying finite tree automaton if it has not been initialized before
 	 * or if some start symbols or rules have been added.
 	 * As the grammar has to be up to date if the underlying finite tree automaton is,
 	 * the grammar also has to be updated.
 	 */
 	protected void updateFTA() {
-		
+
 		final String prefix = "G(";
 		final String suffix = ")";
-		
+
 		CachedConverter<Object, NamedState<Object>> stateConv = new CachedConverter<Object, NamedState<Object>>() {
 			@Override
 			public NamedState<Object> uniqueConvert(final Object a) {
@@ -146,16 +146,16 @@ public class GenRTG<F extends RankedSymbol, Q extends State> implements RTG<F,Q>
 			}
 
 		};
-		
+
 		if (unprocessedStartSymbols == null) unprocessedStartSymbols = new LinkedList<Q>(); //initialize the unprocessed symbols list we need it now.
 		if (unprocessedRules        == null) unprocessedRules = new LinkedList<RTGRule<F, Q>>(); //initialize the unprocessed rules list we need it now.
-		
+
 		if (equivFTA == null) {
 			// underlying finite tree automaton has never been computed before
 			equivFTA = new GenFTA<F,NamedState<Object>>(this, stateConv);
 		} else {
 			// underlying finite tree automaton has to be changed
-			Pair<Collection<FTARule<F, NamedState<Object>>>, Collection<NamedState<Object>>> helpPair 
+			Pair<Collection<FTARule<F, NamedState<Object>>>, Collection<NamedState<Object>>> helpPair
 					= FTACreator.makeFTAFromGrammar(unprocessedStartSymbols, unprocessedRules, stateConv);
 			for (FTARule<F, NamedState<Object>> rule : helpPair.getFirst()) {
 				equivFTA.addRule(rule.getSymbol(),rule.getSrcStates(),rule.getDestState());
@@ -166,13 +166,13 @@ public class GenRTG<F extends RankedSymbol, Q extends State> implements RTG<F,Q>
 		}
 		// the finite tree automaton has been updated
 		dirtyFTA = false;
-		
+
 		// clear the unprocessed rules and start symbols lists, we have added their content to the automaton.
 		unprocessedRules.clear();
 		unprocessedStartSymbols.clear();
 	}
-	
-	
+
+
 	/**
 	 * @see de.uni_muenster.cs.sev.lethal.grammars.RTG#getGrammarRules()
 	 */

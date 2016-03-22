@@ -30,7 +30,7 @@ import java.util.Set;
  * Usually: user state XOR generated state (similar to the BiState).
  *
  * @param <G_State> state type
- * 
+ *
  * @author Anton, Maria
  */
 public class HedgeState<G_State extends State> implements State {

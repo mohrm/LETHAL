@@ -50,7 +50,7 @@ import de.uni_muenster.cs.sev.lethal.utils.IdentityConverter;
 class TreeClass extends ScriptClass{
 
 	public static final TreeClass treeClass = new TreeClass();
-	
+
 	private TreeClass() {
 		super("Tree", null, RootClass.newStaticClassEnvironment(), true);
 		this.setMember("random", new Method(0){
@@ -83,7 +83,7 @@ class TreeClass extends ScriptClass{
 					throw new ScriptRuntimeError("Tree.new expects a String, Tree or Array of Trees as "+i+" parameter");
 				}
 			}
-			
+
 			if (args.get(0) instanceof StringObject){
 				String nodeName = ((StringObject)args.get(0)).getValue();
 				try {
@@ -98,7 +98,7 @@ class TreeClass extends ScriptClass{
 			throw new ScriptRuntimeError("Tree.new expects at least 1 parameter");
 		}
 	}
-	
+
 	private Tree<RankedSymbol> makeTree(String treeString){
 		try {
 			return  TreeParser.parseString(treeString);
@@ -108,8 +108,8 @@ class TreeClass extends ScriptClass{
 			throw new ScriptRuntimeError("Invalid Tree Term: '" + treeString + "'");
 		}
 	}
-	
-	
+
+
 }
 
 /**
@@ -120,7 +120,7 @@ class TreeClass extends ScriptClass{
 class TreeObject extends ScriptObject{
 
 	private Tree<RankedSymbol> tree;
-	
+
 	public TreeObject(Tree<RankedSymbol> tree) {
 		super(TreeClass.treeClass);
 		this.tree = tree;
@@ -129,7 +129,7 @@ class TreeObject extends ScriptObject{
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
 				EasyFTA automaton;
 				automaton = EasyFTAOps.computeSingletonFTA(TreeObject.this.tree);
-				final HashMap<State,State> stateMap = new HashMap<State,State>(); 
+				final HashMap<State,State> stateMap = new HashMap<State,State>();
 				automaton = FTAOps.ftaConverter(automaton, new Converter<State,State>(){
 					@Override
 					public State convert(State a) {
@@ -140,7 +140,7 @@ class TreeObject extends ScriptObject{
 				}, new IdentityConverter<RankedSymbol>(), new EasyFTACreator());
 				return new FTAObject(automaton);
 			}
-			
+
 		});
 		this.setMember("subtrees", new Method(0){
 			@Override
@@ -163,25 +163,25 @@ class TreeObject extends ScriptObject{
 				return new ArrayObject(symbolNames);
 			}
 		});
-		
+
 		this.setMember("symbol", ScriptObject.make(tree.getSymbol().toString()));
 		this.setMember("height", ScriptObject.make(TreeOps.getHeight(tree)));
 	}
-	
+
 	public Tree<RankedSymbol> getTree(){
 		return this.tree;
 	}
-	
+
 	@Override
 	public boolean equals(Object o){
 		return (o instanceof TreeObject) && this.getTree().equals(((TreeObject)o).getTree());
 	}
-	
+
 	@Override
 	public String toString(){
 		return this.tree.toString();
 	}
-	
+
 	@Override
 	public int hashCode(){
 		return this.tree.hashCode();

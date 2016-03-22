@@ -33,7 +33,7 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.UnrankedSymbol;
  * The class is also used to change the regular expressions into a hedge
  * automaton.
  * @param <G_Symbol> symbol type of the hedge grammar
- * 
+ *
  * @author Anton, Maria
  */
 public class Alternation<G_Symbol extends UnrankedSymbol> extends GrammarExpression<G_Symbol> {
@@ -50,7 +50,7 @@ public class Alternation<G_Symbol extends UnrankedSymbol> extends GrammarExpress
 	/**
 	 * Constructs a new Alternation with two regular expressions and calculates
 	 * corresponding states and rules for a hedge automaton.
-	 * 
+	 *
 	 * @param exp1
 	 *            first alternative expression.
 	 * @param exp2

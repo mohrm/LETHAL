@@ -94,7 +94,7 @@ final class ExpressionCache {
 	 * The resulting finite tree automaton contains only the part of the finite tree automaton, which was not generated in previous calls.
 	 * For example, if f exp^2 was generated previously and exp^3 is requested, only the exp^2->exp^3 part is returned.
 	 * If exp^2 was generated previously and exp is requested, the finite tree automaton will contain no states nor rules.
-	 * This affects states and rules, while all matching final states are returned. 
+	 * This affects states and rules, while all matching final states are returned.
 	 *
 	 * @param <G_State>   state type of expression to be transformed
 	 * @param <G_Symbol>   symbol type of expression to be transformed
@@ -220,7 +220,7 @@ final class ExpressionCache {
 
 	/**
 	 * Removes a hedge automaton from the cache.
-	 * 
+	 *
 	 * @param ha hedge automaton to remove
 	 */
 	public static void clear(final HedgeAutomaton<? extends UnrankedSymbol, ? extends State> ha) {

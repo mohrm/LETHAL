@@ -21,10 +21,10 @@ package de.uni_muenster.cs.sev.lethal.utils;
 /**
  * Implements a triple.
  *
- * @param <S> type of the first component 
+ * @param <S> type of the first component
  * @param <T> type of the second component
  * @param <U> type of the third component
- * 
+ *
  * @author Martin
  */
 public class Triple<S,T,U> {
@@ -41,7 +41,7 @@ public class Triple<S,T,U> {
 
 	/**
 	 * Constructs a triple out of three given objects.
-	 * 
+	 *
 	 * @param fst first component
 	 * @param snd second component
 	 * @param thrd third component
@@ -55,7 +55,7 @@ public class Triple<S,T,U> {
 
 	/**
 	 * Returns the first component of the triple.
-	 * 
+	 *
 	 * @return first component of the triple
 	 */
 	public S getFirst() {
@@ -65,7 +65,7 @@ public class Triple<S,T,U> {
 
 	/**
 	 * Returns the second component of the triple.
-	 * 
+	 *
 	 * @return second component of the triple
 	 */
 	public T getSecond() {
@@ -75,7 +75,7 @@ public class Triple<S,T,U> {
 
 	/**
 	 * Returns the third component of the triple.
-	 * 
+	 *
 	 * @return third component of the triple
 	 */
 	public U getThird() {

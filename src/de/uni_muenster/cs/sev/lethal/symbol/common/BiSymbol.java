@@ -48,42 +48,42 @@ package de.uni_muenster.cs.sev.lethal.symbol.common;
  * <li>If isInnerType() returns true, then asInnerSymbol() does not return null.
  * </li>
  * </ul>
- * 
+ *
  * <em> Note: </em> Inner symbols can occur as leaves, but are nevertheless
  * inner symbols.
- * 
+ *
  * @param <I> inner symbol type
  * @param <L> leaf symbol type
- * 
+ *
  * @author Martin, Dorothea, Irene
- * 
+ *
  */
 public interface BiSymbol<I extends Symbol, L> extends Symbol {
 
 	/**
 	 * Returns whether an inner type is represented.
-	 * 
+	 *
 	 * @return true if an inner type is represented, false otherwise.
 	 */
 	boolean isInnerType();
 
 	/**
 	 * Returns whether a leaf type is represented.
-	 * 
+	 *
 	 * @return true if a leaf type is represented, false otherwise.
 	 */
 	boolean isLeafType();
 
 	/**
 	 * Returns the represented inner symbol, if an inner symbol is represented.
-	 * 
+	 *
 	 * @return the represented inner symbol, if an inner symbol is represented.
 	 */
 	I asInnerSymbol();
 
 	/**
 	 * Returns the represented leaf symbol, if a leaf symbol is represented.
-	 * 
+	 *
 	 * @return the represented leaf symbol, if a leaf symbol is represented.
 	 */
 	L asLeafSymbol();

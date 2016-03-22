@@ -17,7 +17,7 @@
  * along with LETHAL.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  */
 package de.uni_muenster.cs.sev.lethal.testManual;
 
@@ -25,12 +25,12 @@ import de.uni_muenster.cs.sev.lethal.states.State;
 
 /**
  * Example for an extension of the states.
- * 
+ *
  * @see ExampleOps
  * @author Irene
  */
 public class SpecialState implements State {
-	/**Number of the state*/  
+	/**Number of the state*/
 	protected int nr;
 	/**Architecture of the state*/
 	protected String arch;
@@ -38,11 +38,11 @@ public class SpecialState implements State {
 
 	/**
 	 * Constructs a new state with the next number of the StateCounter.
-	 * @see StateCounter 
+	 * @see StateCounter
 	 */
-	public SpecialState(){ 
+	public SpecialState(){
 		nr = StateCounter.getNr();
-		arch = Integer.toString(nr); 
+		arch = Integer.toString(nr);
 	}
 
 	/**
@@ -50,9 +50,9 @@ public class SpecialState implements State {
 	 * @param str architecture of the new state
 	 * @see StateCounter
 	 */
-	public SpecialState(String str){ 
+	public SpecialState(String str){
 		nr = StateCounter.getNr();
-		arch = str; 
+		arch = str;
 	}
 
 	/**

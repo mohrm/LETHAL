@@ -32,10 +32,10 @@ import java.util.List;
  *
  */
 public class ArrayClass extends ScriptClass{
-	
+
 	/** Singleton ArrayClass class instance */
 	public static ArrayClass arrayClass = new ArrayClass();
-	
+
 	/**
 	 * Creates the array class. To be done once by the script interpreter initialization
 	 * @param parentClass not used currently
@@ -50,7 +50,7 @@ public class ArrayClass extends ScriptClass{
 		ScriptObject obj = new ArrayObject(args);
 		return obj;
 	}
-	
+
 }
 
 /**
@@ -61,14 +61,14 @@ public class ArrayClass extends ScriptClass{
 class ArrayObject extends ScriptObject{
 
 	private List<ScriptObject> contents;
-	
+
 	/**
 	 * Creates a new array instance. Only to be called by ArrayClass.newInstance
 	 * @param initialEntries constructor args, initial entry content.
 	 */
 	public ArrayObject(List<ScriptObject> initialEntries) {
 		super(ArrayClass.arrayClass);
-		
+
 		this.contents = initialEntries;
 		this.setMember("add", new Method(Method.ARITY_ARBITARY){
 			@Override
@@ -205,7 +205,7 @@ class ArrayObject extends ScriptObject{
 				return new ArrayObject(result);
 			}
 		});
-		
+
 		this.setMember("*", this.setMember("intersect", new Method(1){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block){
@@ -227,9 +227,9 @@ class ArrayObject extends ScriptObject{
 				result.addAll(contents);
 				result.addAll(contents2);
 				return new ArrayObject(result);
-			}			
+			}
 		}));
-		
+
 		this.setMember("-", new Method(1){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -242,7 +242,7 @@ class ArrayObject extends ScriptObject{
 				return new ArrayObject(result);
 			}
 		});
-		
+
 		this.setMember("sort", new Method(0){
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block){
@@ -256,33 +256,33 @@ class ArrayObject extends ScriptObject{
 						argArray.add(o2);
 						boolean le = o1.getMethod("<=").execute(o1.getEnvironment(), argArray, null) == ScriptObject.trueValue;
 						if (!le) return 1;
-						
+
 						argArray.add(o1);
 						boolean ge = o2.getMethod("<=").execute(o1.getEnvironment(), argArray, null) == ScriptObject.trueValue;
 						if (!ge) return -1;
-						
+
 						return 0;
 					}
-					
+
 				});
 				return new ArrayObject(content);
 			}
 		});
-		
-		
+
+
 	}
-	
+
 	@Override
 	public String toString(){
 		return contents.toString();
 	}
-	
+
 	@Override
 	public boolean equals(Object o){
 		if (!(o instanceof ArrayObject)) return false;
 		return ((ArrayObject)o).contents.equals(this.contents);
 	}
-	
+
 	/**
 	 * returns the list of the elements contained in this ArrayObject.
 	 * @return the list of the elements contained in this ArrayObject.
@@ -290,7 +290,7 @@ class ArrayObject extends ScriptObject{
 	public List<ScriptObject> getContent(){
 		return this.contents;
 	}
-	
+
 	@Override
 	public int hashCode(){
 		return this.contents.hashCode();

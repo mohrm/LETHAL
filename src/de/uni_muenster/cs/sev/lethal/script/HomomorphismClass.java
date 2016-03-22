@@ -31,10 +31,10 @@ import de.uni_muenster.cs.sev.lethal.script.exceptions.ScriptRuntimeError;
  *
  */
 public class HomomorphismClass extends ScriptClass {
-	
+
 	/** Singleton HomomorphismClass class instance */
 	public static final HomomorphismClass homClass = new HomomorphismClass();
-	
+
 	private HomomorphismClass() {
 		super("Homomorphism", null, RootClass.newStaticClassEnvironment(), true);
 	}
@@ -57,13 +57,13 @@ public class HomomorphismClass extends ScriptClass {
 }
 
 class HomomorphismObject extends ScriptObject {
-	
+
 	private EasyHom homomorphism;
-	
+
 	public HomomorphismObject(EasyHom homomorphism) {
 		super(HomomorphismClass.homClass);
 		this.homomorphism = homomorphism;
-		
+
 		this.getEnvironment().bindLocal("linear", new Method(0) {
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
@@ -74,7 +74,7 @@ class HomomorphismObject extends ScriptObject {
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
 
-				ScriptObject arg = args.get(0);	
+				ScriptObject arg = args.get(0);
 				if (arg instanceof TreeObject){
 					TreeObject to = (TreeObject)arg;
 					return new TreeObject(HomomorphismObject.this.homomorphism.apply(to.getTree()));
@@ -90,7 +90,7 @@ class HomomorphismObject extends ScriptObject {
 		this.getEnvironment().bindLocal("apply_inverse", new Method(1) {
 			@Override
 			public ScriptObject execute(Environment env, List<ScriptObject> args, MethodObject block) {
-				ScriptObject arg = args.get(0);	
+				ScriptObject arg = args.get(0);
 				if (arg instanceof FTAObject){
 					FTAObject ftao = (FTAObject)arg;
 					return new FTAObject(HomomorphismObject.this.homomorphism.applyInverseOnAutomaton(ftao.getAutomaton()));
@@ -99,6 +99,6 @@ class HomomorphismObject extends ScriptObject {
 				}
 			}
 		});
-		
+
 	}
 }

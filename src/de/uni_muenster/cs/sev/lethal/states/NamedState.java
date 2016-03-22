@@ -22,21 +22,21 @@ package de.uni_muenster.cs.sev.lethal.states;
 /**
  * Implements a {@link State} having a name. <br>
  * Note that the name must not be changed after creation of a NamedState, not even indirectly!
- * 
+ *
  * @param <N> Type of the Name
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public class NamedState<N> implements State{
 
 	/**
-	 * The name of the state. 
+	 * The name of the state.
 	 */
 	private N name;
 
 
 	/**
-	 * The hash code of the named state. <br> 
+	 * The hash code of the named state. <br>
 	 * It is calculated from the name and can be reused,
 	 * since the name is never changed after creation.
 	 */
@@ -45,8 +45,8 @@ public class NamedState<N> implements State{
 
 	/**
 	 * Constructs a new NamedState out of a given name.
-	 * 
-	 * @param newname the name which the state should get 
+	 *
+	 * @param newname the name which the state should get
 	 */
 	public NamedState(N newname){
 		this.name = newname;
@@ -56,7 +56,7 @@ public class NamedState<N> implements State{
 
 	/**
 	 * Returns the name of the state.
-	 * 
+	 *
 	 * @return the name of this state
 	 */
 	public N getName(){

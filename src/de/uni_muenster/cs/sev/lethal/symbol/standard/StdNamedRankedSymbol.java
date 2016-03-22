@@ -22,12 +22,12 @@ import de.uni_muenster.cs.sev.lethal.symbol.common.RankedSymbol;
 
 /**
  * Standard implementation of {@link RankedSymbol ranked symbols} with names.
- * 
+ *
  * @param <N> type of name
- * 
+ *
  * @see de.uni_muenster.cs.sev.lethal.symbol.common.NamedSymbol
  * @see RankedSymbol
- * 
+ *
  * @author Anton, Dorothea, Irene, Maria, Martin, Sezar
  */
 public class StdNamedRankedSymbol<N> extends AbstractNamedSymbol<N> implements RankedSymbol {
@@ -40,7 +40,7 @@ public class StdNamedRankedSymbol<N> extends AbstractNamedSymbol<N> implements R
 
 	/**
 	 * Constructs a new named and ranked symbol with name and arity as specified.
-	 * 
+	 *
 	 * @param name name of the new symbol
 	 * @param arity arity of the new symbol
 	 */

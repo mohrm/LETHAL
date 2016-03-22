@@ -31,41 +31,41 @@ import de.uni_muenster.cs.sev.lethal.tree.standard.StdBiTree;
 
 /**
  * Represents a rule for a tree transducer, which has the form
- * f(q1,...qn) -> (q,u), where f is a ranked symbol, q1, ...,qn,q are states 
+ * f(q1,...qn) -> (q,u), where f is a ranked symbol, q1, ...,qn,q are states
  * and u is a variable tree with at most n different variables.
- *  
+ *
  * @see EasyTT
  * @see TTEpsRule
  * @see TTRuleSet
- * 
+ *
  * @author Dorothea, Irene, Martin
  */
 public class EasyTTRule extends TTRule<RankedSymbol,RankedSymbol,State>{
 
 	/**
-	 * Constructs a new EasyTTRule of the form f(q1,...qn) -> (q,u), 
-	 * where f is a ranked symbol, q1,...,qn, q are states and u is a 
+	 * Constructs a new EasyTTRule of the form f(q1,...qn) -> (q,u),
+	 * where f is a ranked symbol, q1,...,qn, q are states and u is a
 	 * variable tree with at most n different variables.
-	 * 
+	 *
 	 * @param s symbol of the rule
 	 * @param src list of source states of the rule
 	 * @param q destination state of the rule
-	 * @param tree destination tree of the rule, variable tree with at most n different variables, i.e. 
+	 * @param tree destination tree of the rule, variable tree with at most n different variables, i.e.
 	 * the highest number of a variable is arity(s)-1.
 	 */
 /*	public EasyTTRule(RankedSymbol s, List<State> src, State q, StdBiTree<RankedSymbol,Variable> tree){
 		super(s,src,q,tree);
 	}*/
-	
+
 	/**
-	 * Constructs a new EasyTTRule in the form f(q1,...qn) -> (q,u), 
-	 * where f is a ranked symbol, q1,...,qn, q are states and u is a 
+	 * Constructs a new EasyTTRule in the form f(q1,...qn) -> (q,u),
+	 * where f is a ranked symbol, q1,...,qn, q are states and u is a
 	 * variable tree with at most n different variables.
-	 * 
+	 *
 	 * @param s symbol of the rule
 	 * @param src list of source states of the rule
 	 * @param q destination state of the rule
-	 * @param tree destination tree of the rule, variable tree with at most n different variables, i.e. 
+	 * @param tree destination tree of the rule, variable tree with at most n different variables, i.e.
 	 * the highest number of a variable is arity(s)-1.
 	 */
 	public EasyTTRule(RankedSymbol s, List<State> src, State q, Tree<BiSymbol<RankedSymbol,Variable>> tree){
@@ -73,11 +73,11 @@ public class EasyTTRule extends TTRule<RankedSymbol,RankedSymbol,State>{
 	}
 
 	/**
-	 * Constructs a new EasyTTRule of the form f(q1,...qn) -> (q,u), 
-	 * where f is a ranked symbol, q1,...,qn, q are states and u is a 
-	 * variable tree with at most n different variable.<br> 
+	 * Constructs a new EasyTTRule of the form f(q1,...qn) -> (q,u),
+	 * where f is a ranked symbol, q1,...,qn, q are states and u is a
+	 * variable tree with at most n different variable.<br>
 	 * Constructur with vararg-notation.
-	 * 
+	 *
 	 * @param s function symbol of the rule
 	 * @param tree destination tree of the rule
 	 * @param q destination state of the rule

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="LETHAL" default="jar">
+
+	<property name="src.dir"   value="src" />
+	<property name="res.dir"   value="res" />
+	<property name="lib.dir"   value="lib" />
+	
+	<property name="jar.dir"   value="build/jar" />
+	<property name="jar.name"  value="twb.jar"   />
+	<property name="libjar.name"  value="lethal.jar"   />
+	
+	<property name="pkg.path"  value="de/uni_muenster/cs/sev/lethal" />
+	
+	<property name="build.classes"  value="build/classes" />
+	
+	<property name="tarball.dir" value="build/src" />
+	<property name="tarball.file" value="lethal.tar" />
+	
+	<path id="classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar"/>
+	</path>
+	
+	<fileset id="res" dir="${res.dir}">
+		<include name="**/*.png"/>
+	</fileset>
+	
+	<path id="application" location="${jar.dir}/${jar.name}.jar"/>
+
+	<target name="clean">
+		<delete dir="build"/>
+	</target>
+	
+	<target name="javaccparser">
+		<javacc javacchome="${lib.dir}" target="${src.dir}/${pkg.path}/parser/fta/FTAParser.jj"/>
+		<javacc javacchome="${lib.dir}" target="${src.dir}/${pkg.path}/parser/ftagrammar/FTAGrammarParser.jj"/>
+		<javacc javacchome="${lib.dir}" target="${src.dir}/${pkg.path}/parser/hedgeautomaton/HedgeAutomatonParser.jj"/>
+		<javacc javacchome="${lib.dir}" target="${src.dir}/${pkg.path}/parser/hedgegrammar/HedgeGrammarParser.jj"/>
+		<javacc javacchome="${lib.dir}" target="${src.dir}/${pkg.path}/parser/homomorphism/HomomorphismParser.jj"/>
+		<javacc javacchome="${lib.dir}" target="${src.dir}/${pkg.path}/parser/tree/TreeParser.jj"/>
+		<javacc javacchome="${lib.dir}" target="${src.dir}/${pkg.path}/parser/treetransducer/TreeTransducerParser.jj"/>
+	</target>
+	
+	<target name="build" depends="javaccparser">
+		<mkdir dir="${build.classes}"/>
+		<javac srcdir="${src.dir}" destdir="${build.classes}" classpathref="classpath"/>
+	</target>
+	
+	<target name="lib"  depends="javaccparser">
+		<mkdir dir="${build.classes}"/>
+		<javac destdir="${build.classes}" classpathref="classpath">
+			<src path="${src.dir}/${pkg.path}/factories" />
+			<src path="${src.dir}/${pkg.path}/grammars" />
+			<src path="${src.dir}/${pkg.path}/hedgeautomaton" />
+			<src path="${src.dir}/${pkg.path}/hedgegrammar" />
+			<src path="${src.dir}/${pkg.path}/hom" />
+			<src path="${src.dir}/${pkg.path}/languages" />
+			<src path="${src.dir}/${pkg.path}/parser" />
+			<src path="${src.dir}/${pkg.path}/states" />
+			<src path="${src.dir}/${pkg.path}/symbol" />
+			<src path="${src.dir}/${pkg.path}/tests" />
+			<src path="${src.dir}/${pkg.path}/tree" />
+			<src path="${src.dir}/${pkg.path}/treeautomata" />
+			<src path="${src.dir}/${pkg.path}/treetransducer" />
+			<src path="${src.dir}/${pkg.path}/utils" />
+		</javac>
+	</target>
+	
+	<target name="jar" depends="build">
+		<mkdir dir="${jar.dir}" />
+		<jar destfile="${jar.dir}/${jar.name}" basedir="${build.classes}">
+			<manifest>
+				<attribute name="Main-Class" value="de.uni_muenster.cs.sev.lethal.gui.MainWindow"/>
+			</manifest>
+			<fileset refid="res"/>
+		</jar>
+	</target>
+	
+	<target name="libjar" depends="lib">
+		<mkdir dir="${jar.dir}"/>
+		<jar destfile="${jar.dir}/${libjar.name}" basedir="${build.classes}" includes="**/factories/** **/grammars/** **/hedgeautomaton/** **/hedgegrammar/** **/hom/** **/languages/** **/parser/** **/states/** **/symbol/** **/tests/** **/tree/** **/treeautomata/** **/treetransducer/** **/utils/**" />
+	</target>
+	
+	<target name="run" depends="jar">
+		<java jar="${jar.dir}/${jar.name}" fork="true"/>
+	</target>
+	
+	<target name="test" depends="libjar">
+        <junit printsummary="yes">
+			<!-- <formatter type="plain" usefile="false" /> -->
+            <classpath>
+                <path refid="classpath"/>
+                <path location="${jar.dir}/${libjar.name}"/>
+            </classpath>
+            
+            <batchtest fork="yes">
+                <fileset dir="${src.dir}/" includes="${pkg.path}/tests/*Test.java"/>
+            </batchtest>
+        </junit>
+    </target>
+	
+	<target name="source">
+		<delete file="${tarball.dir}/${tarball.file}"/>
+		<delete dir="${tarball.dir}"/>
+		<mkdir dir="${tarball.dir}/lethal"/>
+		<copy todir="${tarball.dir}/lethal">
+			<fileset dir=".">
+				<include name="src/**/*.java"/>
+				<include name="src/**/*.jj"/>
+				<exclude name="src/**/parser/fta/*.java"/>
+				<exclude name="src/**/parser/ftagrammar/*.java"/>
+				<exclude name="src/**/parser/hedgeautomaton/*.java"/>
+				<exclude name="src/**/parser/hedgegrammar/*.java"/>
+				<exclude name="src/**/parser/homomorphism/*.java"/>
+				<exclude name="src/**/parser/tree/*.java"/>
+				<exclude name="src/**/parser/treetransducer/*.java"/>
+				<include name="res/*"/>
+				<include name="lib/*"/>
+				<include name="build.xml"/>
+				<include name="COMPILE"/>
+			</fileset>
+		</copy>
+		<tar basedir="${tarball.dir}" includes="lethal/**" destfile="${tarball.dir}/${tarball.file}" />
+		<gzip src="${tarball.dir}/${tarball.file}" destfile="${tarball.dir}/${tarball.file}.gz"/>
+		<delete file="${tarball.dir}/${tarball.file}"/>
+		<delete dir="${tarball.dir}/lethal"/>
+	</target>
+</project>

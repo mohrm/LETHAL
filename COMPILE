@@ -1,0 +1,19 @@
+==== Dependencies ====
+
+Java Development Kit 6 (openjdk6 and sun jdk6 tested, jdk5 should work)
+Apache-Ant (tested with 1.7.1)
+
+==== Build library with GUI as jar file ====
+$ ant jar
+
+==== Build library only as jar file ====
+$ ant libjar
+
+==== Run GUI ====
+$ ant run
+
+==== Run tests ====
+$ ant test
+
+==== Package source as Tarball ====
+$ ant source

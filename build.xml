@@ -77,7 +77,7 @@
 	
 	<target name="libjar" depends="lib">
 		<mkdir dir="${jar.dir}"/>
-		<jar destfile="${jar.dir}/${libjar.name}" basedir="${build.classes}" includes="**/factories/** **/grammars/** **/hedgeautomaton/** **/hedgegrammar/** **/hom/** **/languages/** **/parser/** **/states/** **/symbol/** **/tests/** **/tree/** **/treeautomata/** **/treetransducer/** **/utils/**" />
+    <jar destfile="${jar.dir}/${libjar.name}" basedir="${build.classes}" includes="**/factories/** **/grammars/** **/hedgeautomaton/** **/hedgegrammar/** **/hom/** **/languages/** **/parser/** **/states/** **/symbol/** **/tests/** **/tree/** **/treeautomata/** **/treetransducer/** **/utils/** **/testManual/**" />
 	</target>
 	
 	<target name="run" depends="jar">

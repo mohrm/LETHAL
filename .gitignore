@@ -1,2 +1,4 @@
 build/
 **/parser/**/*.java
+target/
+.idea

@@ -9,7 +9,6 @@
         <version>1.0.0</version>
     </parent>
 
-    <groupId>de.uni_muenster.cs.sev.lethal</groupId>
     <artifactId>lethal-gui</artifactId>
 
     <dependencies>

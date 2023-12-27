@@ -9,15 +9,12 @@
         <version>1.0.0</version>
     </parent>
 
-    <groupId>de.uni_muenster.cs.sev.lethal</groupId>
     <artifactId>lethal-library</artifactId>
-    
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>

@@ -13,6 +13,7 @@
         <maven.compiler.release>21</maven.compiler.release>
         <junit.version>4.13.2</junit.version>
         <javacc-maven-plugin.version>3.0.1</javacc-maven-plugin.version>
+        <maven-shade-plugin.version>3.5.1</maven-shade-plugin.version>
     </properties>
 
     <modules>
@@ -46,6 +47,11 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>javacc-maven-plugin</artifactId>
                     <version>${javacc-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>${maven-shade-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

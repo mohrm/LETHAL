@@ -73,7 +73,7 @@ public class SchemataTest {
 	 * doc(body,head) <br>
 	 * doc(head(title),body(list))
 	 *
-	 * @throws java.lang.Exception if something goes wrong
+	 * @throws Exception if something goes wrong
 	 */
 	@Before
 	public void setUp() throws Exception {

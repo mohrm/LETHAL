@@ -246,7 +246,7 @@ public class TTTest {
 	 * </ul>
 	 * This tree transducer sorts the subtrees by alphabetical order.
 	 *
-	 * @throws java.lang.Exception is hopefully never thrown
+	 * @throws Exception is hopefully never thrown
 	 */
 	static void setUpTtSorting() throws Exception{
 		Set<EasyTTRule> rules = new HashSet<EasyTTRule>();
@@ -454,7 +454,7 @@ public class TTTest {
 	/**
 	 * Sets up all the needed things.
 	 *
-	 * @throws java.lang.Exception if something goes wrong
+	 * @throws Exception if something goes wrong
 	 */
 	@Before
 	public void setUp() throws Exception {

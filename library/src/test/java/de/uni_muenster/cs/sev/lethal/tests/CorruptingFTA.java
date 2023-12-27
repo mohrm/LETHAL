@@ -47,7 +47,7 @@ public class CorruptingFTA {
 		}
 
 		/**
-		 * @see java.lang.Object#hashCode()
+		 * @see Object#hashCode()
 		 */
 		@Override
 		public int hashCode() {
@@ -58,7 +58,7 @@ public class CorruptingFTA {
 		}
 
 		/**
-		 * @see java.lang.Object#equals(java.lang.Object)
+		 * @see Object#equals(Object)
 		 */
 		@Override
 		public boolean equals(Object obj) {

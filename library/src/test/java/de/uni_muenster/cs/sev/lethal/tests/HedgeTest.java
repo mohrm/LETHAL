@@ -73,14 +73,14 @@ public class HedgeTest extends TestCase {
   }
 
   /**
-   * @see junit.framework.TestCase#setUp()
+   * @see TestCase#setUp()
    */
   @Override
   public void setUp() {
   }
 
   /**
-   * @see junit.framework.TestCase#tearDown()
+   * @see TestCase#tearDown()
    */
   @Override
   public void tearDown() {

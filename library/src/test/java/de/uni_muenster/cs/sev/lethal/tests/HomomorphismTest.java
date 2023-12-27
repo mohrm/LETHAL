@@ -329,7 +329,7 @@ public class HomomorphismTest {
 	 * Sets up all the needed things: the alphabet, the trees, the homomorphism, the finite tree automata
 	 * and the randomize generated objects.
 	 *
-	 * @throws java.lang.Exception if something goes wrong
+	 * @throws Exception if something goes wrong
 	 */
 	@Before
 	public void setUp() throws Exception {

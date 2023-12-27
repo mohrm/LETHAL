@@ -126,7 +126,7 @@ class FTAAssertion {
 	}
 
 	/**
-	 * @see java.lang.Object#toString()
+	 * @see Object#toString()
 	 */
 	@Override
 	public String toString() {
@@ -473,7 +473,7 @@ public class StdFTAOpTest {
 	 * L1 = trees with root a,b,c or f, where f can get every symbol a parameter, g can only get a and f.
 	 * Each of those trees shall be accepted.
 	 *
-	 * @throws java.lang.Exception is (hopefully) never thrown
+	 * @throws Exception is (hopefully) never thrown
 	 */
 	static void setUpFta_L1_1() throws Exception {
 		// rules
@@ -509,7 +509,7 @@ public class StdFTAOpTest {
 	 * L1 = trees with root a,b,c or f, where f can get every symbol a parameter, g can only get a and f.
 	 * Each of those trees shall be accepted.
 	 *
-	 * @throws java.lang.Exception
+	 * @throws Exception
 	 */
 	static void setUpFta_L1_2() throws Exception {
 		// rules
@@ -547,7 +547,7 @@ public class StdFTAOpTest {
 	 * g can only get a and f. Each of those trees shall be accepted. <br>
 	 * L2 = like L1, but if g is a parameter of f and another parameter of f is c, then g can only have a as parameter,
 	 *
-	 * @throws java.lang.Exception is (hopefully) never thrown
+	 * @throws Exception is (hopefully) never thrown
 	 */
 	static void setUpFta_L2() throws Exception {
 		// rules
@@ -588,7 +588,7 @@ public class StdFTAOpTest {
 	/**
 	 * Sets up a finite tree automaton for the language L3 = {g(a,b,c)}, called fta_L3.
 	 *
-	 * @throws java.lang.Exception is (hopefully) never thrown
+	 * @throws Exception is (hopefully) never thrown
 	 */
 	static void setUpFta_L3() throws Exception {
 		String[][] rules = {{"a","qa"},{"b","qb"},{"c","qc"},{"g","qa","qb","qc","qg"},{"g","qf","qf","qf","qf"}};
@@ -600,7 +600,7 @@ public class StdFTAOpTest {
 	 * Sets up a finite tree automaton for language L4, called fta_L4. <br>
 	 * L4 = {f(a,a),f(a,b),f(b,a),f(b,b)}
 	 *
-	 * @throws java.lang.Exception is (hopefully) never thrown
+	 * @throws Exception is (hopefully) never thrown
 	 */
 	static void setUpFta_L4() throws Exception {
 		SimpleFTARuleSet<RankedSymbol,State,EasyFTARule> rules = new SimpleFTARuleSet<RankedSymbol,State,EasyFTARule>();
@@ -620,7 +620,7 @@ public class StdFTAOpTest {
 	 * Set up an finite tree automaton for language L5, called fta_L5. <br>
 	 * L5 = {f(a,a),f(a,c),f(c,a),f(c,c)}
 	 *
-	 * @throws java.lang.Exception is (hopefully) never thrown
+	 * @throws Exception is (hopefully) never thrown
 	 */
 	static void setUpFta_L5() throws Exception {
 		// rules
@@ -640,7 +640,7 @@ public class StdFTAOpTest {
 	 * Set up fta_L6, a finite tree automaton recognizing language L6, called fta_L6. <br>
 	 * L6 = {f(a,a)}
 	 *
-	 * @throws java.lang.Exception
+	 * @throws Exception
 	 */
 	static void setUpFta_L6() throws Exception {
 		// rules
@@ -665,7 +665,7 @@ public class StdFTAOpTest {
 	/**
 	 * Sets up fta_L7, recognizing the language L7 = {f(a,b),f(b,a),f(b,b)}, called fta_L7.
 	 *
-	 * @throws java.lang.Exception
+	 * @throws Exception
 	 */
 	static void setUpFta_L7() throws Exception {
 		// rules
@@ -685,7 +685,7 @@ public class StdFTAOpTest {
 	/**
 	 * Set up fta_Martin, which recognizes the language {f(b,b)}.
 	 *
-	 * @throws java.lang.Exception is (hopefully) never thrown
+	 * @throws Exception is (hopefully) never thrown
 	 */
 	static void setUpFtaMartin() throws Exception {
 		// rules
@@ -703,7 +703,7 @@ public class StdFTAOpTest {
 	 * Set up fta_Doro, which recognizes the language {b} and fta_Irene,
 	 * which recognizes the language {a}.
 	 *
-	 * @throws java.lang.Exception is (hopefully) never thrown
+	 * @throws Exception is (hopefully) never thrown
 	 */
 	static void setUpFtaDoroIrene() throws Exception {
 		// create fta_Doro
@@ -730,7 +730,7 @@ public class StdFTAOpTest {
 	 * Sets up fta_even, which recognizes the language Leven = {h^n(a): n even}
 	 * and fta_odd, which recognizes the language Lodd = {h^n(a): n odd}.
 	 *
-	 * @throws java.lang.Exception is (hopefully) never thrown
+	 * @throws Exception is (hopefully) never thrown
 	 */
 	static void setUpFtaEvenOdd() throws Exception {
 		// rules
@@ -751,7 +751,7 @@ public class StdFTAOpTest {
 	 * L6 and L4 in the varTree. <br>
 	 * L = {g(f(a,a),a,f(a,a)),g(f(a,a),a,f(a,b)), g(f(a,a),a,f(b,a)), g(f(a,a),a,f(b,b))}
 	 *
-	 * @throws java.lang.Exception
+	 * @throws Exception
 	 */
 	static void setUpFta_Var() throws Exception {
 		// rules
@@ -804,7 +804,7 @@ public class StdFTAOpTest {
 	/**
 	 * Sets up some bigger random finite tree automata and some trees over the same alphabet.
 	 *
-	 * @throws java.lang.Exception
+	 * @throws Exception
 	 */
 	static void setUpRandom() throws Exception{
 		//RandomFTAGenerator(int states,int symbols,int arity,int rules,int finals);
@@ -859,7 +859,7 @@ public class StdFTAOpTest {
 	}
 
 	/**
-	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTAOps#complement}.<br>
+	 * Test method for {@link EasyFTAOps#complement}.<br>
 	 * Tests whether intersection with the complement automaton is empty and whether complement of complement is the automaton itself.
 	 */
 	@Test
@@ -900,7 +900,7 @@ public class StdFTAOpTest {
 	}
 
 	/**
-	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTAOps#intersectionTD}.<br>
+	 * Test method for {@link EasyFTAOps#intersectionTD}.<br>
 	 * Tests whether intersection is symmetric and always the subset of the given automata. Intersection with the empty automaton must be empty.
 	 */
 	@Test
@@ -952,7 +952,7 @@ public class StdFTAOpTest {
 	}
 
 	/**
-	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTAOps#union}.<br>
+	 * Test method for {@link EasyFTAOps#union}.<br>
 	 * Test whether the union is symmetric and contains the language of both finite tree automata, once
 	 * with using the method sameLanguage() and once using test trees. Furthermore it is checked,
 	 * whether the union of an automaton with its complement is the whole language and whether the union
@@ -1028,7 +1028,7 @@ public class StdFTAOpTest {
 	}
 
 	/**
-	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTAOps#determinize}.<br>
+	 * Test method for {@link EasyFTAOps#determinize}.<br>
 	 *
 	 * The result finite tree automaton should have the same language as the given one
 	 * and be deterministic.
@@ -1049,8 +1049,8 @@ public class StdFTAOpTest {
 	}
 
 	/**
-	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTAOps#complete} and
-	 * {@link de.uni_muenster.cs.sev.lethal.treeautomata.common.FTAProperties#checkComplete}. <br>
+	 * Test method for {@link EasyFTAOps#complete} and
+	 * {@link FTAProperties#checkComplete}. <br>
 	 *
 	 * The result finite tree automaton should have the same language as the given one
 	 * and be complete.
@@ -1072,7 +1072,7 @@ public class StdFTAOpTest {
 
 
 	/**
-	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTAOps#minimize}. <br>
+	 * Test method for {@link EasyFTAOps#minimize}. <br>
 	 *
 	 * The result finite tree automaton should have the same language as the given one and
 	 * have minimal size of states after determinizing and completing.<br>
@@ -1090,8 +1090,8 @@ public class StdFTAOpTest {
 	}
 
 	/**
-	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTAOps#reduceBottomUp} and
-	 * {@link de.uni_muenster.cs.sev.lethal.treeautomata.easy.EasyFTAOps#reduceTopDown} . <br>
+	 * Test method for {@link EasyFTAOps#reduceBottomUp} and
+	 * {@link EasyFTAOps#reduceTopDown} . <br>
 	 *
 	 * By reducing the language must not change, we test this which different ways of reducing.
 	 * The second property of reducing is that the count of the rules must decrise.
@@ -1111,7 +1111,7 @@ public class StdFTAOpTest {
 	}
 
 	/**
-	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.common.FTAProperties#sameLanguage}. <br>
+	 * Test method for {@link FTAProperties#sameLanguage}. <br>
 	 * Tests the reflexivity, symmetry and transitivity of the sameLanguage-relation. If two automata accept
 	 * the same language, this is examined by all test trees.<br>
 	 * An error might be due to subsetLanguage. <br>
@@ -1143,7 +1143,7 @@ public class StdFTAOpTest {
 	}
 
 	/**
-	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.common.FTAProperties#subsetLanguage}. <br>
+	 * Test method for {@link FTAProperties#subsetLanguage}. <br>
 	 * We test the reflexivity and transitivity of the relation and implications on trees.
 	 * Some special cases are found in StdFTAOpTest#setUpAssertions() <br>
 	 * An error might be due to complement, intersection oder emptyLanguage
@@ -1176,7 +1176,7 @@ public class StdFTAOpTest {
 	}
 
 	/**
-	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.common.FTAProperties#emptyLanguage}. <br>
+	 * Test method for {@link FTAProperties#emptyLanguage}. <br>
 	 * Tests whether the language is empty for some empty and non empty automata.
 	 */
 	@Test
@@ -1197,7 +1197,7 @@ public class StdFTAOpTest {
 
 
 	/**
-	 * Test method for {@link de.uni_muenster.cs.sev.lethal.treeautomata.common.FTAProperties#finiteLanguage}. <br>
+	 * Test method for {@link FTAProperties#finiteLanguage}. <br>
 	 *
 	 * Tests for every automaton if the given language is finite. This is stored for the self-created automata.
 	 */

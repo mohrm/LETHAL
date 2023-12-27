@@ -60,7 +60,7 @@ public class RTLTest {
 	 * Sets up fta_even, which recognizes the language Leven = {h^n(a): n even}
 	 * and fta_odd, which recognizes the language Lodd = {h^n(a): n odd}.
 	 *
-	 * @throws java.lang.Exception is (hopefully) never thrown
+	 * @throws Exception is (hopefully) never thrown
 	 */
 	static void setUpFtaEvenOdd() throws Exception {
 		states.put("q_ger", new NamedState<String>("q_ger"));
@@ -107,7 +107,7 @@ public class RTLTest {
 
 	/**
 	 * Sets up all needed things.
-	 * @throws java.lang.Exception
+	 * @throws Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
